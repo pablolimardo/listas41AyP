@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio ACPI - Represa El Calafate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+
+        :root {
+            --neon-blue: #00f2ff;
+            --neon-purple: #bc13fe;
+            --bg-dark: #0d1117;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #e6edf3;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        
+        .card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+        }
+
+        .btn-neon {
+            background: transparent;
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            transition: all 0.3s;
+        }
+
+        .btn-neon:hover {
+            background: var(--neon-blue);
+            color: black;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        /* Animaciones para estructuras */
+        .item-anim {
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .scroll-custom::-webkit-scrollbar { width: 6px; }
+        .scroll-custom::-webkit-scrollbar-track { background: transparent; }
+        .scroll-custom::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header Fijo -->
+    <header class="p-4 bg-[#161b22] border-b border-[#30363d] flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-cyan-500 rounded flex items-center justify-center text-black font-bold">9</div>
+            <h1 class="font-orbitron text-sm md:text-lg tracking-tighter">REPRESA <span class="text-cyan-400">EL CALAFATE</span></h1>
+        </div>
+        <nav class="hidden md:flex gap-4 text-xs font-orbitron">
+            <button onclick="setView('teoria')" class="hover:text-cyan-400 transition">TEORÍA</button>
+            <button onclick="setView('simulador')" class="hover:text-cyan-400 transition">SIMULADOR</button>
+            <button onclick="setView('quiz')" class="hover:text-cyan-400 transition">AUTO-TEST</button>
+        </nav>
+        <button class="md:hidden text-cyan-400 text-xl" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <!-- Menú Móvil -->
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-black/90 z-40 flex flex-col items-center justify-center gap-8 font-orbitron">
+        <button onclick="setView('teoria'); toggleMobileMenu()" class="text-2xl">TEORÍA</button>
+        <button onclick="setView('simulador'); toggleMobileMenu()" class="text-2xl">SIMULADOR</button>
+        <button onclick="setView('quiz'); toggleMobileMenu()" class="text-2xl">AUTO-TEST</button>
+        <button onclick="toggleMobileMenu()" class="text-gray-500 mt-8">CERRAR</button>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main id="main-content" class="flex-1 p-4 max-w-4xl mx-auto w-full">
+        <!-- Seccion Teoría -->
+        <section id="view-teoria" class="space-y-6">
+            <div class="p-6 bg-gradient-to-r from-cyan-950 to-transparent rounded-xl border border-cyan-500/30">
+                <h2 class="text-2xl font-orbitron mb-2">¡Hola ACPI 4°1°!</h2>
+                <p class="text-sm text-gray-400">Este es tu material de apoyo para el cierre del trimestre. Acá tenés todo lo necesario para salvar la materia si te pones las pilas hoy mismo.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="card p-5">
+                    <h3 class="font-orbitron text-purple-400 mb-3"><i class="fas fa-layer-group mr-2"></i>PILAS (LIFO)</h3>
+                    <p class="text-xs text-gray-400 mb-4">"Last In, First Out". El último que entra es el primero que sale.</p>
+                    <ul class="text-sm space-y-2">
+                        <li><span class="text-purple-400">→</span> <strong>Uso:</strong> Historial de errores, estados previos de compuertas.</li>
+                        <li><span class="text-purple-400">→</span> <strong>Código:</strong> <code>lista.append()</code> y <code>lista.pop()</code>.</li>
+                    </ul>
+                </div>
+                <div class="card p-5">
+                    <h3 class="font-orbitron text-yellow-400 mb-3"><i class="fas fa-people-arrows mr-2"></i>COLAS (FIFO)</h3>
+                    <p class="text-xs text-gray-400 mb-4">"First In, First Out". El primero que llega es el primero que se atiende.</p>
+                    <ul class="text-sm space-y-2">
+                        <li><span class="text-yellow-400">→</span> <strong>Uso:</strong> Sistema de alertas por nivel alto, turnos de riego.</li>
+                        <li><span class="text-yellow-400">→</span> <strong>Código:</strong> <code>lista.append()</code> y <code>lista.pop(0)</code>.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seccion Simulador -->
+        <section id="view-simulador" class="hidden space-y-6">
+            <h2 class="text-xl font-orbitron text-center mb-4">SIMULADOR DE DATOS</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Simulador Pila -->
+                <div class="card p-4 flex flex-col h-[400px]">
+                    <h3 class="text-xs font-orbitron mb-4 text-purple-400 text-center">HISTORIAL DE ESTADOS (PILA)</h3>
+                    <div id="pila-container" class="flex-1 flex flex-col-reverse gap-2 overflow-y-auto scroll-custom p-2">
+                        <!-- Items de la pila -->
+                    </div>
+                    <div class="mt-4 flex gap-2">
+                        <button onclick="pushPila()" class="flex-1 py-2 bg-purple-600 rounded text-xs font-bold">PUSH (Nuevo estado)</button>
+                        <button onclick="popPila()" class="flex-1 py-2 border border-purple-600 rounded text-xs">POP (Deshacer)</button>
+                    </div>
+                </div>
+
+                <!-- Simulador Cola -->
+                <div class="card p-4 flex flex-col h-[400px]">
+                    <h3 class="text-xs font-orbitron mb-4 text-yellow-400 text-center">COLA DE ALERTAS (FIFO)</h3>
+                    <div id="cola-container" class="flex-1 flex flex-col gap-2 overflow-y-auto scroll-custom p-2">
+                        <!-- Items de la cola -->
+                    </div>
+                    <div class="mt-4 flex gap-2">
+                        <button onclick="enqueueCola()" class="flex-1 py-2 bg-yellow-600 rounded text-xs font-bold text-black">ENQUEUE (Alerta)</button>
+                        <button onclick="dequeueCola()" class="flex-1 py-2 border border-yellow-600 rounded text-xs">DEQUEUE (Atender)</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seccion Quiz -->
+        <section id="view-quiz" class="hidden space-y-6">
+            <div id="quiz-container" class="card p-6 min-h-[300px] flex flex-col justify-center">
+                <!-- Contenido del quiz dinámico -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer / Cronograma -->
+    <footer class="p-4 bg-[#161b22] border-t border-[#30363d] text-[10px] text-gray-500">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <p>PRÓX. EVALUACIÓN: MIÉRCOLES 01/04</p>
+            <p>EL CALAFATE, SANTA CRUZ</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- NAVEGACIÓN ---
+        function setView(view) {
+            document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(`view-${view}`).classList.remove('hidden');
+            if(view === 'quiz') startQuiz();
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // --- SIMULADOR PILA ---
+        let pilaData = ["Estado Inicial", "Turbina 1 ON"];
+        function renderPila() {
+            const container = document.getElementById('pila-container');
+            container.innerHTML = pilaData.map((item, i) => `
+                <div class="p-3 bg-purple-500/20 border border-purple-500/50 rounded text-xs item-anim flex justify-between">
+                    <span>${item}</span>
+                    <span class="text-purple-400 font-mono">${i === pilaData.length - 1 ? 'TOP' : i}</span>
+                </div>
+            `).join('');
+        }
+
+        function pushPila() {
+            pilaData.push("Compuerta " + (pilaData.length + 1) + " OPEN");
+            renderPila();
+        }
+
+        function popPila() {
+            if(pilaData.length > 0) {
+                pilaData.pop();
+                renderPila();
+            }
+        }
+
+        // --- SIMULADOR COLA ---
+        let colaData = ["Alerta Nivel 48.5m", "Sensor 3 Fallo"];
+        function renderCola() {
+            const container = document.getElementById('cola-container');
+            container.innerHTML = colaData.map((item, i) => `
+                <div class="p-3 bg-yellow-500/10 border border-yellow-500/50 rounded text-xs item-anim flex justify-between">
+                    <span>${item}</span>
+                    <span class="text-yellow-400 font-mono">${i === 0 ? 'FRENTE' : i}</span>
+                </div>
+            `).join('');
+        }
+
+        function enqueueCola() {
+            colaData.push("Alerta Nivel " + (48 + Math.random().toFixed(1)) + "m");
+            renderCola();
+        }
+
+        function dequeueCola() {
+            if(colaData.length > 0) {
+                colaData.shift();
+                renderCola();
+            }
+        }
+
+        // --- AUTO-EVALUACIÓN (QUIZ) ---
+        const preguntas = [
+            {
+                q: "¿Qué método usás en Python para agregar un elemento al FINAL de una lista?",
+                a: ["pop()", "append()", "insert()", "remove()"],
+                c: 1
+            },
+            {
+                q: "Si la represa necesita atender la PRIMERA alarma que entró, ¿qué estructura usamos?",
+                a: ["Pila (LIFO)", "Lista Ordenada", "Cola (FIFO)", "Diccionario"],
+                c: 2
+            },
+            {
+                q: "Tenemos niveles = [42, 45, 48]. ¿Qué devuelve niveles[-1]?",
+                a: ["42", "45", "48", "Error"],
+                c: 2
+            },
+            {
+                q: "¿Cuál es la diferencia entre .sort() y sorted()?",
+                a: ["Ninguna", ".sort() crea una copia", "sorted() modifica la original", ".sort() modifica la original"],
+                c: 3
+            }
+        ];
+
+        let quizIndex = 0;
+        let quizScore = 0;
+
+        function startQuiz() {
+            quizIndex = 0;
+            quizScore = 0;
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const container = document.getElementById('quiz-container');
+            if(quizIndex >= preguntas.length) {
+                container.innerHTML = `
+                    <div class="text-center space-y-4">
+                        <h3 class="text-2xl font-orbitron">RESULTADO: ${quizScore}/${preguntas.length}</h3>
+                        <p class="text-sm text-gray-400">${quizScore === preguntas.length ? "¡Excelente! Estás listo para el miércoles." : "Repasá un poco más los simuladores antes del examen."}</p>
+                        <button onclick="startQuiz()" class="btn-neon px-6 py-2 rounded-full text-xs font-orbitron">REINTENTAR</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const p = preguntas[quizIndex];
+            container.innerHTML = `
+                <div class="space-y-4">
+                    <span class="text-[10px] text-cyan-400 font-orbitron">PREGUNTA ${quizIndex + 1} DE ${preguntas.length}</span>
+                    <h3 class="text-lg font-bold">${p.q}</h3>
+                    <div class="grid gap-2">
+                        ${p.a.map((opt, i) => `
+                            <button onclick="checkAnswer(${i})" class="text-left p-3 rounded bg-white/5 border border-white/10 hover:border-cyan-500 transition-colors text-sm">
+                                ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkAnswer(i) {
+            if(i === preguntas[quizIndex].c) quizScore++;
+            quizIndex++;
+            showQuestion();
+        }
+
+        // Inicializar
+        renderPila();
+        renderCola();
+    </script>
+</body>
+</html>
