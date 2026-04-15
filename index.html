@@ -88,7 +88,8 @@ section{margin-bottom:70px;}
 .anal-ico{font-size:20px;flex-shrink:0;}
 
 /* ── TABLA ───────────────────────────────────── */
-.tabla{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0;}
+.tabla-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0;}
+.tabla{width:100%;border-collapse:collapse;font-size:13px;min-width:480px;}
 .tabla th{background:var(--bg3);color:var(--muted);font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:1px solid var(--border);}
 .tabla td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.03);}
 .tabla tr:hover td{background:rgba(59,130,246,.03);}
@@ -401,6 +402,7 @@ niveles = [<span class="nm">42.3</span>, <span class="nm">45.1</span>, <span cla
   <div class="card open">
     <div class="card-hdr" onclick="tog(this)"><div class="card-ico">🔧</div><div class="card-inf"><div class="card-tag">Métodos esenciales</div><div class="card-tit">append, pop, insert, remove, sort, sorted</div></div></div>
     <div class="card-body">
+      <div class="tabla-wrap">
       <table class="tabla">
         <thead><tr><th>Método</th><th>Qué hace</th><th>Ejemplo represa</th></tr></thead>
         <tbody>
@@ -415,6 +417,7 @@ niveles = [<span class="nm">42.3</span>, <span class="nm">45.1</span>, <span cla
           <tr><td><span class="c2 c-gr">count(x)</span></td><td>Cuenta cuántas veces aparece x</td><td><code>n = niveles.count(46.0)</code></td></tr>
         </tbody>
       </table>
+      </div>
       <div class="nota"><strong>sort() vs sorted():</strong> <code>niveles.sort()</code> modifica la lista original — no podés volver atrás. <code>sorted(niveles)</code> devuelve una NUEVA lista ordenada y la original queda igual. Para la evaluación: si el enunciado dice "sin modificar la lista original", usá sorted().</div>
       <div class="code"><span class="cm"># Demostración práctica</span>
 niveles = [<span class="nm">42.3</span>, <span class="nm">48.5</span>, <span class="nm">44.8</span>, <span class="nm">47.2</span>]
@@ -600,6 +603,7 @@ primera = alertas.<span class="fn">pop</span>(<span class="nm">0</span>)      <s
   <div class="card open">
     <div class="card-hdr" onclick="tog(this)"><div class="card-ico">⚖️</div><div class="card-inf"><div class="card-tag">Comparación</div><div class="card-tit">LIFO vs FIFO — la tabla definitiva</div></div></div>
     <div class="card-body">
+      <div class="tabla-wrap">
       <table class="tabla">
         <thead><tr><th></th><th>Pila (Stack)</th><th>Cola (Queue)</th></tr></thead>
         <tbody>
@@ -612,6 +616,7 @@ primera = alertas.<span class="fn">pop</span>(<span class="nm">0</span>)      <s
           <tr><td><strong>¿Por qué?</strong></td><td>Para "deshacer" el último cambio hay que sacarlo primero</td><td>Las alertas se atienden en orden de llegada, sin prioridades arbitrarias</td></tr>
         </tbody>
       </table>
+      </div>
       <div class="anal"><div class="anal-ico">🎯</div><div><strong>Regla para la evaluación:</strong> Si el enunciado habla de "historial", "deshacer", "último estado" → pensá en Pila. Si habla de "orden de llegada", "atender primero el más antiguo", "turno" → pensá en Cola.</div></div>
     </div>
   </div>
@@ -674,7 +679,7 @@ LIMITE    = <span class="nm">48.0</span>
 </section>
 
 </main>
-<footer>Algoritmos y Programación · 4° 1° · <span>Escuela Industrial N°9 · El Calafate</span> · Prof. Pablo Limardo · 2026</footer>
+<footer id="appFooter">Algoritmos y Programación · 4° 1° · <span>Escuela Industrial N°9 · El Calafate</span> · Prof. Pablo Limardo · 2026</footer>
 
 <script>
 // ── NAV ───────────────────────────────────────
@@ -1019,6 +1024,38 @@ function resetQuiz(){
 }
 // ── INIT ─────────────────────────────────────────
 (function(){buildQuiz(loadState());})();
+
+// ── RESET SECRETO (solo profesor) ────────────────
+// Presioná Ctrl+Shift+L 3 veces rápido para desbloquear el quiz
+let _rk=0,_rt=0;
+document.addEventListener('keydown',e=>{
+  if(e.ctrlKey&&e.shiftKey&&e.key==='L'){
+    const now=Date.now();
+    if(now-_rt>2000)_rk=0;
+    _rt=now;_rk++;
+    if(_rk>=3){
+      _rk=0;
+      clearState();localStorage.removeItem(SK+'_sent');
+      alert('🔓 Quiz desbloqueado. Se va a recargar la página.');
+      location.reload();
+    }
+  }
+});
+
+// ── RESET TÁCTIL (móvil) ─────────────────────────
+// Tocá el footer 5 veces rápido para desbloquear
+let _tk=0,_tt=0;
+document.getElementById('appFooter').addEventListener('click',()=>{
+  const now=Date.now();
+  if(now-_tt>3000)_tk=0;
+  _tt=now;_tk++;
+  if(_tk>=5){
+    _tk=0;
+    clearState();localStorage.removeItem(SK+'_sent');
+    alert('🔓 Quiz desbloqueado. Se va a recargar la página.');
+    location.reload();
+  }
+});
 // ── TEMA ──────────────────────────────────────────
 function toggleTheme(){
   const light=document.documentElement.getAttribute('data-theme')==='light';
