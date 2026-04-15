@@ -1,293 +1,988 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudio ACPI - Represa El Calafate</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Estudio · Algoritmos y Programación · 4° 1°</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06080f;--bg2:#0a0e1a;--bg3:#0e1424;--bg4:#13192e;
+  --bl:#3b82f6;--bl2:#2563b0;--bl3:#1e3a8a;--blf:#060c1a;
+  --cy:#06b6d4;--gr:#22c55e;--am:#f59e0b;--re:#ef4444;
+  --txt:#c8d8f0;--muted:#4a6080;--dim:#1a2540;--border:#1e2d50;
+  --card:#090d1e;--mono:'Space Mono',monospace;--sans:'Space Grotesk',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--bg);color:var(--txt);font-size:16px;line-height:1.7;overflow-x:hidden;}
 
-        :root {
-            --neon-blue: #00f2ff;
-            --neon-purple: #bc13fe;
-            --bg-dark: #0d1117;
-        }
+/* grid BG */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(rgba(59,130,246,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.03) 1px,transparent 1px);
+  background-size:40px 40px;}
 
-        body {
-            background-color: var(--bg-dark);
-            color: #e6edf3;
-            font-family: 'Roboto', sans-serif;
-        }
+/* ── HEADER ──────────────────────────────────── */
+header{
+  padding:54px 24px 38px;
+  background:linear-gradient(135deg,rgba(59,130,246,.08) 0%,transparent 50%);
+  border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.hdr-ring{position:absolute;right:-80px;top:-80px;width:320px;height:320px;border-radius:50%;border:1px solid rgba(59,130,246,.08);pointer-events:none;}
+.hdr-ring2{right:-40px;top:-40px;width:220px;height:220px;border:1px solid rgba(59,130,246,.12);}
+.hdr-inner{max-width:960px;margin:0 auto;position:relative;z-index:2;}
+.hdr-badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.3);color:var(--bl);padding:4px 14px;border-radius:20px;}
+.hdr-dot{width:7px;height:7px;border-radius:50%;background:var(--bl);box-shadow:0 0 6px var(--bl);animation:pulse 2s ease infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+h1{font-size:clamp(30px,5vw,52px);font-weight:700;color:#fff;line-height:1;margin-bottom:10px;}
+h1 span{color:var(--bl);}
+.hdr-sub{color:var(--muted);font-size:14px;max-width:520px;margin-bottom:22px;}
+.hdr-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 12px;border-radius:12px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:var(--bl);}
+.chip-cy{background:rgba(6,182,212,.1);border-color:rgba(6,182,212,.25);color:var(--cy);}
+.chip-am{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.25);color:var(--am);}
 
-        .font-orbitron { font-family: 'Orbitron', sans-serif; }
-        
-        .card {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 12px;
-        }
+.prog-wrap{max-width:960px;margin:0 auto;padding:0 24px 18px;}
+.prog-bar{height:3px;background:var(--dim);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--bl3),var(--bl));transition:width .5s ease;border-radius:2px;}
+.prog-meta{display:flex;justify-content:space-between;margin-top:5px;font-family:var(--mono);font-size:11px;color:var(--muted);}
 
-        .btn-neon {
-            background: transparent;
-            border: 1px solid var(--neon-blue);
-            color: var(--neon-blue);
-            transition: all 0.3s;
-        }
+/* ── NAV ─────────────────────────────────────── */
+nav{background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:90;}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;overflow-x:auto;padding:0 20px;}
+.nav-inner::-webkit-scrollbar{height:0;}
+.nav-btn{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:13px 16px;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;}
+.nav-btn:hover,.nav-btn.active{color:var(--bl);border-bottom-color:var(--bl);}
 
-        .btn-neon:hover {
-            background: var(--neon-blue);
-            color: black;
-            box-shadow: 0 0 15px var(--neon-blue);
-        }
+/* ── LAYOUT ──────────────────────────────────── */
+main{max-width:960px;margin:0 auto;padding:42px 24px 90px;}
+section{margin-bottom:70px;}
+.s-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--bl);margin-bottom:8px;}
+.s-h2{font-size:clamp(22px,3.2vw,32px);font-weight:700;color:#fff;margin-bottom:6px;}
+.s-sub{color:var(--muted);font-size:14px;margin-bottom:26px;max-width:580px;}
+.divider{height:1px;background:linear-gradient(90deg,var(--bl3),transparent);margin-bottom:26px;border-radius:1px;}
 
-        /* Animaciones para estructuras */
-        .item-anim {
-            animation: fadeIn 0.4s ease-out;
-        }
+/* ── CARD ────────────────────────────────────── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:12px;overflow:hidden;transition:border-color .2s;}
+.card:hover{border-color:rgba(59,130,246,.4);}
+.card-hdr{display:grid;grid-template-columns:56px 1fr;cursor:pointer;min-height:60px;}
+.card-ico{display:flex;align-items:center;justify-content:center;font-size:21px;background:rgba(59,130,246,.06);border-right:1px solid var(--border);}
+.card-inf{padding:13px 18px;}
+.card-tag{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.card-tit{font-size:17px;font-weight:600;color:#fff;}
+.card-body{padding:0 18px 18px;border-top:1px solid var(--border);display:none;}
+.card.open .card-body{display:block;}
+.card-body p{font-size:14px;color:var(--txt);margin:12px 0 6px;}
+.card-body strong{color:var(--bl);}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
+/* ── CODE ────────────────────────────────────── */
+.code{background:rgba(0,0,0,.75);border-left:3px solid var(--bl3);border-radius:6px;padding:14px 16px;font-family:var(--mono);font-size:13px;color:#a0c4f8;margin:10px 0;overflow-x:auto;line-height:1.9;white-space:pre-wrap;}
+.cm{color:#2a4060;font-style:italic;}
+.kw{color:var(--bl);font-weight:600;}
+.st{color:#fbbf24;}.nm{color:#86efac;}.fn{color:#c4b5fd;}.op{color:var(--cy);}
 
-        .scroll-custom::-webkit-scrollbar { width: 6px; }
-        .scroll-custom::-webkit-scrollbar-track { background: transparent; }
-        .scroll-custom::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
-    </style>
+/* ── ANALOGÍA ────────────────────────────────── */
+.anal{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-left:4px solid var(--bl);border-radius:8px;padding:13px 17px;margin:12px 0;display:flex;gap:11px;align-items:flex-start;font-size:14px;}
+.anal-ico{font-size:20px;flex-shrink:0;}
+
+/* ── TABLA ───────────────────────────────────── */
+.tabla{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0;}
+.tabla th{background:var(--bg3);color:var(--muted);font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.tabla td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.03);}
+.tabla tr:hover td{background:rgba(59,130,246,.03);}
+.c2{display:inline-block;padding:2px 7px;border-radius:8px;font-family:var(--mono);font-size:10px;}
+.c-bl{background:rgba(59,130,246,.15);color:var(--bl);}
+.c-cy{background:rgba(6,182,212,.15);color:var(--cy);}
+.c-am{background:rgba(245,158,11,.15);color:var(--am);}
+.c-gr{background:rgba(34,197,94,.15);color:var(--gr);}
+.c-re{background:rgba(239,68,68,.15);color:var(--re);}
+
+/* ── NOTA / ALERTA ───────────────────────────── */
+.nota{background:rgba(6,182,212,.07);border:1px solid rgba(6,182,212,.2);border-left:4px solid var(--cy);border-radius:7px;padding:12px 16px;margin:12px 0;font-size:14px;}
+.nota strong{color:var(--cy);}
+.alerta{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.2);border-left:4px solid var(--am);border-radius:7px;padding:12px 16px;margin:12px 0;font-size:14px;}
+.alerta strong{color:var(--am);}
+
+/* ── DEMO ────────────────────────────────────── */
+.demo{background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:20px;margin:16px 0;}
+.demo-lbl{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--bl);margin-bottom:12px;font-weight:700;}
+.demo-row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:10px;}
+.demo-grp{display:flex;flex-direction:column;gap:4px;}
+.demo-glbl{font-size:12px;color:var(--muted);}
+.demo-in{background:var(--bg);border:1px solid var(--dim);color:var(--txt);font-family:var(--mono);font-size:14px;padding:8px 11px;border-radius:6px;width:140px;outline:none;transition:border-color .2s;}
+.demo-in:focus{border-color:var(--bl);}
+.demo-btn{background:var(--bl);color:#fff;border:none;font-family:var(--sans);font-size:13px;font-weight:700;padding:9px 20px;border-radius:6px;cursor:pointer;transition:background .2s;}
+.demo-btn:hover{background:var(--bl2);}
+.demo-out{background:rgba(0,0,0,.6);border-radius:6px;padding:12px 16px;font-family:var(--mono);font-size:13px;min-height:52px;color:var(--muted);white-space:pre-wrap;line-height:1.8;margin-top:10px;}
+
+/* ── PILA / COLA VISUALIZER ──────────────────── */
+.struct-viz{background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:20px;margin:16px 0;}
+.sv-lbl{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--bl);margin-bottom:14px;font-weight:700;}
+.sv-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:flex-end;}
+.sv-input{background:var(--bg);border:1px solid var(--dim);color:var(--txt);font-family:var(--mono);font-size:14px;padding:7px 10px;border-radius:6px;width:120px;outline:none;}
+.sv-input:focus{border-color:var(--bl);}
+.sv-btn{background:var(--bg4);border:1px solid var(--bl3);color:var(--bl);font-family:var(--sans);font-size:12px;font-weight:700;padding:7px 14px;border-radius:6px;cursor:pointer;transition:all .2s;}
+.sv-btn:hover{background:rgba(59,130,246,.15);}
+.sv-btn-re{border-color:rgba(239,68,68,.4);color:var(--re);}
+.sv-btn-re:hover{background:rgba(239,68,68,.1);}
+.sv-display{display:flex;gap:8px;align-items:flex-end;margin-top:12px;min-height:60px;flex-wrap:wrap;}
+.sv-stack{display:flex;flex-direction:column-reverse;gap:4px;align-items:stretch;min-width:140px;}
+.sv-queue{display:flex;flex-direction:row;gap:4px;align-items:stretch;flex-wrap:wrap;}
+.sv-item{background:rgba(59,130,246,.15);border:1px solid var(--bl3);border-radius:4px;padding:7px 12px;font-family:var(--mono);font-size:13px;color:var(--bl);text-align:center;min-width:60px;animation:slideIn .3s ease;}
+@keyframes slideIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+.sv-item.new{border-color:var(--bl);box-shadow:0 0 8px rgba(59,130,246,.3);}
+.sv-item.top{background:rgba(59,130,246,.3);border-color:var(--bl);color:#fff;font-weight:700;}
+.sv-label{font-family:var(--mono);font-size:10px;color:var(--muted);text-align:center;margin-top:4px;}
+.sv-log{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:10px;padding:8px 12px;background:rgba(0,0,0,.4);border-radius:4px;min-height:30px;}
+
+/* ── QUIZ ────────────────────────────────────── */
+.quiz-card{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:20px;margin-bottom:11px;transition:all .3s;}
+.quiz-card.ok{border-color:var(--bl)!important;background:rgba(59,130,246,.05);}
+.quiz-card.mal{border-color:var(--re)!important;background:rgba(239,68,68,.04);}
+.quiz-n{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--bl);margin-bottom:9px;}
+.quiz-q{font-size:16px;font-weight:600;color:#fff;margin-bottom:7px;}
+.quiz-code{background:rgba(0,0,0,.5);border-radius:5px;padding:9px 13px;font-family:var(--mono);font-size:12px;color:#a0c4f8;margin-bottom:12px;white-space:pre-wrap;line-height:1.8;}
+.quiz-opts{display:flex;flex-direction:column;gap:6px;}
+.quiz-opt{background:var(--bg3);border:1px solid var(--border);color:var(--txt);font-family:var(--sans);font-size:14px;padding:9px 15px;border-radius:6px;cursor:pointer;text-align:left;transition:all .2s;}
+.quiz-opt:hover:not(:disabled){background:var(--bg4);border-color:var(--bl3);}
+.quiz-opt.correcta{background:rgba(59,130,246,.15)!important;border-color:var(--bl)!important;color:var(--bl)!important;font-weight:600;}
+.quiz-opt.incorrecta{background:rgba(239,68,68,.1)!important;border-color:var(--re)!important;color:var(--re)!important;}
+.quiz-opt:disabled{cursor:default;}
+.quiz-fb{display:none;margin-top:9px;padding:9px 13px;border-radius:6px;font-size:13px;}
+.quiz-fb.show{display:block;}
+.fb-ok{background:rgba(59,130,246,.08);color:#93c5fd;border:1px solid rgba(59,130,246,.2);}
+.fb-mal{background:rgba(239,68,68,.07);color:#fca5a5;border:1px solid rgba(239,68,68,.2);}
+.score{display:none;background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(30,58,138,.1));border:1px solid var(--bl3);border-radius:10px;padding:30px;text-align:center;margin-top:18px;}
+.score.show{display:block;animation:pop .4s ease;}
+@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.score-n{font-size:64px;font-weight:700;color:var(--bl);line-height:1;}
+.score-msg{font-size:20px;font-weight:700;color:#fff;margin:6px 0;}
+.score-sub{color:var(--muted);font-size:14px;}
+.retry-btn{margin-top:16px;background:var(--bl);color:#fff;border:none;font-family:var(--sans);font-weight:700;font-size:14px;padding:10px 26px;border-radius:6px;cursor:pointer;}
+.retry-btn:hover{background:var(--bl2);}
+
+footer{text-align:center;padding:30px;border-top:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:11px;}
+footer span{color:var(--bl);}
+
+/* ── BARRA SUPERIOR ──────────────────────────────────── */
+.top-bar{
+  display:flex;justify-content:flex-end;gap:8px;
+  padding:8px 16px;background:var(--bg2);border-bottom:1px solid var(--border);
+}
+.top-btn{
+  display:flex;align-items:center;gap:6px;
+  background:var(--bg3);border:1px solid var(--border);color:var(--muted);
+  font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;
+  padding:5px 12px;border-radius:16px;cursor:pointer;transition:all .2s;
+}
+.top-btn:hover{border-color:var(--bl);color:var(--bl);}
+
+/* ── MODO CLARO ──────────────────────────────────────── */
+[data-theme="light"]{
+  --bg:#f3f6fc;--bg2:#e8eef8;--bg3:#dce5f5;--bg4:#d0daf0;
+  --bl:#1d4ed8;--bl2:#1e3a8a;--bl3:#1e40af;
+  --cy:#0e7490;--gr:#15803d;--am:#b45309;--re:#b91c1c;
+  --txt:#0f1f40;--muted:#3a5080;--dim:#b8ccee;--border:#b0c4e8;
+  --card:#ffffff;
+}
+[data-theme="light"] body::after{display:none;}
+[data-theme="light"] header{background:linear-gradient(135deg,rgba(29,78,216,.06) 0%,transparent 50%);}
+[data-theme="light"] .hdr-ring{border-color:rgba(29,78,216,.07);}
+[data-theme="light"] h1{color:#0f1f40;}
+[data-theme="light"] .hdr-sub{color:var(--muted);}
+[data-theme="light"] nav{background:#e8eef8;}
+[data-theme="light"] .card{background:#fff;border-color:var(--border);}
+[data-theme="light"] .card-ico{background:rgba(29,78,216,.06);}
+[data-theme="light"] .card-tit{color:#0f1f40;}
+[data-theme="light"] .code{background:#f0f4ff;color:#0f1f40;border-left-color:var(--bl3);}
+[data-theme="light"] .code .cm{color:#7090b0;}
+[data-theme="light"] .code .kw{color:var(--bl2);}
+[data-theme="light"] .code .st{color:var(--am);}
+[data-theme="light"] .code .nm{color:#15803d;}
+[data-theme="light"] .code .fn{color:#7c3aed;}
+[data-theme="light"] .code .op{color:var(--cy);}
+[data-theme="light"] .demo{background:#dce5f5;border-color:var(--border);}
+[data-theme="light"] .demo-out{background:#f0f4ff;color:var(--muted);}
+[data-theme="light"] .nota{background:rgba(14,116,144,.07);border-color:rgba(14,116,144,.25);}
+[data-theme="light"] .alerta{background:rgba(180,83,9,.07);border-color:rgba(180,83,9,.25);}
+[data-theme="light"] .struct-viz{background:#dce5f5;border-color:var(--border);}
+[data-theme="light"] .sv-input{background:#fff;color:var(--txt);}
+[data-theme="light"] .sv-item{background:rgba(29,78,216,.12);color:var(--bl);}
+[data-theme="light"] .sv-item.top{background:rgba(29,78,216,.25);}
+[data-theme="light"] .sv-log{background:rgba(0,0,0,.05);color:var(--muted);}
+[data-theme="light"] .quiz-card{background:#fff;}
+[data-theme="light"] .quiz-opt{background:#e8eef8;border-color:var(--border);color:var(--txt);}
+[data-theme="light"] .score{background:linear-gradient(135deg,rgba(29,78,216,.07),rgba(30,58,138,.07));}
+[data-theme="light"] .demo-in{background:#fff;color:var(--txt);}
+[data-theme="light"] .top-bar{background:#e8eef8;}
+[data-theme="light"] footer{background:#e8eef8;}
+
+/* ── QUIZ ENVÍO ──────────────────────────────────────── */
+.nombre-row{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;border-radius:8px;margin-bottom:14px;
+  background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.25);
+}
+.nombre-lbl{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.nombre-in{
+  flex:1;background:var(--card);border:1.5px solid var(--border);
+  color:var(--txt);font-family:var(--sans);font-size:15px;font-weight:500;
+  padding:9px 14px;border-radius:6px;outline:none;transition:border-color .2s;
+}
+.nombre-in:focus{border-color:var(--bl);}
+.send-quiz-box{margin-top:12px;padding:18px 20px;border-radius:9px;display:none;
+  background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.25);}
+.send-quiz-box.show{display:block;animation:pop .4s ease;}
+.send-quiz-txt{font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.5;}
+.send-quiz-btn{
+  border:none;font-family:var(--sans);font-size:15px;font-weight:700;
+  padding:12px 24px;border-radius:6px;cursor:pointer;width:100%;
+  background:var(--bl);color:#fff;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.send-quiz-btn:hover{background:var(--bl2);}
+.send-quiz-btn:disabled{opacity:.55;cursor:not-allowed;}
+.send-quiz-ok{
+  display:none;text-align:center;padding:12px;margin-top:10px;
+  border-radius:6px;font-size:14px;font-weight:600;
+  background:rgba(59,130,246,.1);color:var(--bl);border:1px solid rgba(59,130,246,.3);
+}
+.send-quiz-ok.show{display:block;}
+[data-theme="light"] .nombre-in{background:#fff;}
+@media print{
+  .nombre-row,.send-quiz-box,.send-quiz-ok{display:none!important;}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body{background:#fff!important;color:#000!important;font-size:11pt;}
+  body::after{display:none!important;}
+  .top-bar,nav,.hdr-badge,.hdr-chips,.prog-wrap,.hdr-dot,
+  .demo,.demo-btn,.sv-controls,.struct-viz,
+  .quiz-opts,.quiz-fb,.score,.retry-btn{display:none!important;}
+  header{background:#fff!important;padding:10pt 0 6pt;border-bottom:1pt solid #ccc!important;}
+  h1{font-size:20pt;color:#000!important;margin-bottom:4pt;}
+  h1 span{color:#000!important;}
+  .hdr-sub{color:#444!important;font-size:10pt;}
+  .s-h2{font-size:14pt;color:#000!important;border-bottom:1pt solid #888;padding-bottom:3pt;margin-bottom:6pt;}
+  .s-eyebrow{color:#666!important;font-size:8pt;}
+  .s-sub{color:#444!important;font-size:10pt;}
+  .divider{background:#ccc!important;height:.5pt;margin:4pt 0 8pt;}
+  section{break-inside:avoid;page-break-inside:avoid;margin-bottom:10pt;}
+  .card{border:1pt solid #ccc!important;background:#fff!important;margin-bottom:6pt;break-inside:avoid;}
+  .card-hdr{background:#f4f4f4!important;border-bottom:1pt solid #ccc!important;}
+  .card-ico{background:#fff!important;border-right:1pt solid #ccc!important;}
+  .card-tit{color:#000!important;font-size:11pt;}
+  .card-tag{color:#666!important;}
+  .card-body{display:block!important;border-top:1pt solid #eee!important;}
+  .card-body p{color:#000!important;}
+  .card-body strong{color:#000!important;font-weight:700;}
+  .code{background:#f8f8f8!important;color:#000!important;
+    border:1pt solid #ddd!important;border-left:3pt solid #555!important;
+    font-size:8pt!important;padding:6pt 8pt!important;line-height:1.6!important;}
+  .code .cm{color:#666!important;font-style:italic!important;}
+  .code .kw,.code .st,.code .nm,.code .fn,.code .op{color:#000!important;font-weight:600!important;}
+  .code .kw{font-weight:700!important;}
+  .anal{background:#f8f8f8!important;border:1pt solid #ccc!important;
+    border-left:3pt solid #555!important;color:#000!important;}
+  .tabla th{background:#eee!important;color:#000!important;border-bottom:1pt solid #aaa!important;}
+  .tabla td{border-bottom:1pt solid #eee!important;color:#000!important;}
+  .c2{background:#eee!important;color:#000!important;border:1pt solid #aaa!important;}
+  .nota{background:#f8f8f8!important;border:1pt solid #ccc!important;
+    border-left:3pt solid #555!important;color:#000!important;}
+  .nota strong{color:#000!important;font-weight:700!important;}
+  .alerta{background:#f8f8f8!important;border:1pt solid #ccc!important;
+    border-left:3pt solid #888!important;color:#000!important;}
+  .alerta strong{color:#000!important;font-weight:700!important;}
+  footer{border-top:1pt solid #ccc!important;color:#555!important;
+    font-size:8pt!important;background:#fff!important;padding:6pt 0!important;}
+  footer span{color:#000!important;font-weight:700!important;}
+  .hdr-inner{padding:0!important;}
+  .score-n,.score-msg{color:#000!important;}
+}
+</style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body>
 
-    <!-- Header Fijo -->
-    <header class="p-4 bg-[#161b22] border-b border-[#30363d] flex justify-between items-center sticky top-0 z-50">
-        <div class="flex items-center gap-3">
-            <div class="w-8 h-8 bg-cyan-500 rounded flex items-center justify-center text-black font-bold">9</div>
-            <h1 class="font-orbitron text-sm md:text-lg tracking-tighter">REPRESA <span class="text-cyan-400">EL CALAFATE</span></h1>
-        </div>
-        <nav class="hidden md:flex gap-4 text-xs font-orbitron">
-            <button onclick="setView('teoria')" class="hover:text-cyan-400 transition">TEORÍA</button>
-            <button onclick="setView('simulador')" class="hover:text-cyan-400 transition">SIMULADOR</button>
-            <button onclick="setView('quiz')" class="hover:text-cyan-400 transition">AUTO-TEST</button>
-        </nav>
-        <button class="md:hidden text-cyan-400 text-xl" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
-    </header>
-
-    <!-- Menú Móvil -->
-    <div id="mobile-menu" class="hidden fixed inset-0 bg-black/90 z-40 flex flex-col items-center justify-center gap-8 font-orbitron">
-        <button onclick="setView('teoria'); toggleMobileMenu()" class="text-2xl">TEORÍA</button>
-        <button onclick="setView('simulador'); toggleMobileMenu()" class="text-2xl">SIMULADOR</button>
-        <button onclick="setView('quiz'); toggleMobileMenu()" class="text-2xl">AUTO-TEST</button>
-        <button onclick="toggleMobileMenu()" class="text-gray-500 mt-8">CERRAR</button>
+<div class="top-bar">
+  <button class="top-btn" id="themeBtn" onclick="toggleTheme()">☀️ Modo claro</button>
+  <button class="top-btn" onclick="window.print()">🖨️ Imprimir / PDF</button>
+</div>
+<header>
+  <div class="hdr-ring"></div>
+  <div class="hdr-ring hdr-ring2"></div>
+  <div class="hdr-inner">
+    <div class="hdr-badge"><span class="hdr-dot"></span> Algoritmos y Programación · 4° 1° · 2026</div>
+    <h1>Listas · Pilas<br><span>· Colas</span></h1>
+    <p class="hdr-sub">Todo lo que entra en la evaluación. Con el contexto de la <strong style="color:var(--bl)">Represa Patagónica</strong> para que tenga sentido real.</p>
+    <div class="hdr-chips">
+      <span class="chip">Listas Python</span>
+      <span class="chip">Índices y slicing</span>
+      <span class="chip chip-cy">Pilas LIFO</span>
+      <span class="chip chip-cy">Colas FIFO</span>
+      <span class="chip chip-am">Aplicación industrial</span>
     </div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-bar"><div class="prog-fill" id="progBar" style="width:0%"></div></div>
+    <div class="prog-meta"><span id="progTxt">Quiz: 0 / 15</span><span id="progCorr">0 correctas</span></div>
+  </div>
+</header>
 
-    <!-- Contenido Principal -->
-    <main id="main-content" class="flex-1 p-4 max-w-4xl mx-auto w-full">
-        <!-- Seccion Teoría -->
-        <section id="view-teoria" class="space-y-6">
-            <div class="p-6 bg-gradient-to-r from-cyan-950 to-transparent rounded-xl border border-cyan-500/30">
-                <h2 class="text-2xl font-orbitron mb-2">¡Hola ACPI 4°1°!</h2>
-                <p class="text-sm text-gray-400">Este es tu material de apoyo para el cierre del trimestre. Acá tenés todo lo necesario para salvar la materia si te pones las pilas hoy mismo.</p>
-            </div>
+<nav>
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="ir('listas')">01 Listas</button>
+    <button class="nav-btn" onclick="ir('metodos')">02 Métodos</button>
+    <button class="nav-btn" onclick="ir('for-listas')">03 for + listas</button>
+    <button class="nav-btn" onclick="ir('pilas')">04 Pilas</button>
+    <button class="nav-btn" onclick="ir('colas')">05 Colas</button>
+    <button class="nav-btn" onclick="ir('diferencias')">06 Diferencias</button>
+    <button class="nav-btn" onclick="ir('quiz')">Quiz</button>
+  </div>
+</nav>
 
-            <div class="grid md:grid-cols-2 gap-4">
-                <div class="card p-5">
-                    <h3 class="font-orbitron text-purple-400 mb-3"><i class="fas fa-layer-group mr-2"></i>PILAS (LIFO)</h3>
-                    <p class="text-xs text-gray-400 mb-4">"Last In, First Out". El último que entra es el primero que sale.</p>
-                    <ul class="text-sm space-y-2">
-                        <li><span class="text-purple-400">→</span> <strong>Uso:</strong> Historial de errores, estados previos de compuertas.</li>
-                        <li><span class="text-purple-400">→</span> <strong>Código:</strong> <code>lista.append()</code> y <code>lista.pop()</code>.</li>
-                    </ul>
-                </div>
-                <div class="card p-5">
-                    <h3 class="font-orbitron text-yellow-400 mb-3"><i class="fas fa-people-arrows mr-2"></i>COLAS (FIFO)</h3>
-                    <p class="text-xs text-gray-400 mb-4">"First In, First Out". El primero que llega es el primero que se atiende.</p>
-                    <ul class="text-sm space-y-2">
-                        <li><span class="text-yellow-400">→</span> <strong>Uso:</strong> Sistema de alertas por nivel alto, turnos de riego.</li>
-                        <li><span class="text-yellow-400">→</span> <strong>Código:</strong> <code>lista.append()</code> y <code>lista.pop(0)</code>.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+<main>
 
-        <!-- Seccion Simulador -->
-        <section id="view-simulador" class="hidden space-y-6">
-            <h2 class="text-xl font-orbitron text-center mb-4">SIMULADOR DE DATOS</h2>
-            
-            <div class="grid md:grid-cols-2 gap-6">
-                <!-- Simulador Pila -->
-                <div class="card p-4 flex flex-col h-[400px]">
-                    <h3 class="text-xs font-orbitron mb-4 text-purple-400 text-center">HISTORIAL DE ESTADOS (PILA)</h3>
-                    <div id="pila-container" class="flex-1 flex flex-col-reverse gap-2 overflow-y-auto scroll-custom p-2">
-                        <!-- Items de la pila -->
-                    </div>
-                    <div class="mt-4 flex gap-2">
-                        <button onclick="pushPila()" class="flex-1 py-2 bg-purple-600 rounded text-xs font-bold">PUSH (Nuevo estado)</button>
-                        <button onclick="popPila()" class="flex-1 py-2 border border-purple-600 rounded text-xs">POP (Deshacer)</button>
-                    </div>
-                </div>
+<!-- ═══════════════════════════
+     01 — LISTAS
+═══════════════════════════ -->
+<section id="listas">
+  <div class="s-eyebrow">// 01</div>
+  <h2 class="s-h2">Listas en Python</h2>
+  <p class="s-sub">Una lista guarda varios valores en una sola variable. Como un registro de lecturas de la represa.</p>
+  <div class="divider"></div>
 
-                <!-- Simulador Cola -->
-                <div class="card p-4 flex flex-col h-[400px]">
-                    <h3 class="text-xs font-orbitron mb-4 text-yellow-400 text-center">COLA DE ALERTAS (FIFO)</h3>
-                    <div id="cola-container" class="flex-1 flex flex-col gap-2 overflow-y-auto scroll-custom p-2">
-                        <!-- Items de la cola -->
-                    </div>
-                    <div class="mt-4 flex gap-2">
-                        <button onclick="enqueueCola()" class="flex-1 py-2 bg-yellow-600 rounded text-xs font-bold text-black">ENQUEUE (Alerta)</button>
-                        <button onclick="dequeueCola()" class="flex-1 py-2 border border-yellow-600 rounded text-xs">DEQUEUE (Atender)</button>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <div class="card open">
+    <div class="card-hdr" onclick="tog(this)"><div class="card-ico">📋</div><div class="card-inf"><div class="card-tag">Fundamento</div><div class="card-tit">¿Qué es una lista?</div></div></div>
+    <div class="card-body">
+      <div class="anal"><div class="anal-ico">🗃️</div><div>Una lista es como una planilla de registros: tiene celdas numeradas (desde la 0), y en cada celda podés guardar un valor. Podés agregar, quitar, buscar y ordenar los valores.</div></div>
+      <div class="code"><span class="cm"># Crear una lista — los valores van entre corchetes</span>
+niveles = [<span class="nm">42.3</span>, <span class="nm">45.1</span>, <span class="nm">44.8</span>, <span class="nm">47.2</span>, <span class="nm">46.0</span>, <span class="nm">48.5</span>]
 
-        <!-- Seccion Quiz -->
-        <section id="view-quiz" class="hidden space-y-6">
-            <div id="quiz-container" class="card p-6 min-h-[300px] flex flex-col justify-center">
-                <!-- Contenido del quiz dinámico -->
-            </div>
-        </section>
-    </main>
+<span class="cm"># Acceso por índice — el primero es índice 0</span>
+<span class="fn">print</span>(niveles[<span class="nm">0</span>])    <span class="cm"># → 42.3  (primer elemento)</span>
+<span class="fn">print</span>(niveles[<span class="nm">2</span>])    <span class="cm"># → 44.8  (tercer elemento)</span>
+<span class="fn">print</span>(niveles[<span class="op">-1</span>])   <span class="cm"># → 48.5  (último elemento)</span>
+<span class="fn">print</span>(niveles[<span class="op">-2</span>])   <span class="cm"># → 46.0  (penúltimo)</span>
 
-    <!-- Footer / Cronograma -->
-    <footer class="p-4 bg-[#161b22] border-t border-[#30363d] text-[10px] text-gray-500">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <p>PRÓX. EVALUACIÓN: MIÉRCOLES 01/04</p>
-            <p>EL CALAFATE, SANTA CRUZ</p>
+<span class="cm"># Slicing — tomar una porción</span>
+<span class="fn">print</span>(niveles[<span class="nm">1</span>:<span class="nm">4</span>])  <span class="cm"># → [45.1, 44.8, 47.2]  (índice 1, 2, 3)</span>
+<span class="fn">print</span>(niveles[:<span class="nm">3</span>])   <span class="cm"># → [42.3, 45.1, 44.8]  (desde el inicio)</span>
+<span class="fn">print</span>(niveles[<span class="nm">3</span>:])   <span class="cm"># → [47.2, 46.0, 48.5]  (desde índice 3)</span>
+
+<span class="cm"># Largo de la lista</span>
+<span class="fn">print</span>(<span class="fn">len</span>(niveles))   <span class="cm"># → 6</span></div>
+      <div class="alerta"><strong>Los índices empiezan en 0, no en 1.</strong> Una lista de 6 elementos tiene índices del 0 al 5. El índice 6 da error (IndexError). Con índices negativos: -1 es el último, -2 el penúltimo.</div>
+
+      <!-- Demo listas -->
+      <div class="demo">
+        <div class="demo-lbl">▶ Explorá la lista de niveles de la represa</div>
+        <div class="demo-row">
+          <div class="demo-grp"><div class="demo-glbl">Índice (−5 a 5)</div><input class="demo-in" id="dIdx" type="number" value="0" min="-5" max="5" step="1"></div>
+          <div class="demo-grp"><div class="demo-glbl">Inicio slice</div><input class="demo-in" id="dSli" type="number" value="1" min="0" max="5" step="1"></div>
+          <div class="demo-grp"><div class="demo-glbl">Fin slice</div><input class="demo-in" id="dSle" type="number" value="4" min="1" max="6" step="1"></div>
+          <button class="demo-btn" onclick="demoLista()">▶ Consultar</button>
         </div>
-    </footer>
+        <div class="demo-out" id="listaOut">Consultá la lista.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // --- NAVEGACIÓN ---
-        function setView(view) {
-            document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
-            document.getElementById(`view-${view}`).classList.remove('hidden');
-            if(view === 'quiz') startQuiz();
-        }
+<!-- ═══════════════════════════
+     02 — MÉTODOS
+═══════════════════════════ -->
+<section id="metodos">
+  <div class="s-eyebrow">// 02</div>
+  <h2 class="s-h2">Métodos de las listas</h2>
+  <p class="s-sub">Las herramientas para operar sobre una lista: agregar, quitar, ordenar, buscar.</p>
+  <div class="divider"></div>
 
-        function toggleMobileMenu() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        }
+  <div class="card open">
+    <div class="card-hdr" onclick="tog(this)"><div class="card-ico">🔧</div><div class="card-inf"><div class="card-tag">Métodos esenciales</div><div class="card-tit">append, pop, insert, remove, sort, sorted</div></div></div>
+    <div class="card-body">
+      <table class="tabla">
+        <thead><tr><th>Método</th><th>Qué hace</th><th>Ejemplo represa</th></tr></thead>
+        <tbody>
+          <tr><td><span class="c2 c-bl">append(x)</span></td><td>Agrega x al final</td><td><code>niveles.append(49.1)</code></td></tr>
+          <tr><td><span class="c2 c-bl">pop()</span></td><td>Saca y devuelve el último</td><td><code>ultimo = niveles.pop()</code></td></tr>
+          <tr><td><span class="c2 c-bl">pop(i)</span></td><td>Saca y devuelve el de índice i</td><td><code>primero = niveles.pop(0)</code></td></tr>
+          <tr><td><span class="c2 c-cy">insert(i, x)</span></td><td>Inserta x en posición i</td><td><code>niveles.insert(0, 40.0)</code></td></tr>
+          <tr><td><span class="c2 c-cy">remove(x)</span></td><td>Elimina la primera ocurrencia de x</td><td><code>niveles.remove(44.8)</code></td></tr>
+          <tr><td><span class="c2 c-am">sort()</span></td><td>Ordena la lista <em>en su lugar</em> (modifica original)</td><td><code>niveles.sort()</code></td></tr>
+          <tr><td><span class="c2 c-am">sorted(lista)</span></td><td>Devuelve una nueva lista ordenada (original intacta)</td><td><code>copia = sorted(niveles)</code></td></tr>
+          <tr><td><span class="c2 c-gr">index(x)</span></td><td>Devuelve el índice de x</td><td><code>pos = niveles.index(47.2)</code></td></tr>
+          <tr><td><span class="c2 c-gr">count(x)</span></td><td>Cuenta cuántas veces aparece x</td><td><code>n = niveles.count(46.0)</code></td></tr>
+        </tbody>
+      </table>
+      <div class="nota"><strong>sort() vs sorted():</strong> <code>niveles.sort()</code> modifica la lista original — no podés volver atrás. <code>sorted(niveles)</code> devuelve una NUEVA lista ordenada y la original queda igual. Para la evaluación: si el enunciado dice "sin modificar la lista original", usá sorted().</div>
+      <div class="code"><span class="cm"># Demostración práctica</span>
+niveles = [<span class="nm">42.3</span>, <span class="nm">48.5</span>, <span class="nm">44.8</span>, <span class="nm">47.2</span>]
 
-        // --- SIMULADOR PILA ---
-        let pilaData = ["Estado Inicial", "Turbina 1 ON"];
-        function renderPila() {
-            const container = document.getElementById('pila-container');
-            container.innerHTML = pilaData.map((item, i) => `
-                <div class="p-3 bg-purple-500/20 border border-purple-500/50 rounded text-xs item-anim flex justify-between">
-                    <span>${item}</span>
-                    <span class="text-purple-400 font-mono">${i === pilaData.length - 1 ? 'TOP' : i}</span>
-                </div>
-            `).join('');
-        }
+niveles.<span class="fn">append</span>(<span class="nm">50.1</span>)       <span class="cm"># → [42.3, 48.5, 44.8, 47.2, 50.1]</span>
+ultimo = niveles.<span class="fn">pop</span>()      <span class="cm"># → saca 50.1 y lo guarda</span>
 
-        function pushPila() {
-            pilaData.push("Compuerta " + (pilaData.length + 1) + " OPEN");
-            renderPila();
-        }
+ordenada = <span class="fn">sorted</span>(niveles)   <span class="cm"># → [42.3, 44.8, 47.2, 48.5] (nueva lista)</span>
+<span class="fn">print</span>(niveles)               <span class="cm"># → [42.3, 48.5, 44.8, 47.2] (sin cambios)</span></div>
+    </div>
+  </div>
+</section>
 
-        function popPila() {
-            if(pilaData.length > 0) {
-                pilaData.pop();
-                renderPila();
-            }
-        }
+<!-- ═══════════════════════════
+     03 — FOR + LISTAS
+═══════════════════════════ -->
+<section id="for-listas">
+  <div class="s-eyebrow">// 03</div>
+  <h2 class="s-h2">for con listas</h2>
+  <p class="s-sub">El for es la herramienta para recorrer y analizar los datos de una lista.</p>
+  <div class="divider"></div>
 
-        // --- SIMULADOR COLA ---
-        let colaData = ["Alerta Nivel 48.5m", "Sensor 3 Fallo"];
-        function renderCola() {
-            const container = document.getElementById('cola-container');
-            container.innerHTML = colaData.map((item, i) => `
-                <div class="p-3 bg-yellow-500/10 border border-yellow-500/50 rounded text-xs item-anim flex justify-between">
-                    <span>${item}</span>
-                    <span class="text-yellow-400 font-mono">${i === 0 ? 'FRENTE' : i}</span>
-                </div>
-            `).join('');
-        }
+  <div class="card open">
+    <div class="card-hdr" onclick="tog(this)"><div class="card-ico">🔁</div><div class="card-inf"><div class="card-tag">Tres formas de recorrer</div><div class="card-tit">for, for + enumerate, for + range(len())</div></div></div>
+    <div class="card-body">
+      <div class="code"><span class="cm"># Forma 1: directo — cuando solo necesitás el valor</span>
+niveles = [<span class="nm">42.3</span>, <span class="nm">45.1</span>, <span class="nm">44.8</span>, <span class="nm">47.2</span>, <span class="nm">48.5</span>]
 
-        function enqueueCola() {
-            colaData.push("Alerta Nivel " + (48 + Math.random().toFixed(1)) + "m");
-            renderCola();
-        }
+<span class="kw">for</span> nivel <span class="kw">in</span> niveles:
+    <span class="fn">print</span>(<span class="st">f"Nivel: {nivel} m"</span>)
 
-        function dequeueCola() {
-            if(colaData.length > 0) {
-                colaData.shift();
-                renderCola();
-            }
-        }
+<span class="cm"># Forma 2: enumerate — cuando necesitás valor Y posición</span>
+<span class="kw">for</span> i, nivel <span class="kw">in</span> <span class="fn">enumerate</span>(niveles):
+    <span class="fn">print</span>(<span class="st">f"Hora {i+1}: {nivel} m"</span>)
+<span class="cm"># → Hora 1: 42.3 m | Hora 2: 45.1 m | ...</span>
 
-        // --- AUTO-EVALUACIÓN (QUIZ) ---
-        const preguntas = [
-            {
-                q: "¿Qué método usás en Python para agregar un elemento al FINAL de una lista?",
-                a: ["pop()", "append()", "insert()", "remove()"],
-                c: 1
-            },
-            {
-                q: "Si la represa necesita atender la PRIMERA alarma que entró, ¿qué estructura usamos?",
-                a: ["Pila (LIFO)", "Lista Ordenada", "Cola (FIFO)", "Diccionario"],
-                c: 2
-            },
-            {
-                q: "Tenemos niveles = [42, 45, 48]. ¿Qué devuelve niveles[-1]?",
-                a: ["42", "45", "48", "Error"],
-                c: 2
-            },
-            {
-                q: "¿Cuál es la diferencia entre .sort() y sorted()?",
-                a: ["Ninguna", ".sort() crea una copia", "sorted() modifica la original", ".sort() modifica la original"],
-                c: 3
-            }
-        ];
+<span class="cm"># Forma 3: range(len()) — para modificar elementos de la lista</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(niveles)):
+    <span class="kw">if</span> niveles[i] > <span class="nm">47.0</span>:
+        <span class="fn">print</span>(<span class="st">f"⚠ Índice {i}: nivel {niveles[i]} m supera el límite"</span>)</div>
 
-        let quizIndex = 0;
-        let quizScore = 0;
+      <p><strong>Acumuladores con for — calcular máximo, mínimo y promedio:</strong></p>
+      <div class="code"><span class="cm"># Sin usar max(), min(), sum() — algoritmo manual</span>
+niveles = [<span class="nm">42.3</span>, <span class="nm">45.1</span>, <span class="nm">44.8</span>, <span class="nm">47.2</span>, <span class="nm">48.5</span>]
 
-        function startQuiz() {
-            quizIndex = 0;
-            quizScore = 0;
-            showQuestion();
-        }
+maximo  = niveles[<span class="nm">0</span>]   <span class="cm"># arrancar con el primer valor</span>
+minimo  = niveles[<span class="nm">0</span>]
+suma    = <span class="nm">0</span>
+alarmas = <span class="nm">0</span>
 
-        function showQuestion() {
-            const container = document.getElementById('quiz-container');
-            if(quizIndex >= preguntas.length) {
-                container.innerHTML = `
-                    <div class="text-center space-y-4">
-                        <h3 class="text-2xl font-orbitron">RESULTADO: ${quizScore}/${preguntas.length}</h3>
-                        <p class="text-sm text-gray-400">${quizScore === preguntas.length ? "¡Excelente! Estás listo para el miércoles." : "Repasá un poco más los simuladores antes del examen."}</p>
-                        <button onclick="startQuiz()" class="btn-neon px-6 py-2 rounded-full text-xs font-orbitron">REINTENTAR</button>
-                    </div>
-                `;
-                return;
-            }
+<span class="kw">for</span> nivel <span class="kw">in</span> niveles:
+    <span class="kw">if</span> nivel > maximo:  maximo = nivel
+    <span class="kw">if</span> nivel < minimo:  minimo = nivel
+    suma += nivel
+    <span class="kw">if</span> nivel > <span class="nm">47.0</span>:   alarmas += <span class="nm">1</span>
 
-            const p = preguntas[quizIndex];
-            container.innerHTML = `
-                <div class="space-y-4">
-                    <span class="text-[10px] text-cyan-400 font-orbitron">PREGUNTA ${quizIndex + 1} DE ${preguntas.length}</span>
-                    <h3 class="text-lg font-bold">${p.q}</h3>
-                    <div class="grid gap-2">
-                        ${p.a.map((opt, i) => `
-                            <button onclick="checkAnswer(${i})" class="text-left p-3 rounded bg-white/5 border border-white/10 hover:border-cyan-500 transition-colors text-sm">
-                                ${opt}
-                            </button>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-        }
+promedio = suma / <span class="fn">len</span>(niveles)
+<span class="fn">print</span>(<span class="st">f"Max: {maximo} | Min: {minimo} | Prom: {promedio:.1f} | Alarmas: {alarmas}"</span>)</div>
 
-        function checkAnswer(i) {
-            if(i === preguntas[quizIndex].c) quizScore++;
-            quizIndex++;
-            showQuestion();
-        }
+      <!-- Demo análisis -->
+      <div class="demo">
+        <div class="demo-lbl">▶ Analizá la lista de la represa en vivo</div>
+        <div class="demo-row">
+          <div class="demo-grp"><div class="demo-glbl">Límite de alarma (m)</div><input class="demo-in" id="dLim" type="number" value="47.0" step="0.5"></div>
+          <button class="demo-btn" onclick="demoAnalisis()">▶ Analizar</button>
+        </div>
+        <div class="demo-out" id="analisisOut">Configurá el límite y analizá.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // Inicializar
-        renderPila();
-        renderCola();
-    </script>
+<!-- ═══════════════════════════
+     04 — PILAS
+═══════════════════════════ -->
+<section id="pilas">
+  <div class="s-eyebrow">// 04</div>
+  <h2 class="s-h2">Pilas — Stack LIFO</h2>
+  <p class="s-sub">LIFO: Last In, First Out. El último que entra es el primero en salir.</p>
+  <div class="divider"></div>
+
+  <div class="card open">
+    <div class="card-hdr" onclick="tog(this)"><div class="card-ico">📚</div><div class="card-inf"><div class="card-tag">Concepto LIFO</div><div class="card-tit">¿Qué es una pila y para qué sirve?</div></div></div>
+    <div class="card-body">
+      <div class="anal"><div class="anal-ico">🍽️</div><div>Imaginá una pila de platos sucios. Siempre ponés el nuevo encima (push) y siempre sacás el de arriba primero (pop). El primero que pusiste es el último en salir. Eso es LIFO.</div></div>
+      <div class="code"><span class="cm"># Una Pila se implementa con una lista normal</span>
+historial = []   <span class="cm"># pila vacía</span>
+
+<span class="cm"># push → agregar al tope de la pila</span>
+historial.<span class="fn">append</span>(<span class="nm">42.3</span>)   <span class="cm"># → [42.3]</span>
+historial.<span class="fn">append</span>(<span class="nm">45.1</span>)   <span class="cm"># → [42.3, 45.1]</span>
+historial.<span class="fn">append</span>(<span class="nm">48.5</span>)   <span class="cm"># → [42.3, 45.1, 48.5]</span>
+
+<span class="cm"># peek → ver el tope sin sacarlo</span>
+tope = historial[<span class="op">-1</span>]        <span class="cm"># → 48.5 (sin modificar la pila)</span>
+
+<span class="cm"># pop → sacar el tope de la pila</span>
+ultimo = historial.<span class="fn">pop</span>()    <span class="cm"># → devuelve 48.5, pila queda [42.3, 45.1]</span>
+
+<span class="cm"># ¿Está vacía?</span>
+<span class="kw">if not</span> historial:
+    <span class="fn">print</span>(<span class="st">"Pila vacía"</span>)</div>
+
+      <div class="nota"><strong>Aplicación en la represa:</strong> el historial de estados de las compuertas es una pila. Cada vez que una compuerta cambia de estado, se apila el registro. Para deshacer el último cambio, se saca el tope de la pila (pop).</div>
+
+      <!-- Pila interactiva -->
+      <div class="struct-viz">
+        <div class="sv-lbl">▶ Pila interactiva — historial de niveles de la represa</div>
+        <div class="sv-controls">
+          <div class="demo-grp"><div class="demo-glbl">Nivel a apilar (m)</div><input class="sv-input" id="pilaVal" type="number" value="45.2" step="0.5" placeholder="nivel"></div>
+          <button class="sv-btn" onclick="pilaPush()">▲ push()</button>
+          <button class="sv-btn sv-btn-re" onclick="pilaPop()">▼ pop()</button>
+          <button class="sv-btn" onclick="pilaReset()" style="margin-left:auto">↺ Reset</button>
+        </div>
+        <div class="sv-display"><div class="sv-stack" id="pilaDisplay"></div></div>
+        <div class="sv-label">↑ tope de la pila (último en entrar, primero en salir)</div>
+        <div class="sv-log" id="pilaLog">La pila está vacía. Usá push() para agregar valores.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════
+     05 — COLAS
+═══════════════════════════ -->
+<section id="colas">
+  <div class="s-eyebrow">// 05</div>
+  <h2 class="s-h2">Colas — Queue FIFO</h2>
+  <p class="s-sub">FIFO: First In, First Out. El primero que entra es el primero en salir.</p>
+  <div class="divider"></div>
+
+  <div class="card open">
+    <div class="card-hdr" onclick="tog(this)"><div class="card-ico">🚶</div><div class="card-inf"><div class="card-tag">Concepto FIFO</div><div class="card-tit">¿Qué es una cola y para qué sirve?</div></div></div>
+    <div class="card-body">
+      <div class="anal"><div class="anal-ico">🏪</div><div>Imaginá la fila del supermercado. El primero que llega es el primero en ser atendido. Cuando llegás, te sumás al final (enqueue). El que sale es siempre el del frente (dequeue). Eso es FIFO.</div></div>
+      <div class="code"><span class="cm"># Una Cola también se implementa con una lista</span>
+alertas = []   <span class="cm"># cola vacía</span>
+
+<span class="cm"># enqueue → agregar al final de la cola</span>
+alertas.<span class="fn">append</span>(<span class="st">"Nivel alto: 48.5 m"</span>)   <span class="cm"># entra al final</span>
+alertas.<span class="fn">append</span>(<span class="st">"Caudal excesivo"</span>)
+alertas.<span class="fn">append</span>(<span class="st">"Sensor B sin respuesta"</span>)
+
+<span class="cm"># peek → ver el frente sin sacarlo</span>
+siguiente = alertas[<span class="nm">0</span>]        <span class="cm"># → "Nivel alto: 48.5 m"</span>
+
+<span class="cm"># dequeue → sacar el primero de la cola</span>
+primera = alertas.<span class="fn">pop</span>(<span class="nm">0</span>)      <span class="cm"># → "Nivel alto..." (el frente)</span>
+<span class="cm"># ahora alertas = ["Caudal excesivo", "Sensor B sin respuesta"]</span>
+
+<span class="cm"># ¿Está vacía?</span>
+<span class="kw">if not</span> alertas:
+    <span class="fn">print</span>(<span class="st">"Sin alertas pendientes"</span>)</div>
+
+      <div class="nota"><strong>Aplicación en la represa:</strong> la cola de alertas garantiza que las alertas se atienden en el orden en que llegaron. La primera alarma que entró es la primera en atenderse — ninguna se "cuela" en la fila.</div>
+
+      <!-- Cola interactiva -->
+      <div class="struct-viz">
+        <div class="sv-lbl">▶ Cola interactiva — alertas de la represa</div>
+        <div class="sv-controls">
+          <div class="demo-grp"><div class="demo-glbl">Alerta a encolar</div><input class="sv-input" id="colaVal" type="text" value="Nivel alto" placeholder="descripción" style="width:160px"></div>
+          <button class="sv-btn" onclick="colaEnqueue()">→ enqueue()</button>
+          <button class="sv-btn sv-btn-re" onclick="colaDequeue()">← dequeue()</button>
+          <button class="sv-btn" onclick="colaReset()" style="margin-left:auto">↺ Reset</button>
+        </div>
+        <div class="sv-display"><div class="sv-queue" id="colaDisplay"></div></div>
+        <div class="sv-label">← frente (primero en salir) &nbsp;&nbsp;&nbsp;&nbsp; fondo → (último en entrar)</div>
+        <div class="sv-log" id="colaLog">La cola está vacía. Usá enqueue() para agregar alertas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════
+     06 — DIFERENCIAS
+═══════════════════════════ -->
+<section id="diferencias">
+  <div class="s-eyebrow">// 06</div>
+  <h2 class="s-h2">Pila vs Cola — ¿cuándo usar cada una?</h2>
+  <p class="s-sub">La pregunta clave de la evaluación: justificar la elección de la estructura.</p>
+  <div class="divider"></div>
+
+  <div class="card open">
+    <div class="card-hdr" onclick="tog(this)"><div class="card-ico">⚖️</div><div class="card-inf"><div class="card-tag">Comparación</div><div class="card-tit">LIFO vs FIFO — la tabla definitiva</div></div></div>
+    <div class="card-body">
+      <table class="tabla">
+        <thead><tr><th></th><th>Pila (Stack)</th><th>Cola (Queue)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Principio</strong></td><td><span class="c2 c-cy">LIFO</span> — Last In, First Out</td><td><span class="c2 c-am">FIFO</span> — First In, First Out</td></tr>
+          <tr><td><strong>Entra por</strong></td><td>El tope (con append)</td><td>El fondo (con append)</td></tr>
+          <tr><td><strong>Sale por</strong></td><td>El tope (con pop())</td><td>El frente (con pop(0))</td></tr>
+          <tr><td><strong>Ver sin sacar</strong></td><td>lista[-1]</td><td>lista[0]</td></tr>
+          <tr><td><strong>Analogía</strong></td><td>Pila de platos, historial del navegador</td><td>Fila del banco, cola de impresión</td></tr>
+          <tr><td><strong>En la represa</strong></td><td>Historial de estados de compuertas</td><td>Cola de alertas a atender</td></tr>
+          <tr><td><strong>¿Por qué?</strong></td><td>Para "deshacer" el último cambio hay que sacarlo primero</td><td>Las alertas se atienden en orden de llegada, sin prioridades arbitrarias</td></tr>
+        </tbody>
+      </table>
+      <div class="anal"><div class="anal-ico">🎯</div><div><strong>Regla para la evaluación:</strong> Si el enunciado habla de "historial", "deshacer", "último estado" → pensá en Pila. Si habla de "orden de llegada", "atender primero el más antiguo", "turno" → pensá en Cola.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr" onclick="tog(this)"><div class="card-ico">🔗</div><div class="card-inf"><div class="card-tag">Integrador</div><div class="card-tit">Sistema completo con lista + pila + cola</div></div></div>
+    <div class="card-body">
+      <div class="code"><span class="cm"># Sistema de monitoreo de la Represa El Calafate</span>
+<span class="cm"># Usa las tres estructuras juntas</span>
+
+lecturas  = [<span class="nm">42.3</span>, <span class="nm">45.1</span>, <span class="nm">47.2</span>, <span class="nm">50.1</span>, <span class="nm">46.8</span>]   <span class="cm"># lista</span>
+historial = []                                        <span class="cm"># pila</span>
+alertas   = []                                        <span class="cm"># cola</span>
+LIMITE    = <span class="nm">48.0</span>
+
+<span class="kw">for</span> i, nivel <span class="kw">in</span> <span class="fn">enumerate</span>(lecturas):
+    <span class="cm"># Apilar en el historial</span>
+    historial.<span class="fn">append</span>(nivel)                    <span class="cm"># push</span>
+
+    <span class="cm"># Si supera el límite, encolar como alerta</span>
+    <span class="kw">if</span> nivel > LIMITE:
+        alertas.<span class="fn">append</span>(<span class="st">f"Hora {i+1}: {nivel} m"</span>)   <span class="cm"># enqueue</span>
+        <span class="fn">print</span>(<span class="st">f"⚠ Alerta encolada: hora {i+1}"</span>)
+
+<span class="fn">print</span>(<span class="st">f"\nÚltima lectura apilada: {historial[-1]}"</span>)  <span class="cm"># peek pila</span>
+<span class="fn">print</span>(<span class="st">f"Alertas pendientes: {len(alertas)}"</span>)
+
+<span class="cm"># Atender la primera alerta</span>
+<span class="kw">if</span> alertas:
+    primera = alertas.<span class="fn">pop</span>(<span class="nm">0</span>)                       <span class="cm"># dequeue</span>
+    <span class="fn">print</span>(<span class="st">f"Atendiendo: {primera}"</span>)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════
+     QUIZ
+═══════════════════════════ -->
+<section id="quiz">
+  <div class="s-eyebrow">// Autoevaluación</div>
+  <h2 class="s-h2">Quiz de preparación</h2>
+  <p class="s-sub">15 preguntas. Listas, pilas, colas y aplicación a la represa. Feedback inmediato.</p>
+  <div class="divider"></div>
+  <div class="nombre-row">
+    <span class="nombre-lbl">Tu nombre:</span>
+    <input class="nombre-in" id="nombreQuiz" type="text" placeholder="Apellido, Nombre" autocomplete="name">
+  </div>
+  <div id="quizContainer"></div>
+  <div class="score" id="scoreBox">
+    <div class="score-n" id="scoreNum">0/15</div>
+    <div class="score-msg" id="scoreMsg">—</div>
+    <div class="score-sub" id="scoreSub">—</div>
+    <div class="send-quiz-box" id="sqBox">
+      <div class="send-quiz-txt">Hacé clic para enviarle tus resultados al profe. Incluye tu nombre, el puntaje y el detalle de cada pregunta.</div>
+      <button class="send-quiz-btn" id="sqBtn" onclick="sendQuizAyP()">📧 Enviar al Profesor</button>
+      <div class="send-quiz-ok" id="sqOk"></div>
+    </div>
+    <button class="retry-btn" onclick="resetQuiz()">↺ Intentar de nuevo</button>
+  </div>
+</section>
+
+</main>
+<footer>Algoritmos y Programación · 4° 1° · <span>Escuela Industrial N°9 · El Calafate</span> · Prof. Pablo Limardo · 2026</footer>
+
+<script>
+// ── NAV ───────────────────────────────────────
+function ir(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});}
+function tog(hdr){hdr.closest('.card').classList.toggle('open');}
+
+// ── DEMO LISTA ────────────────────────────────
+const niveles=[42.3,45.1,44.8,47.2,46.0,48.5];
+function demoLista(){
+  const idx=parseInt(document.getElementById('dIdx').value);
+  const si=parseInt(document.getElementById('dSli').value);
+  const se=parseInt(document.getElementById('dSle').value);
+  const n=niveles.length;
+  let lines=[];
+  lines.push(`Lista: [${niveles.join(', ')}]  (largo: ${n})`);
+  try{
+    const v=idx<0?niveles[n+idx]:niveles[idx];
+    lines.push(`niveles[${idx}] = ${v!==undefined?v:'IndexError: índice fuera de rango'}`);
+  }catch(e){lines.push('Error: índice fuera de rango');}
+  const sl=niveles.slice(si,se);
+  lines.push(`niveles[${si}:${se}] = [${sl.join(', ')}]`);
+  lines.push(`niveles[-1] = ${niveles[n-1]}  ← último`);
+  document.getElementById('listaOut').textContent=lines.join('\n');
+}
+
+// ── DEMO ANÁLISIS ─────────────────────────────
+function demoAnalisis(){
+  const lim=parseFloat(document.getElementById('dLim').value)||47;
+  let max=niveles[0],min=niveles[0],suma=0,alarmas=0,detalle=[];
+  for(const n of niveles){
+    if(n>max)max=n;if(n<min)min=n;suma+=n;
+    if(n>lim)alarmas++;
+    detalle.push(`  ${n} m → ${n>lim?'⚠ ALARMA':'✓ OK'}`);
+  }
+  const avg=(suma/niveles.length).toFixed(2);
+  const lines=[
+    `Lista: [${niveles.join(', ')}]  |  Límite: ${lim} m`,
+    '',
+    ...detalle,
+    '',
+    `Máximo:   ${max} m`,
+    `Mínimo:   ${min} m`,
+    `Promedio: ${avg} m`,
+    `Alarmas:  ${alarmas}`,
+  ];
+  document.getElementById('analisisOut').textContent=lines.join('\n');
+}
+
+// ── PILA ──────────────────────────────────────
+let pila=[];
+function pilaPush(){
+  const v=parseFloat(document.getElementById('pilaVal').value);
+  if(isNaN(v)){document.getElementById('pilaLog').textContent='⚠ Ingresá un número válido.';return;}
+  pila.push(v);renderPila();
+  document.getElementById('pilaLog').textContent=`push(${v}) → pila: [${pila.join(', ')}]  |  tope: ${pila[pila.length-1]}`;
+}
+function pilaPop(){
+  if(!pila.length){document.getElementById('pilaLog').textContent='⚠ La pila está vacía — no se puede hacer pop().';return;}
+  const v=pila.pop();renderPila();
+  document.getElementById('pilaLog').textContent=`pop() devolvió ${v}  |  pila ahora: [${pila.join(', ')}]${pila.length?`  |  nuevo tope: ${pila[pila.length-1]}`:'  |  pila vacía'}`;
+}
+function pilaReset(){pila=[];renderPila();document.getElementById('pilaLog').textContent='Pila reiniciada.';}
+function renderPila(){
+  const c=document.getElementById('pilaDisplay');c.innerHTML='';
+  if(!pila.length){c.innerHTML='<div style="color:var(--muted);font-family:var(--mono);font-size:12px;padding:10px">[ pila vacía ]</div>';return;}
+  pila.forEach((v,i)=>{
+    const d=document.createElement('div');
+    d.className='sv-item'+(i===pila.length-1?' top':'');
+    d.textContent=`${v} m${i===pila.length-1?' ← tope':''}`;
+    c.appendChild(d);
+  });
+}
+renderPila();
+
+// ── COLA ──────────────────────────────────────
+let cola=[];
+function colaEnqueue(){
+  const v=document.getElementById('colaVal').value.trim()||'alerta';
+  cola.push(v);renderCola();
+  document.getElementById('colaLog').textContent=`enqueue("${v}") → cola tiene ${cola.length} alerta(s)  |  frente: "${cola[0]}"`;
+}
+function colaDequeue(){
+  if(!cola.length){document.getElementById('colaLog').textContent='⚠ La cola está vacía — no hay alertas pendientes.';return;}
+  const v=cola.shift();renderCola();
+  document.getElementById('colaLog').textContent=`dequeue() → atendió: "${v}"${cola.length?`  |  siguiente: "${cola[0]}"`:'  |  cola vacía'}`;
+}
+function colaReset(){cola=[];renderCola();document.getElementById('colaLog').textContent='Cola reiniciada.';}
+function renderCola(){
+  const c=document.getElementById('colaDisplay');c.innerHTML='';
+  if(!cola.length){c.innerHTML='<div style="color:var(--muted);font-family:var(--mono);font-size:12px;padding:10px">[ cola vacía ]</div>';return;}
+  cola.forEach((v,i)=>{
+    const d=document.createElement('div');
+    d.className='sv-item'+(i===0?' top':'');
+    d.textContent=i===0?`← "${v}"`:` "${v}"`;
+    c.appendChild(d);
+  });
+}
+renderCola();
+
+// ── QUIZ ──────────────────────────────────────
+const Qs=[
+  // ── BLOQUE 1: Modelización y pseudocódigo (Q01-Q03) ──
+  {q:'Un enunciado dice: "Leer 10 niveles de la represa y mostrar cuántos superan el límite de 48 m." ¿Cuáles son las entradas y las salidas?',
+   o:['Entrada: el límite · Salida: los 10 niveles',
+      'Entrada: los 10 niveles · Salida: la cantidad que superan 48 m',
+      'Entrada: la represa · Salida: un gráfico',
+      'Entrada: 48 m · Salida: True o False'],r:1,
+   fb:'Modelizar = identificar entradas (datos que el programa recibe) y salidas (resultado que produce). Aquí recibimos 10 niveles y producimos un contador de cuántos superan 48 m.'},
+
+  {q:'En un diagrama de flujo, ¿qué forma geométrica se usa para representar una decisión (if)?',
+   o:['Rectángulo','Rombo (diamante)','Paralelogramo','Círculo'],r:1,
+   fb:'Rectángulo = proceso/acción. Rombo = decisión (condición con Sí/No). Paralelogramo = entrada/salida de datos. Siempre representá el algoritmo en diagrama de flujo ANTES de codificar.'},
+
+  {q:'¿Cuál pseudocódigo calcula correctamente el promedio de una lista de lecturas?',
+   c:'Opción A:\n  suma ← 0\n  PARA CADA lectura EN lecturas:\n    suma ← suma + lectura\n  promedio ← suma / LARGO(lecturas)\n\nOpción B:\n  promedio ← lecturas / LARGO(lecturas)',
+   o:['Opción A es correcta','Opción B es correcta','Ambas son válidas','Ninguna es válida'],r:0,
+   fb:'El pseudocódigo A recorre la lista acumulando la suma y luego divide por la cantidad. La opción B intenta dividir una lista por un número, lo cual no tiene sentido. Siempre escribí pseudocódigo antes de programar.'},
+
+  // ── BLOQUE 2: Listas — creación, índice, slicing (Q04-Q06) ──
+  {q:'¿Cuál es el índice del primer elemento de una lista en Python?',
+   o:['1','0','-1','Depende del tamaño de la lista'],r:1,
+   fb:'Los índices en Python SIEMPRE empiezan en 0. Una lista de 6 elementos tiene índices 0, 1, 2, 3, 4, 5. El índice 6 da IndexError.'},
+
+  {q:'Dado niveles = [42.3, 45.1, 44.8, 47.2, 46.0, 48.5], ¿qué devuelve niveles[2:5]?',
+   c:'niveles = [42.3, 45.1, 44.8, 47.2, 46.0, 48.5]',
+   o:['[44.8, 47.2, 46.0]','[45.1, 44.8, 47.2]','[44.8, 47.2, 46.0, 48.5]','[42.3, 45.1, 44.8, 47.2, 46.0]'],r:0,
+   fb:'El slicing [2:5] toma desde el índice 2 (inclusive) hasta el 5 (exclusive). Indices 2, 3 y 4 → [44.8, 47.2, 46.0]. El final del slice NO se incluye.'},
+
+  {q:'¿Cuál es la diferencia entre lista.sort() y sorted(lista)?',
+   o:['Son idénticos, hacen lo mismo','sort() modifica la lista original; sorted() devuelve una nueva lista sin modificar la original','sort() es más rápido que sorted()','sorted() solo funciona con números'],r:1,
+   fb:'sort() modifica la lista en su lugar y devuelve None. sorted() devuelve una NUEVA lista ordenada y la original queda intacta. Si el enunciado dice "sin modificar la original", usá sorted().'},
+
+  // ── BLOQUE 3: Métodos y recorrido con for/enumerate (Q07-Q09) ──
+  {q:'¿Qué hace este código?\nfor i, nivel in enumerate(niveles):\n    print(f"Sensor {i}: {nivel} m")',
+   c:'niveles = [42.3, 45.1, 44.8]\nfor i, nivel in enumerate(niveles):\n    print(f"Sensor {i}: {nivel} m")',
+   o:['Ordena la lista por índice','Recorre la lista obteniendo el índice Y el valor en cada iteración','Recorre la lista al revés','Crea una copia numerada de la lista'],r:1,
+   fb:'enumerate() devuelve tuplas (índice, valor). i toma 0, 1, 2... y nivel toma 42.3, 45.1, 44.8... Es ideal cuando necesitás saber la posición (número de sensor, hora, etc.) además del valor.'},
+
+  {q:'¿Qué valor tiene "promedio" después de este código?',
+   c:'niveles = [40.0, 50.0, 60.0, 50.0]\nsuma = 0\nfor n in niveles:\n    suma += n\npromedio = suma / len(niveles)',
+   o:['40.0','50.0','200.0','0'],r:1,
+   fb:'suma acumula: 40+50+60+50 = 200. Luego promedio = 200 / 4 = 50.0. Este patrón de acumulador + división por len() es el algoritmo clásico para calcular promedios.'},
+
+  {q:'En la represa se miden 5 caudales: [120, 135, 148, 110, 160]. ¿Qué porcentaje de lecturas supera los 140 m³/s?',
+   c:'caudales = [120, 135, 148, 110, 160]\nlimite = 140\ncontador = 0\nfor c in caudales:\n    if c > limite:\n        contador += 1\nporcentaje = (contador / len(caudales)) * 100',
+   o:['20%','40%','60%','80%'],r:1,
+   fb:'Solo 148 y 160 superan 140 → contador = 2. Porcentaje = (2/5)*100 = 40%. Para calcular porcentajes: (parte / total) * 100. Es un patrón muy frecuente en la evaluación.'},
+
+  // ── BLOQUE 4: Funciones con listas — contexto represa (Q10-Q11) ──
+  {q:'¿Qué devuelve esta función para analizar_niveles([42, 48, 50, 45, 49], 47)?',
+   c:'def analizar_niveles(lecturas, limite):\n    alarmas = []\n    for nivel in lecturas:\n        if nivel > limite:\n            alarmas.append(nivel)\n    promedio = sum(alarmas) / len(alarmas) if alarmas else 0\n    return alarmas, promedio',
+   o:['([48, 50, 49], 49.0)','([42, 45], 43.5)','([48, 50, 49], 147.0)','Error: división por cero'],r:0,
+   fb:'La función filtra los niveles que superan 47: [48, 50, 49]. Luego calcula su promedio: (48+50+49)/3 = 49.0. Devuelve la lista de alarmas Y el promedio. Notar cómo recibe y devuelve listas.'},
+
+  {q:'¿Qué devuelve porcentaje_critico([40, 48, 51, 45, 50, 47], 48)?',
+   c:'def porcentaje_critico(niveles, umbral):\n    criticos = 0\n    for n in niveles:\n        if n >= umbral:\n            criticos += 1\n    return round((criticos / len(niveles)) * 100, 1)',
+   o:['33.3','50.0','66.7','16.7'],r:1,
+   fb:'Niveles >= 48: son 48, 51, 50 → criticos = 3. Porcentaje = (3/6)*100 = 50.0%. La función recibe una lista y un umbral, y devuelve un porcentaje. round(..., 1) redondea a 1 decimal.'},
+
+  // ── BLOQUE 5: Pilas LIFO (Q12-Q13) ──
+  {q:'pila = [10, 20, 30]. Después de pila.append(40) y luego pila.pop(), ¿qué queda en pila?',
+   c:'pila = [10, 20, 30]\npila.append(40)   # push\npila.pop()        # pop',
+   o:['[20, 30, 40]','[10, 20, 30]','[10, 20]','[10, 20, 30, 40]'],r:1,
+   fb:'append(40) agrega al tope → [10, 20, 30, 40]. pop() saca el tope (40) → queda [10, 20, 30]. LIFO: el último en entrar (40) fue el primero en salir.'},
+
+  {q:'¿Por qué el historial de estados de compuertas se modela como Pila y no como Cola?',
+   o:['Porque las pilas son más rápidas','Porque necesitamos "deshacer" el último cambio primero (LIFO)','Porque las colas no permiten agregar elementos','Porque las pilas ordenan automáticamente los datos'],r:1,
+   fb:'El historial necesita deshacer el último cambio registrado. En una pila LIFO, el último estado apilado es el primero en salir con pop(), permitiendo volver al estado anterior. Una cola atendería el cambio más viejo primero, que no es lo que necesitamos.'},
+
+  // ── BLOQUE 6: Colas FIFO + situaciones reales (Q14-Q15) ──
+  {q:'cola = ["Sensor A", "Caudal alto", "Nivel crítico"]. Después de cola.pop(0) y cola.append("Turbina 2"), ¿cuál es el frente de la cola?',
+   c:'cola = ["Sensor A", "Caudal alto", "Nivel crítico"]\ncola.pop(0)                    # dequeue\ncola.append("Turbina 2")       # enqueue',
+   o:['"Sensor A"','"Caudal alto"','"Nivel crítico"','"Turbina 2"'],r:1,
+   fb:'pop(0) saca el frente ("Sensor A") → cola queda ["Caudal alto", "Nivel crítico"]. append("Turbina 2") agrega al fondo → ["Caudal alto", "Nivel crítico", "Turbina 2"]. El nuevo frente es "Caudal alto".'},
+
+  {q:'Para cada situación, ¿qué estructura es la adecuada?\n1) Registro de alarmas para atender en orden de llegada\n2) Historial de configuraciones para poder deshacer\n3) Turnos de mantenimiento de turbinas',
+   o:['1=Pila, 2=Cola, 3=Pila','1=Cola, 2=Pila, 3=Cola','1=Cola, 2=Cola, 3=Pila','1=Pila, 2=Pila, 3=Cola'],r:1,
+   fb:'1) Alarmas en orden de llegada → COLA (FIFO): la primera que llegó se atiende primero. 2) Deshacer configuraciones → PILA (LIFO): se deshace la última. 3) Turnos de mantenimiento → COLA (FIFO): se respeta el orden de asignación.'},
+];
+
+let resp=0,corr=0,seleccionadas=[];
+function buildQuiz(){
+  const c=document.getElementById('quizContainer');
+  c.innerHTML='';resp=0;corr=0;seleccionadas=[];updProg();
+  document.getElementById('sqBox').classList.remove('show');
+  document.getElementById('sqOk').classList.remove('show');
+  const sb=document.getElementById('sqBtn');sb.disabled=false;sb.textContent='📧 Enviar al Profesor';
+  Qs.forEach((q,i)=>{
+    const codeHtml=q.c?`<div class="quiz-code">${q.c}</div>`:'';
+    const d=document.createElement('div');d.className='quiz-card';d.id=`qc${i}`;
+    d.innerHTML=`<div class="quiz-n">// Q${String(i+1).padStart(2,'0')}</div>
+<div class="quiz-q">${q.q}</div>${codeHtml}
+<div class="quiz-opts">${q.o.map((op,j)=>`<button class="quiz-opt" onclick="ans(${i},${j})" id="qo${i}_${j}">${String.fromCharCode(65+j)}) ${op}</button>`).join('')}</div>
+<div class="quiz-fb" id="qf${i}"></div>`;
+    c.appendChild(d);
+  });
+}
+function ans(qi,oi){
+  const q=Qs[qi];const ok=oi===q.r;
+  q.o.forEach((_,j)=>{const b=document.getElementById(`qo${qi}_${j}`);b.disabled=true;if(j===q.r)b.classList.add('correcta');if(j===oi&&!ok)b.classList.add('incorrecta');});
+  document.getElementById(`qc${qi}`).classList.add(ok?'ok':'mal');
+  const fb=document.getElementById(`qf${qi}`);
+  fb.className=`quiz-fb show ${ok?'fb-ok':'fb-mal'}`;
+  fb.innerHTML=`${ok?'✓ Correcto —':'✗'} ${q.fb}`;
+  resp++;if(ok)corr++;seleccionadas[qi]=oi;updProg();
+  if(resp===Qs.length)setTimeout(showScore,600);
+}
+function updProg(){
+  const pct=Math.round((resp/Qs.length)*100);
+  document.getElementById('progBar').style.width=pct+'%';
+  document.getElementById('progTxt').textContent=`Quiz: ${resp} / ${Qs.length}`;
+  document.getElementById('progCorr').textContent=`${corr} correctas`;
+}
+function showScore(){
+  const p=corr/Qs.length;
+  const pctScore=Math.round(p*100);
+  const [msg,sub]=p>=.93?['Algoritmos dominados ✓','Llegás perfecto a la evaluación.']:
+    p>=.73?['Muy bien ⚡','Revisá las que fallaste y volvé a intentar.']:
+    p>=.5?['Va bien — seguí 🔧','Repasá los módulos donde erraste.']:
+    ['Repasá desde las Listas 📚','Empezá por el módulo 01 y avanzá de a uno.'];
+  document.getElementById('scoreNum').textContent=`${corr}/${Qs.length}`;
+  document.getElementById('scoreMsg').textContent=msg;
+  document.getElementById('scoreSub').textContent=`${pctScore}% de respuestas correctas · ${sub}`;
+  document.getElementById('scoreBox').classList.add('show');
+  document.getElementById('sqBox').classList.add('show');
+  document.getElementById('scoreBox').scrollIntoView({behavior:'smooth',block:'center'});
+}
+// ── ENVÍO ONLINE vía Formspree ───────────────────
+const FORMSPREE_URL = 'https://formspree.io/f/mqewavkj';
+
+function sendQuizAyP(){
+  const nombre=document.getElementById('nombreQuiz').value.trim();
+  if(!nombre){alert('⚠ Ingresá tu nombre antes de enviar.');document.getElementById('nombreQuiz').focus();return;}
+  const resultado=`${corr}/${Qs.length}`;
+  const pctScore=Math.round((corr/Qs.length)*100);
+  const fecha=new Date().toLocaleString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  let detalle='';
+  Qs.forEach((q,i)=>{
+    const sel=seleccionadas[i];const ok=sel===q.r;
+    const selL=sel!==undefined?String.fromCharCode(65+sel):'?';
+    const okL=String.fromCharCode(65+q.r);
+    const qc=q.q.length>65?q.q.substring(0,65)+'...':q.q;
+    detalle+=`Q${String(i+1).padStart(2,'0')} ${ok?'OK':'XX'} ${qc}\n`;
+    if(!ok)detalle+=`     Eligió: ${selL})  Correcta: ${okL})\n`;
+  });
+  const btn=document.getElementById('sqBtn');
+  btn.disabled=true;btn.textContent='⏳ Enviando...';
+
+  const mensaje=
+    `Algoritmos y Programación · 4° 1°\n`+
+    `Alumno: ${nombre}\n`+
+    `Fecha: ${fecha}\n`+
+    `Resultado: ${resultado}\n\n`+
+    `DETALLE:\n`+
+    detalle;
+
+  fetch(FORMSPREE_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      _subject: `[Quiz AyP 4°1°] ${nombre} — ${resultado}`,
+      Alumno: nombre,
+      Resultado: resultado,
+      Porcentaje: pctScore+'%',
+      Fecha: fecha,
+      message: mensaje
+    })
+  })
+  .then(r=>{
+    if(r.ok){
+      btn.textContent='✅ Enviado';
+      const el=document.getElementById('sqOk');
+      el.textContent=`✅ Resultado de ${nombre} enviado correctamente al prof. Limardo.`;
+      el.classList.add('show');
+    } else {
+      throw new Error('Formspree error');
+    }
+  })
+  .catch(()=>{
+    btn.textContent='⚠ Error';
+    btn.disabled=false;
+    const el=document.getElementById('sqOk');
+    el.textContent='No se pudo enviar. Verificá tu conexión a internet e intentá de nuevo.';
+    el.classList.add('show');
+  });
+}
+function resetQuiz(){
+  document.getElementById('scoreBox').classList.remove('show');
+  buildQuiz();document.getElementById('quiz').scrollIntoView({behavior:'smooth',block:'start'});
+}
+buildQuiz();
+// ── TEMA ──────────────────────────────────────────
+function toggleTheme(){
+  const light=document.documentElement.getAttribute('data-theme')==='light';
+  if(light){
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('themeBtn').textContent='☀️ Modo claro';
+    localStorage.setItem('themeAyP','dark');
+  }else{
+    document.documentElement.setAttribute('data-theme','light');
+    document.getElementById('themeBtn').textContent='🌙 Modo oscuro';
+    localStorage.setItem('themeAyP','light');
+  }
+}
+if(localStorage.getItem('themeAyP')==='light'){
+  document.documentElement.setAttribute('data-theme','light');
+  document.getElementById('themeBtn').textContent='🌙 Modo oscuro';
+}
+</script>
 </body>
 </html>
