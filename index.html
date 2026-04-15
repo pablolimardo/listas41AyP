@@ -669,7 +669,7 @@ LIMITE    = <span class="nm">48.0</span>
       <button class="send-quiz-btn" id="sqBtn" onclick="sendQuizAyP()">📧 Enviar al Profesor</button>
       <div class="send-quiz-ok" id="sqOk"></div>
     </div>
-    <button class="retry-btn" onclick="resetQuiz()">↺ Intentar de nuevo</button>
+    <button class="retry-btn" id="retryBtn" style="display:none" onclick="resetQuiz()">↺ Intentar de nuevo</button>
   </div>
 </section>
 
@@ -785,7 +785,7 @@ const Qs=[
    fb:'Modelizar = identificar entradas (datos que el programa recibe) y salidas (resultado que produce). Aquí recibimos 10 niveles y producimos un contador de cuántos superan 48 m.'},
 
   {q:'En un diagrama de flujo, ¿qué forma geométrica se usa para representar una decisión (if)?',
-   o:['Rectángulo','Rombo (diamante)','Paralelogramo','Círculo'],r:1,
+   o:['Rectángulo','Paralelogramo','Rombo (diamante)','Círculo'],r:2,
    fb:'Rectángulo = proceso/acción. Rombo = decisión (condición con Sí/No). Paralelogramo = entrada/salida de datos. Siempre representá el algoritmo en diagrama de flujo ANTES de codificar.'},
 
   {q:'¿Cuál pseudocódigo calcula correctamente el promedio de una lista de lecturas?',
@@ -795,7 +795,7 @@ const Qs=[
 
   // ── BLOQUE 2: Listas — creación, índice, slicing (Q04-Q06) ──
   {q:'¿Cuál es el índice del primer elemento de una lista en Python?',
-   o:['1','0','-1','Depende del tamaño de la lista'],r:1,
+   o:['1','Depende del tamaño de la lista','-1','0'],r:3,
    fb:'Los índices en Python SIEMPRE empiezan en 0. Una lista de 6 elementos tiene índices 0, 1, 2, 3, 4, 5. El índice 6 da IndexError.'},
 
   {q:'Dado niveles = [42.3, 45.1, 44.8, 47.2, 46.0, 48.5], ¿qué devuelve niveles[2:5]?',
@@ -804,13 +804,13 @@ const Qs=[
    fb:'El slicing [2:5] toma desde el índice 2 (inclusive) hasta el 5 (exclusive). Indices 2, 3 y 4 → [44.8, 47.2, 46.0]. El final del slice NO se incluye.'},
 
   {q:'¿Cuál es la diferencia entre lista.sort() y sorted(lista)?',
-   o:['Son idénticos, hacen lo mismo','sort() modifica la lista original; sorted() devuelve una nueva lista sin modificar la original','sort() es más rápido que sorted()','sorted() solo funciona con números'],r:1,
+   o:['Son idénticos, hacen lo mismo','sort() es más rápido que sorted()','sort() modifica la lista original; sorted() devuelve una nueva lista sin modificar la original','sorted() solo funciona con números'],r:2,
    fb:'sort() modifica la lista en su lugar y devuelve None. sorted() devuelve una NUEVA lista ordenada y la original queda intacta. Si el enunciado dice "sin modificar la original", usá sorted().'},
 
   // ── BLOQUE 3: Métodos y recorrido con for/enumerate (Q07-Q09) ──
   {q:'¿Qué hace este código?\nfor i, nivel in enumerate(niveles):\n    print(f"Sensor {i}: {nivel} m")',
    c:'niveles = [42.3, 45.1, 44.8]\nfor i, nivel in enumerate(niveles):\n    print(f"Sensor {i}: {nivel} m")',
-   o:['Ordena la lista por índice','Recorre la lista obteniendo el índice Y el valor en cada iteración','Recorre la lista al revés','Crea una copia numerada de la lista'],r:1,
+   o:['Ordena la lista por índice','Crea una copia numerada de la lista','Recorre la lista al revés','Recorre la lista obteniendo el índice Y el valor en cada iteración'],r:3,
    fb:'enumerate() devuelve tuplas (índice, valor). i toma 0, 1, 2... y nivel toma 42.3, 45.1, 44.8... Es ideal cuando necesitás saber la posición (número de sensor, hora, etc.) además del valor.'},
 
   {q:'¿Qué valor tiene "promedio" después de este código?',
@@ -820,7 +820,7 @@ const Qs=[
 
   {q:'En la represa se miden 5 caudales: [120, 135, 148, 110, 160]. ¿Qué porcentaje de lecturas supera los 140 m³/s?',
    c:'caudales = [120, 135, 148, 110, 160]\nlimite = 140\ncontador = 0\nfor c in caudales:\n    if c > limite:\n        contador += 1\nporcentaje = (contador / len(caudales)) * 100',
-   o:['20%','40%','60%','80%'],r:1,
+   o:['20%','60%','40%','80%'],r:2,
    fb:'Solo 148 y 160 superan 140 → contador = 2. Porcentaje = (2/5)*100 = 40%. Para calcular porcentajes: (parte / total) * 100. Es un patrón muy frecuente en la evaluación.'},
 
   // ── BLOQUE 4: Funciones con listas — contexto represa (Q10-Q11) ──
@@ -831,7 +831,7 @@ const Qs=[
 
   {q:'¿Qué devuelve porcentaje_critico([40, 48, 51, 45, 50, 47], 48)?',
    c:'def porcentaje_critico(niveles, umbral):\n    criticos = 0\n    for n in niveles:\n        if n >= umbral:\n            criticos += 1\n    return round((criticos / len(niveles)) * 100, 1)',
-   o:['33.3','50.0','66.7','16.7'],r:1,
+   o:['33.3','16.7','66.7','50.0'],r:3,
    fb:'Niveles >= 48: son 48, 51, 50 → criticos = 3. Porcentaje = (3/6)*100 = 50.0%. La función recibe una lista y un umbral, y devuelve un porcentaje. round(..., 1) redondea a 1 decimal.'},
 
   // ── BLOQUE 5: Pilas LIFO (Q12-Q13) ──
@@ -841,7 +841,7 @@ const Qs=[
    fb:'append(40) agrega al tope → [10, 20, 30, 40]. pop() saca el tope (40) → queda [10, 20, 30]. LIFO: el último en entrar (40) fue el primero en salir.'},
 
   {q:'¿Por qué el historial de estados de compuertas se modela como Pila y no como Cola?',
-   o:['Porque las pilas son más rápidas','Porque necesitamos "deshacer" el último cambio primero (LIFO)','Porque las colas no permiten agregar elementos','Porque las pilas ordenan automáticamente los datos'],r:1,
+   o:['Porque necesitamos "deshacer" el último cambio primero (LIFO)','Porque las pilas son más rápidas','Porque las colas no permiten agregar elementos','Porque las pilas ordenan automáticamente los datos'],r:0,
    fb:'El historial necesita deshacer el último cambio registrado. En una pila LIFO, el último estado apilado es el primero en salir con pop(), permitiendo volver al estado anterior. Una cola atendería el cambio más viejo primero, que no es lo que necesitamos.'},
 
   // ── BLOQUE 6: Colas FIFO + situaciones reales (Q14-Q15) ──
@@ -851,46 +851,110 @@ const Qs=[
    fb:'pop(0) saca el frente ("Sensor A") → cola queda ["Caudal alto", "Nivel crítico"]. append("Turbina 2") agrega al fondo → ["Caudal alto", "Nivel crítico", "Turbina 2"]. El nuevo frente es "Caudal alto".'},
 
   {q:'Para cada situación, ¿qué estructura es la adecuada?\n1) Registro de alarmas para atender en orden de llegada\n2) Historial de configuraciones para poder deshacer\n3) Turnos de mantenimiento de turbinas',
-   o:['1=Pila, 2=Cola, 3=Pila','1=Cola, 2=Pila, 3=Cola','1=Cola, 2=Cola, 3=Pila','1=Pila, 2=Pila, 3=Cola'],r:1,
+   o:['1=Pila, 2=Cola, 3=Pila','1=Cola, 2=Cola, 3=Pila','1=Cola, 2=Pila, 3=Cola','1=Pila, 2=Pila, 3=Cola'],r:2,
    fb:'1) Alarmas en orden de llegada → COLA (FIFO): la primera que llegó se atiende primero. 2) Deshacer configuraciones → PILA (LIFO): se deshace la última. 3) Turnos de mantenimiento → COLA (FIFO): se respeta el orden de asignación.'},
 ];
 
-let resp=0,corr=0,seleccionadas=[];
-function buildQuiz(){
+// ── SHUFFLE (Fisher-Yates) ────────────────────────
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+// ── STORAGE ───────────────────────────────────────
+const SK='quiz_ayp41';
+function saveState(){
+  localStorage.setItem(SK,JSON.stringify({
+    qMap,seleccionadas,resp,corr,
+    nombre:document.getElementById('nombreQuiz').value
+  }));
+}
+function loadState(){try{return JSON.parse(localStorage.getItem(SK));}catch(e){return null;}}
+function clearState(){localStorage.removeItem(SK);}
+function isSent(){return localStorage.getItem(SK+'_sent')==='true';}
+function markSent(){localStorage.setItem(SK+'_sent','true');}
+
+// qMap[i] = { order: [shuffled orig indices], correctPos: new correct position }
+let resp=0,corr=0,seleccionadas=[],qMap=[];
+
+function buildQuiz(saved){
   const c=document.getElementById('quizContainer');
-  c.innerHTML='';resp=0;corr=0;seleccionadas=[];updProg();
+  c.innerHTML='';resp=0;corr=0;seleccionadas=[];qMap=[];
   document.getElementById('sqBox').classList.remove('show');
   document.getElementById('sqOk').classList.remove('show');
+  document.getElementById('scoreBox').classList.remove('show');
   const sb=document.getElementById('sqBtn');sb.disabled=false;sb.textContent='📧 Enviar al Profesor';
+  const retryBtn=document.querySelector('.retry-btn');
+
+  // Si ya envió, bloquear
+  if(isSent()){
+    c.innerHTML='<div class="alerta" style="text-align:center;padding:30px;font-size:16px"><strong>✅ Ya enviaste tus respuestas.</strong><br>El profesor recibió tu resultado. No se puede volver a realizar el quiz.</div>';
+    document.querySelector('.nombre-row').style.display='none';
+    if(retryBtn)retryBtn.style.display='none';
+    updProg();return;
+  }
+
   Qs.forEach((q,i)=>{
+    let shuffled,correctPos;
+    if(saved&&saved.qMap&&saved.qMap[i]){
+      shuffled=saved.qMap[i].order;
+      correctPos=saved.qMap[i].correctPos;
+    } else {
+      const idx=q.o.map((_,j)=>j);
+      shuffled=shuffle(idx);
+      correctPos=shuffled.indexOf(q.r);
+    }
+    qMap.push({order:shuffled,correctPos});
+    const opts=shuffled.map(oi=>q.o[oi]);
     const codeHtml=q.c?`<div class="quiz-code">${q.c}</div>`:'';
     const d=document.createElement('div');d.className='quiz-card';d.id=`qc${i}`;
     d.innerHTML=`<div class="quiz-n">// Q${String(i+1).padStart(2,'0')}</div>
 <div class="quiz-q">${q.q}</div>${codeHtml}
-<div class="quiz-opts">${q.o.map((op,j)=>`<button class="quiz-opt" onclick="ans(${i},${j})" id="qo${i}_${j}">${String.fromCharCode(65+j)}) ${op}</button>`).join('')}</div>
+<div class="quiz-opts">${opts.map((op,j)=>`<button class="quiz-opt" onclick="ans(${i},${j})" id="qo${i}_${j}">${String.fromCharCode(65+j)}) ${op}</button>`).join('')}</div>
 <div class="quiz-fb" id="qf${i}"></div>`;
     c.appendChild(d);
   });
+
+  // Restaurar respuestas previas
+  if(saved&&saved.seleccionadas){
+    saved.seleccionadas.forEach((oi,qi)=>{if(oi!=null)ans(qi,oi,true);});
+    if(saved.nombre)document.getElementById('nombreQuiz').value=saved.nombre;
+  }
+  updProg();
 }
-function ans(qi,oi){
-  const q=Qs[qi];const ok=oi===q.r;
-  q.o.forEach((_,j)=>{const b=document.getElementById(`qo${qi}_${j}`);b.disabled=true;if(j===q.r)b.classList.add('correcta');if(j===oi&&!ok)b.classList.add('incorrecta');});
+
+function ans(qi,oi,restoring){
+  if(seleccionadas[qi]!=null&&!restoring)return;
+  const q=Qs[qi],m=qMap[qi],ok=oi===m.correctPos;
+  for(let j=0;j<q.o.length;j++){
+    const b=document.getElementById(`qo${qi}_${j}`);
+    b.disabled=true;
+    if(j===m.correctPos)b.classList.add('correcta');
+    if(j===oi&&!ok)b.classList.add('incorrecta');
+  }
   document.getElementById(`qc${qi}`).classList.add(ok?'ok':'mal');
   const fb=document.getElementById(`qf${qi}`);
   fb.className=`quiz-fb show ${ok?'fb-ok':'fb-mal'}`;
   fb.innerHTML=`${ok?'✓ Correcto —':'✗'} ${q.fb}`;
-  resp++;if(ok)corr++;seleccionadas[qi]=oi;updProg();
-  if(resp===Qs.length)setTimeout(showScore,600);
+  resp++;if(ok)corr++;
+  seleccionadas[qi]=oi;
+  updProg();
+  if(!restoring)saveState();
+  if(resp===Qs.length)setTimeout(showScore,restoring?0:600);
 }
+
 function updProg(){
-  const pct=Math.round((resp/Qs.length)*100);
+  const pct=Qs.length?Math.round((resp/Qs.length)*100):0;
   document.getElementById('progBar').style.width=pct+'%';
   document.getElementById('progTxt').textContent=`Quiz: ${resp} / ${Qs.length}`;
   document.getElementById('progCorr').textContent=`${corr} correctas`;
 }
 function showScore(){
-  const p=corr/Qs.length;
-  const pctScore=Math.round(p*100);
+  const p=corr/Qs.length,pctScore=Math.round(p*100);
   const [msg,sub]=p>=.93?['Algoritmos dominados ✓','Llegás perfecto a la evaluación.']:
     p>=.73?['Muy bien ⚡','Revisá las que fallaste y volvé a intentar.']:
     p>=.5?['Va bien — seguí 🔧','Repasá los módulos donde erraste.']:
@@ -902,9 +966,9 @@ function showScore(){
   document.getElementById('sqBox').classList.add('show');
   document.getElementById('scoreBox').scrollIntoView({behavior:'smooth',block:'center'});
 }
-// ── ENVÍO ONLINE vía Formspree ───────────────────
-const FORMSPREE_URL = 'https://formspree.io/f/mqewavkj';
 
+// ── ENVÍO ONLINE vía Formspree ───────────────────
+const FORMSPREE_URL='https://formspree.io/f/mqewavkj';
 function sendQuizAyP(){
   const nombre=document.getElementById('nombreQuiz').value.trim();
   if(!nombre){alert('⚠ Ingresá tu nombre antes de enviar.');document.getElementById('nombreQuiz').focus();return;}
@@ -913,59 +977,48 @@ function sendQuizAyP(){
   const fecha=new Date().toLocaleString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
   let detalle='';
   Qs.forEach((q,i)=>{
-    const sel=seleccionadas[i];const ok=sel===q.r;
-    const selL=sel!==undefined?String.fromCharCode(65+sel):'?';
-    const okL=String.fromCharCode(65+q.r);
+    const m=qMap[i],sel=seleccionadas[i],ok=sel===m.correctPos;
     const qc=q.q.length>65?q.q.substring(0,65)+'...':q.q;
     detalle+=`Q${String(i+1).padStart(2,'0')} ${ok?'OK':'XX'} ${qc}\n`;
-    if(!ok)detalle+=`     Eligió: ${selL})  Correcta: ${okL})\n`;
+    if(!ok){
+      const eligio=sel!=null?q.o[m.order[sel]]:'(sin respuesta)';
+      detalle+=`     Eligió: ${eligio}\n     Correcta: ${q.o[q.r]}\n`;
+    }
   });
   const btn=document.getElementById('sqBtn');
   btn.disabled=true;btn.textContent='⏳ Enviando...';
-
-  const mensaje=
-    `Algoritmos y Programación · 4° 1°\n`+
-    `Alumno: ${nombre}\n`+
-    `Fecha: ${fecha}\n`+
-    `Resultado: ${resultado}\n\n`+
-    `DETALLE:\n`+
-    detalle;
-
   fetch(FORMSPREE_URL,{
     method:'POST',
     headers:{'Content-Type':'application/json','Accept':'application/json'},
     body:JSON.stringify({
-      _subject: `[Quiz AyP 4°1°] ${nombre} — ${resultado}`,
-      Alumno: nombre,
-      Resultado: resultado,
-      Porcentaje: pctScore+'%',
-      Fecha: fecha,
-      message: mensaje
+      _subject:`[Quiz AyP 4°1°] ${nombre} — ${resultado}`,
+      Alumno:nombre,Resultado:resultado,Porcentaje:pctScore+'%',Fecha:fecha,
+      message:`Algoritmos y Programación · 4° 1°\nAlumno: ${nombre}\nFecha: ${fecha}\nResultado: ${resultado}\n\nDETALLE:\n${detalle}`
     })
   })
   .then(r=>{
-    if(r.ok){
-      btn.textContent='✅ Enviado';
-      const el=document.getElementById('sqOk');
-      el.textContent=`✅ Resultado de ${nombre} enviado correctamente al prof. Limardo.`;
-      el.classList.add('show');
-    } else {
-      throw new Error('Formspree error');
-    }
+    if(!r.ok)throw new Error();
+    btn.textContent='✅ Enviado';
+    const el=document.getElementById('sqOk');
+    el.textContent=`✅ Resultado de ${nombre} enviado al prof. Limardo.`;
+    el.classList.add('show');
+    markSent();clearState();
+    document.getElementById('retryBtn').style.display='';
   })
   .catch(()=>{
-    btn.textContent='⚠ Error';
-    btn.disabled=false;
+    btn.textContent='⚠ Error';btn.disabled=false;
     const el=document.getElementById('sqOk');
-    el.textContent='No se pudo enviar. Verificá tu conexión a internet e intentá de nuevo.';
+    el.textContent='No se pudo enviar. Verificá tu conexión e intentá de nuevo.';
     el.classList.add('show');
   });
 }
 function resetQuiz(){
   document.getElementById('scoreBox').classList.remove('show');
-  buildQuiz();document.getElementById('quiz').scrollIntoView({behavior:'smooth',block:'start'});
+  clearState();buildQuiz();
+  document.getElementById('quiz').scrollIntoView({behavior:'smooth',block:'start'});
 }
-buildQuiz();
+// ── INIT ─────────────────────────────────────────
+(function(){buildQuiz(loadState());})();
 // ── TEMA ──────────────────────────────────────────
 function toggleTheme(){
   const light=document.documentElement.getAttribute('data-theme')==='light';
