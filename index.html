@@ -3,812 +3,937 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Redes IP · 6° ACPI · Escuela Industrial N°9</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Guía de Estudio · Algoritmos y Programación · 4° 1°</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-
 :root{
-  --bg:#f2f6f3;--bg2:#e6ede8;--bg3:#d8e4db;--card:#fff;
-  --gr:#166534;--gr2:#14532d;--gr3:#dcfce7;--gr4:#f0fdf4;
-  --dk:#0f2318;--muted:#5a7a62;--border:#c6dbc9;--dim:#dde8df;--txt:#0f2318;
-  --am:#b45309;--am2:#78350f;--am3:#fef3c7;--am4:#fffbeb;
-  --bl:#1d4ed8;--bl3:#dbeafe;--bl4:#eff6ff;
-  --re:#b91c1c;--re3:#fee2e2;
-  --cy:#0e7490;--cy3:#cffafe;--cy4:#f0fdff;
-  --mono:"IBM Plex Mono",monospace;--sans:"Plus Jakarta Sans",sans-serif;
-}
-[data-theme="dark"]{
-  --bg:#0a140d;--bg2:#0f1c12;--bg3:#152418;--card:#0c1810;
-  --gr:#22d3a0;--gr2:#16a87e;--gr3:#062414;--gr4:#041008;
-  --dk:#e8f5ec;--muted:#4a6450;--border:#1a3020;--dim:#152418;--txt:#d0e8d4;
-  --am:#f0a030;--am2:#d4820a;--am3:#2a1a06;--am4:#1c1208;
-  --bl:#60a5fa;--bl3:#1e3a5f;--bl4:#0f1f40;
-  --re:#fca5a5;--re3:#1f0a0a;
-  --cy:#22d3ee;--cy3:#0a3040;--cy4:#061820;
+  --bg:#06080f;--bg2:#0a0e1a;--bg3:#0e1424;--bg4:#13192e;
+  --bl:#3b82f6;--bl2:#2563b0;--bl3:#1e3a8a;--blf:#060c1a;
+  --cy:#06b6d4;--gr:#22c55e;--am:#f59e0b;--re:#ef4444;
+  --txt:#c8d8f0;--muted:#4a6080;--dim:#1a2540;--border:#1e2d50;
+  --card:#090d1e;--mono:'Space Mono',monospace;--sans:'Space Grotesk',sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:var(--sans);background:var(--bg);color:var(--txt);font-size:16px;line-height:1.7;overflow-x:hidden;}
-.topbar{position:sticky;top:0;z-index:300;background:var(--card);border-bottom:2px solid var(--border);display:flex;justify-content:space-between;align-items:center;padding:8px 16px;gap:8px;}
-.tb-brand{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.tb-brand b{color:var(--dk);}
-.tb-acts{display:flex;gap:6px;flex-shrink:0;}
-.tbtn{background:var(--bg2);border:1.5px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 11px;border-radius:20px;cursor:pointer;transition:all .2s;white-space:nowrap;}
-.tbtn:hover{border-color:var(--gr);color:var(--gr);}
-.prog-strip{background:var(--bg);border-bottom:1px solid var(--border);padding:8px 16px;}
-.prog-in{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;}
-.pbar{flex:1;height:4px;background:var(--dim);border-radius:2px;overflow:hidden;}
-.pbar-fill{height:100%;background:linear-gradient(90deg,var(--gr2),var(--gr));transition:width .5s;border-radius:2px;}
-.pbar-lbl{font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap;}
-.hero{background:var(--dk);padding:44px 16px 36px;position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;right:-40px;top:-40px;width:220px;height:220px;border-radius:50%;border:1px solid rgba(255,255,255,.04);pointer-events:none;}
-.hero-in{max-width:900px;margin:0 auto;position:relative;z-index:2;}
-.hero-eye{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.eye-dot{width:6px;height:6px;border-radius:50%;background:var(--gr);box-shadow:0 0 8px var(--gr);animation:pulse 2s ease infinite;flex-shrink:0;}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-h1{font-size:clamp(24px,6vw,46px);font-weight:800;color:#fff;line-height:1.05;margin-bottom:10px;letter-spacing:-.5px;}
-.h-gr{color:#86efac;}
-.hero-desc{color:rgba(255,255,255,.5);font-size:14px;max-width:540px;margin-bottom:20px;}
-.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}
-.tag{font-family:var(--mono);font-size:10px;padding:3px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);}
-.tag-gr{border-color:rgba(134,239,172,.35);color:rgba(134,239,172,.85);}
-.tag-am{border-color:rgba(251,191,36,.3);color:rgba(251,191,36,.8);}
-.tag-bl{border-color:rgba(96,165,250,.3);color:rgba(96,165,250,.8);}
-nav{background:var(--card);border-bottom:2px solid var(--border);position:sticky;top:45px;z-index:90;}
-.nav-in{max-width:900px;margin:0 auto;display:flex;overflow-x:auto;padding:0 12px;}
-.nav-in::-webkit-scrollbar{height:0;}
-.nb{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 11px;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;}
-.nb:hover,.nb.on{color:var(--gr);border-bottom-color:var(--gr);}
-main{max-width:900px;margin:0 auto;padding:30px 16px 80px;}
-section{margin-bottom:60px;}
-.s-eye{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gr);margin-bottom:8px;}
-.s-h2{font-size:clamp(19px,3.5vw,27px);font-weight:800;color:var(--dk);margin-bottom:6px;}
-.s-sub{color:var(--muted);font-size:14px;margin-bottom:20px;max-width:560px;}
-.div{height:2px;background:linear-gradient(90deg,var(--gr),transparent);border-radius:2px;margin-bottom:22px;}
-.card{background:var(--card);border:1.5px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;transition:box-shadow .2s;}
-.card:hover{box-shadow:0 4px 14px rgba(22,101,52,.1);}
-.card-hdr{display:grid;grid-template-columns:48px 1fr;cursor:pointer;min-height:54px;}
-.card-ico{display:flex;align-items:center;justify-content:center;font-size:19px;border-right:1.5px solid var(--border);}
-.ico-gr{background:var(--gr4);}.ico-am{background:var(--am4);}.ico-bl{background:var(--bl4);}.ico-cy{background:var(--cy4);}
-.card-inf{padding:11px 15px;}
-.card-tag{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
-.card-tit{font-size:14px;font-weight:700;color:var(--dk);}
-.card-body{padding:2px 15px 16px;border-top:1.5px solid var(--border);display:none;}
-.card.open .card-body{display:block;}
-.card-body p{font-size:14px;color:var(--txt);margin:11px 0 5px;}
-.code{background:#f0f4f1;color:#1a2e22;border-radius:8px;padding:14px 16px;font-family:var(--mono);font-size:13px;margin:10px 0;line-height:1.9;white-space:pre-wrap;overflow-x:auto;border:1.5px solid var(--border);}
-.cm{color:#5a8a68;font-style:italic;}.kw{color:#14532d;font-weight:600;}.st{color:#a14f00;}.nm{color:#1d4ed8;}.vok{color:#166534;font-weight:700;}.ver{color:#b91c1c;font-weight:700;}
-.tbl-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0;border-radius:8px;border:1px solid var(--border);}
-.tbl{width:100%;border-collapse:collapse;font-size:13px;}
-.tbl th{background:var(--bg2);color:var(--muted);font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:1.5px solid var(--border);white-space:nowrap;}
-.tbl td{padding:9px 12px;border-bottom:1px solid var(--dim);}
-.tbl tr:last-child td{border-bottom:none;}
-.tbl tr:hover td{background:var(--bg2);}
-.ch{display:inline-block;padding:2px 8px;border-radius:8px;font-family:var(--mono);font-size:10px;font-weight:600;}
-.ch-gr{background:var(--gr3);color:var(--gr2);}.ch-am{background:var(--am3);color:var(--am);}.ch-bl{background:var(--bl3);color:var(--bl);}.ch-re{background:var(--re3);color:var(--re);}.ch-cy{background:var(--cy3);color:var(--cy);}
-code{font-family:var(--mono);font-size:12px;background:var(--bg2);padding:1px 6px;border-radius:4px;color:var(--gr2);}
-.anal{border-radius:8px;padding:12px 15px;margin:10px 0;display:flex;gap:10px;font-size:14px;align-items:flex-start;background:var(--gr4);border-left:4px solid var(--gr);}
-.anal.am{background:var(--am4);border-left-color:var(--am);}.anal.bl{background:var(--bl4);border-left-color:var(--bl);}.anal.cy{background:var(--cy4);border-left-color:var(--cy);}
-.an-ico{font-size:20px;flex-shrink:0;}
-.nota{background:var(--bl4);border:1.5px solid var(--bl3);border-left:4px solid var(--bl);border-radius:8px;padding:12px 15px;margin:10px 0;font-size:14px;}
-.nota b{color:var(--bl);}
-.alerta{background:var(--am4);border:1.5px solid var(--am3);border-left:4px solid var(--am);border-radius:8px;padding:12px 15px;margin:10px 0;font-size:14px;}
-.alerta b{color:var(--am);}
-.tip{background:var(--gr4);border:1.5px solid var(--gr3);border-left:4px solid var(--gr2);border-radius:7px;padding:10px 14px;margin:10px 0;font-size:13px;color:var(--gr2);}
-.concepto{border-radius:12px;overflow:hidden;border:1.5px solid var(--border);margin-bottom:14px;}
-.concepto-hdr{padding:16px 20px;display:flex;align-items:center;gap:14px;}
-.concepto-hdr.gr{background:var(--gr);}.concepto-hdr.bl{background:#1e3a8a;}.concepto-hdr.am{background:#92400e;}
-.concepto-hdr.cy{background:#155e75;}.concepto-hdr.re{background:#991b1b;}
-.concepto-ico{font-size:26px;flex-shrink:0;}
-.concepto-tit{font-size:17px;font-weight:800;color:#fff;margin-bottom:2px;}
-.concepto-sub{font-size:12px;color:rgba(255,255,255,.6);font-family:var(--mono);}
-.concepto-body{padding:16px 20px;background:var(--card);}
-.concepto-body p{font-size:14px;color:var(--txt);margin-bottom:8px;}
-.ping-flow{display:flex;flex-direction:column;gap:6px;margin:14px 0;}
-.ping-step{border-radius:8px;overflow:hidden;border:1.5px solid var(--border);transition:all .3s;}
-.ping-step.pok{border-color:var(--gr)!important;box-shadow:0 0 0 3px rgba(22,101,52,.1);}
-.ping-step.pfail{border-color:#ef4444!important;box-shadow:0 0 0 3px rgba(239,68,68,.1);}
-.ps-hdr{display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:10px 14px;gap:10px;}
-.ps-num{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--muted);}
-.ps-cmd{font-family:var(--mono);font-size:13px;color:var(--dk);font-weight:600;}
-.ps-res{font-family:var(--mono);font-size:12px;min-width:80px;text-align:right;}
-.ping-step.pok .ps-res{color:var(--gr);font-weight:700;}
-.ping-step.pfail .ps-res{color:#ef4444;font-weight:700;}
-.ps-diag{padding:0 14px 10px;font-size:13px;display:none;}
-.ping-step.pok .ps-diag,.ping-step.pfail .ps-diag{display:block;}
-.ps-diag.pok{color:var(--gr2);}.ps-diag.pfail{color:#b91c1c;}
-.caso{border-radius:10px;overflow:hidden;border:1.5px solid var(--border);margin-bottom:14px;}
-.caso-hdr{padding:13px 17px;display:flex;align-items:center;gap:12px;cursor:pointer;background:var(--bg2);}
-.caso-letra{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;font-weight:700;color:#fff;flex-shrink:0;}
-.cl-a .caso-letra{background:#1d4ed8;}.cl-b .caso-letra{background:var(--am);}.cl-c .caso-letra{background:var(--gr);}
-.caso-tit{font-size:14px;font-weight:700;color:var(--dk);}
-.caso-body{display:none;padding:14px 17px;border-top:1.5px solid var(--border);}
-.caso.open .caso-body{display:block;}
-.caso-output{font-family:var(--mono);font-size:13px;background:#f0f4f1;border:1.5px solid var(--border);border-radius:6px;padding:11px 14px;margin-bottom:12px;white-space:pre-wrap;line-height:1.8;}
-.caso-ok{color:var(--gr);font-weight:700;}.caso-fail{color:#ef4444;font-weight:700;}
-.caso-diag{border-left:4px solid var(--gr);border-radius:0 8px 8px 0;padding:11px 15px;font-size:14px;margin-top:8px;}
-.cl-a .caso-diag{background:var(--bl4);border-left-color:var(--bl);}
-.cl-b .caso-diag{background:var(--am4);border-left-color:var(--am);}
-.cl-c .caso-diag{background:var(--gr4);border-left-color:var(--gr);}
-.demo{background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;padding:16px;margin:14px 0;}
-.demo-lbl{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gr2);margin-bottom:12px;font-weight:600;}
-.demo-row{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-bottom:10px;}
-.demo-grp{display:flex;flex-direction:column;gap:4px;}
-.demo-gl{font-size:12px;color:var(--muted);font-weight:500;}
-.demo-in{background:var(--card);border:1.5px solid var(--border);color:var(--txt);font-family:var(--mono);font-size:13px;padding:7px 10px;border-radius:6px;width:150px;outline:none;transition:border-color .2s;}
-.demo-in:focus{border-color:var(--gr);}
-.demo-sel{background:var(--card);border:1.5px solid var(--border);color:var(--txt);font-family:var(--mono);font-size:13px;padding:7px 10px;border-radius:6px;outline:none;cursor:pointer;}
-.demo-btn{background:var(--gr);color:#fff;border:none;font-family:var(--sans);font-size:13px;font-weight:700;padding:8px 16px;border-radius:6px;cursor:pointer;transition:background .2s;}
-.demo-btn:hover{background:var(--gr2);}
-.demo-out{background:#f0f4f1;color:#1a2e22;border:1.5px solid var(--border);border-radius:6px;padding:11px 14px;font-family:var(--mono);font-size:13px;min-height:50px;white-space:pre-wrap;line-height:1.8;margin-top:10px;}
-.nom-row{display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:10px;margin-bottom:14px;background:var(--gr4);border:1.5px solid var(--gr3);}
-.nom-lbl{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
-.nom-in{flex:1;background:var(--card);border:1.5px solid var(--border);color:var(--txt);font-family:var(--sans);font-size:15px;font-weight:500;padding:8px 13px;border-radius:6px;outline:none;transition:border-color .2s;}
-.nom-in:focus{border-color:var(--gr);}
-.qcard{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:18px;margin-bottom:10px;transition:all .3s;}
-.qcard.ok{border-color:var(--gr)!important;background:var(--gr4);}
-.qcard.mal{border-color:#fca5a5!important;background:var(--re3);}
-.qnum{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gr2);margin-bottom:8px;}
-.qq{font-size:15px;font-weight:700;color:var(--dk);margin-bottom:8px;}
-.qopts{display:flex;flex-direction:column;gap:6px;}
-.qopt{background:var(--bg2);border:1.5px solid var(--border);color:var(--txt);font-family:var(--sans);font-size:14px;font-weight:500;padding:9px 14px;border-radius:7px;cursor:pointer;text-align:left;transition:all .2s;}
-.qopt:hover:not(:disabled){background:var(--gr4);border-color:var(--gr3);}
-.qopt.ca{background:var(--gr4)!important;border-color:var(--gr)!important;color:var(--gr2)!important;font-weight:700;}
-.qopt.in{background:var(--re3)!important;border-color:#fca5a5!important;color:var(--re)!important;}
-.qopt:disabled{cursor:default;}
-.qfb{display:none;margin-top:9px;padding:10px 13px;border-radius:7px;font-size:13px;line-height:1.5;}
-.qfb.show{display:block;}
-.qfb-ok{background:var(--gr4);color:var(--gr2);border:1.5px solid var(--gr3);}
-.qfb-mal{background:var(--re3);color:var(--re);border:1.5px solid #fca5a5;}
-.score{display:none;border-radius:12px;padding:28px;text-align:center;margin-top:14px;background:var(--gr4);border:2px solid var(--gr3);}
-.score.show{display:block;animation:pop .4s ease;}
-@keyframes pop{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
-.sc-n{font-size:56px;font-weight:800;color:var(--gr2);line-height:1;margin-bottom:8px;}
-.sc-msg{font-size:17px;font-weight:700;color:var(--dk);margin-bottom:4px;}
-.sc-sub{font-size:14px;color:var(--muted);}
-.send-box{margin-top:14px;padding:16px 18px;border-radius:9px;display:none;background:var(--card);border:1.5px solid var(--border);}
-.send-box.show{display:block;}
-.send-txt{font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.5;}
-.send-btn{background:var(--gr);color:#fff;border:none;font-family:var(--sans);font-size:15px;font-weight:700;padding:11px 20px;border-radius:7px;cursor:pointer;width:100%;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
-.send-btn:hover{background:var(--gr2);}
-.send-btn:disabled{opacity:.5;cursor:not-allowed;}
-.send-ok{display:none;text-align:center;padding:10px;margin-top:10px;border-radius:7px;font-size:14px;font-weight:600;background:var(--gr4);color:var(--gr2);border:1.5px solid var(--gr3);}
-.send-ok.show{display:block;}
-.retry-btn{margin-top:12px;border:1.5px solid var(--border);background:var(--card);font-family:var(--sans);font-weight:600;font-size:14px;padding:9px 20px;border-radius:7px;cursor:pointer;color:var(--muted);transition:all .2s;}
-.retry-btn:hover{border-color:var(--gr);color:var(--gr);}
-footer{text-align:center;padding:26px;border-top:1.5px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:11px;background:var(--bg2);}
-footer b{color:var(--dk);}
-@media(max-width:640px){
-  .topbar{padding:7px 12px;}.tb-brand{font-size:9px;}.hero{padding:32px 14px 26px;}
-  h1{font-size:24px;}main{padding:24px 14px 70px;}.s-h2{font-size:19px;}
-  nav{top:44px;}.nb{padding:9px 10px;font-size:9px;}.card-hdr{grid-template-columns:42px 1fr;}
-  .demo-in{width:130px;}.concepto-tit{font-size:15px;}
-}
-@media(min-width:641px){.hero{padding:50px 24px 40px;}main{padding:36px 24px 90px;}}
-@media print{
-  @page{margin:1.8cm 1.5cm;}*{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-  body{background:#fff!important;color:#000!important;font-size:10.5pt;line-height:1.55;}
-  .topbar,nav,.prog-strip,.demo,.tbtn,.qopts,.qfb,.score,.retry-btn,.send-box,.nom-row{display:none!important;}
-  .hero{background:#0f2318!important;padding:14pt 0 10pt!important;}h1{color:#fff!important;font-size:18pt;}
-  .h-gr{color:#fff!important;}.hero-desc{color:rgba(255,255,255,.75)!important;font-size:10pt;}.hero-eye,.hero-tags{display:none!important;}
-  section{break-inside:avoid;margin-bottom:12pt;}.s-eye{color:#000!important;font-size:8pt;}
-  .s-h2{font-size:13pt;color:#000!important;border-bottom:1pt solid #000;padding-bottom:2pt;margin-bottom:4pt;}
-  .div{background:#000!important;height:.5pt;}
-  .card{border:1pt solid #ccc!important;background:#fff!important;margin-bottom:6pt;break-inside:avoid;}
-  .card-hdr{background:#f0f0f0!important;}.card-ico{background:#fff!important;}.card-tit{color:#000!important;}
-  .card-body{display:block!important;}
-  .code{background:#f8f8f8!important;color:#000!important;border:1pt solid #ddd!important;border-left:3pt solid #555!important;font-size:8pt!important;padding:6pt!important;}
-  .concepto{border:1pt solid #ccc!important;break-inside:avoid;}.concepto-hdr{padding:8pt 10pt!important;}
-  .concepto-tit{font-size:13pt!important;}.concepto-body{padding:8pt 10pt!important;}
-  .anal,.nota,.alerta,.tip{background:#f8f8f8!important;border:1pt solid #ccc!important;border-left:3pt solid #555!important;color:#000!important;}
-  .tbl th{background:#eee!important;color:#000!important;}.tbl td{color:#000!important;}
-  .caso{border:1pt solid #ccc!important;break-inside:avoid;}.caso-hdr{background:#f0f0f0!important;}
-  .caso-tit{color:#000!important;}.caso-body{display:block!important;}
-  .caso-output{background:#f8f8f8!important;border:1pt solid #ddd!important;}
-  .caso-diag{background:#f4f4f4!important;border-left:3pt solid #555!important;color:#000!important;}
-  .ping-step{border:1pt solid #ccc!important;}.ps-cmd{color:#000!important;}
-  footer{border-top:1pt solid #ccc!important;font-size:8pt!important;}footer b{color:#000!important;}
-}
 
+/* grid BG */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(rgba(59,130,246,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.03) 1px,transparent 1px);
+  background-size:40px 40px;}
+
+/* ── HEADER ──────────────────────────────────── */
+header{
+  padding:54px 24px 38px;
+  background:linear-gradient(135deg,rgba(59,130,246,.08) 0%,transparent 50%);
+  border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.hdr-ring{position:absolute;right:-80px;top:-80px;width:320px;height:320px;border-radius:50%;border:1px solid rgba(59,130,246,.08);pointer-events:none;}
+.hdr-ring2{right:-40px;top:-40px;width:220px;height:220px;border:1px solid rgba(59,130,246,.12);}
+.hdr-inner{max-width:960px;margin:0 auto;position:relative;z-index:2;}
+.hdr-badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.3);color:var(--bl);padding:4px 14px;border-radius:20px;}
+.hdr-dot{width:7px;height:7px;border-radius:50%;background:var(--bl);box-shadow:0 0 6px var(--bl);animation:pulse 2s ease infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+h1{font-size:clamp(30px,5vw,52px);font-weight:700;color:#fff;line-height:1;margin-bottom:10px;}
+h1 span{color:var(--bl);}
+.hdr-sub{color:var(--muted);font-size:14px;max-width:520px;margin-bottom:22px;}
+.hdr-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 12px;border-radius:12px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:var(--bl);}
+.chip-cy{background:rgba(6,182,212,.1);border-color:rgba(6,182,212,.25);color:var(--cy);}
+.chip-am{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.25);color:var(--am);}
+
+.prog-wrap{max-width:960px;margin:0 auto;padding:0 24px 18px;}
+.prog-bar{height:3px;background:var(--dim);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--bl3),var(--bl));transition:width .5s ease;border-radius:2px;}
+.prog-meta{display:flex;justify-content:space-between;margin-top:5px;font-family:var(--mono);font-size:11px;color:var(--muted);}
+
+/* ── NAV ─────────────────────────────────────── */
+nav{background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:90;}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;overflow-x:auto;padding:0 20px;}
+.nav-inner::-webkit-scrollbar{height:0;}
+.nav-btn{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:13px 16px;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;}
+.nav-btn:hover,.nav-btn.active{color:var(--bl);border-bottom-color:var(--bl);}
+
+/* ── LAYOUT ──────────────────────────────────── */
+main{max-width:960px;margin:0 auto;padding:42px 24px 90px;}
+section{margin-bottom:70px;}
+.s-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--bl);margin-bottom:8px;}
+.s-h2{font-size:clamp(22px,3.2vw,32px);font-weight:700;color:#fff;margin-bottom:6px;}
+.s-sub{color:var(--muted);font-size:14px;margin-bottom:26px;max-width:580px;}
+.divider{height:1px;background:linear-gradient(90deg,var(--bl3),transparent);margin-bottom:26px;border-radius:1px;}
+
+/* ── CARD ────────────────────────────────────── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:12px;overflow:hidden;transition:border-color .2s;}
+.card:hover{border-color:rgba(59,130,246,.4);}
+.card-hdr{display:grid;grid-template-columns:56px 1fr;cursor:pointer;min-height:60px;}
+.card-ico{display:flex;align-items:center;justify-content:center;font-size:21px;background:rgba(59,130,246,.06);border-right:1px solid var(--border);}
+.card-inf{padding:13px 18px;}
+.card-tag{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.card-tit{font-size:17px;font-weight:600;color:#fff;}
+.card-body{padding:0 18px 18px;border-top:1px solid var(--border);display:none;}
+.card.open .card-body{display:block;}
+.card-body p{font-size:14px;color:var(--txt);margin:12px 0 6px;}
+.card-body strong{color:var(--bl);}
+
+/* ── CODE ────────────────────────────────────── */
+.code{background:rgba(0,0,0,.75);border-left:3px solid var(--bl3);border-radius:6px;padding:14px 16px;font-family:var(--mono);font-size:13px;color:#a0c4f8;margin:10px 0;overflow-x:auto;line-height:1.9;white-space:pre-wrap;}
+.cm{color:#2a4060;font-style:italic;}
+.kw{color:var(--bl);font-weight:600;}
+.st{color:#fbbf24;}.nm{color:#86efac;}.fn{color:#c4b5fd;}.op{color:var(--cy);}
+
+/* ── ANALOGÍA ────────────────────────────────── */
+.anal{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-left:4px solid var(--bl);border-radius:8px;padding:13px 17px;margin:12px 0;display:flex;gap:11px;align-items:flex-start;font-size:14px;}
+.anal-ico{font-size:20px;flex-shrink:0;}
+
+/* ── TABLA ───────────────────────────────────── */
+.tabla{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0;}
+.tabla th{background:var(--bg3);color:var(--muted);font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.tabla td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.03);}
+.tabla tr:hover td{background:rgba(59,130,246,.03);}
+.c2{display:inline-block;padding:2px 7px;border-radius:8px;font-family:var(--mono);font-size:10px;}
+.c-bl{background:rgba(59,130,246,.15);color:var(--bl);}
+.c-cy{background:rgba(6,182,212,.15);color:var(--cy);}
+.c-am{background:rgba(245,158,11,.15);color:var(--am);}
+.c-gr{background:rgba(34,197,94,.15);color:var(--gr);}
+.c-re{background:rgba(239,68,68,.15);color:var(--re);}
+
+/* ── NOTA / ALERTA ───────────────────────────── */
+.nota{background:rgba(6,182,212,.07);border:1px solid rgba(6,182,212,.2);border-left:4px solid var(--cy);border-radius:7px;padding:12px 16px;margin:12px 0;font-size:14px;}
+.nota strong{color:var(--cy);}
+.alerta{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.2);border-left:4px solid var(--am);border-radius:7px;padding:12px 16px;margin:12px 0;font-size:14px;}
+.alerta strong{color:var(--am);}
+
+/* ── DEMO ────────────────────────────────────── */
+.demo{background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:20px;margin:16px 0;}
+.demo-lbl{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--bl);margin-bottom:12px;font-weight:700;}
+.demo-row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:10px;}
+.demo-grp{display:flex;flex-direction:column;gap:4px;}
+.demo-glbl{font-size:12px;color:var(--muted);}
+.demo-in{background:var(--bg);border:1px solid var(--dim);color:var(--txt);font-family:var(--mono);font-size:14px;padding:8px 11px;border-radius:6px;width:140px;outline:none;transition:border-color .2s;}
+.demo-in:focus{border-color:var(--bl);}
+.demo-btn{background:var(--bl);color:#fff;border:none;font-family:var(--sans);font-size:13px;font-weight:700;padding:9px 20px;border-radius:6px;cursor:pointer;transition:background .2s;}
+.demo-btn:hover{background:var(--bl2);}
+.demo-out{background:rgba(0,0,0,.6);border-radius:6px;padding:12px 16px;font-family:var(--mono);font-size:13px;min-height:52px;color:var(--muted);white-space:pre-wrap;line-height:1.8;margin-top:10px;}
+
+/* ── PILA / COLA VISUALIZER ──────────────────── */
+.struct-viz{background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:20px;margin:16px 0;}
+.sv-lbl{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--bl);margin-bottom:14px;font-weight:700;}
+.sv-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:flex-end;}
+.sv-input{background:var(--bg);border:1px solid var(--dim);color:var(--txt);font-family:var(--mono);font-size:14px;padding:7px 10px;border-radius:6px;width:120px;outline:none;}
+.sv-input:focus{border-color:var(--bl);}
+.sv-btn{background:var(--bg4);border:1px solid var(--bl3);color:var(--bl);font-family:var(--sans);font-size:12px;font-weight:700;padding:7px 14px;border-radius:6px;cursor:pointer;transition:all .2s;}
+.sv-btn:hover{background:rgba(59,130,246,.15);}
+.sv-btn-re{border-color:rgba(239,68,68,.4);color:var(--re);}
+.sv-btn-re:hover{background:rgba(239,68,68,.1);}
+.sv-display{display:flex;gap:8px;align-items:flex-end;margin-top:12px;min-height:60px;flex-wrap:wrap;}
+.sv-stack{display:flex;flex-direction:column-reverse;gap:4px;align-items:stretch;min-width:140px;}
+.sv-queue{display:flex;flex-direction:row;gap:4px;align-items:stretch;flex-wrap:wrap;}
+.sv-item{background:rgba(59,130,246,.15);border:1px solid var(--bl3);border-radius:4px;padding:7px 12px;font-family:var(--mono);font-size:13px;color:var(--bl);text-align:center;min-width:60px;animation:slideIn .3s ease;}
+@keyframes slideIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+.sv-item.new{border-color:var(--bl);box-shadow:0 0 8px rgba(59,130,246,.3);}
+.sv-item.top{background:rgba(59,130,246,.3);border-color:var(--bl);color:#fff;font-weight:700;}
+.sv-label{font-family:var(--mono);font-size:10px;color:var(--muted);text-align:center;margin-top:4px;}
+.sv-log{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:10px;padding:8px 12px;background:rgba(0,0,0,.4);border-radius:4px;min-height:30px;}
+
+/* ── QUIZ ────────────────────────────────────── */
+.quiz-card{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:20px;margin-bottom:11px;transition:all .3s;}
+.quiz-card.ok{border-color:var(--bl)!important;background:rgba(59,130,246,.05);}
+.quiz-card.mal{border-color:var(--re)!important;background:rgba(239,68,68,.04);}
+.quiz-n{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--bl);margin-bottom:9px;}
+.quiz-q{font-size:16px;font-weight:600;color:#fff;margin-bottom:7px;}
+.quiz-code{background:rgba(0,0,0,.5);border-radius:5px;padding:9px 13px;font-family:var(--mono);font-size:12px;color:#a0c4f8;margin-bottom:12px;white-space:pre-wrap;line-height:1.8;}
+.quiz-opts{display:flex;flex-direction:column;gap:6px;}
+.quiz-opt{background:var(--bg3);border:1px solid var(--border);color:var(--txt);font-family:var(--sans);font-size:14px;padding:9px 15px;border-radius:6px;cursor:pointer;text-align:left;transition:all .2s;}
+.quiz-opt:hover:not(:disabled){background:var(--bg4);border-color:var(--bl3);}
+.quiz-opt.correcta{background:rgba(59,130,246,.15)!important;border-color:var(--bl)!important;color:var(--bl)!important;font-weight:600;}
+.quiz-opt.incorrecta{background:rgba(239,68,68,.1)!important;border-color:var(--re)!important;color:var(--re)!important;}
+.quiz-opt:disabled{cursor:default;}
+.quiz-fb{display:none;margin-top:9px;padding:9px 13px;border-radius:6px;font-size:13px;}
+.quiz-fb.show{display:block;}
+.fb-ok{background:rgba(59,130,246,.08);color:#93c5fd;border:1px solid rgba(59,130,246,.2);}
+.fb-mal{background:rgba(239,68,68,.07);color:#fca5a5;border:1px solid rgba(239,68,68,.2);}
+.score{display:none;background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(30,58,138,.1));border:1px solid var(--bl3);border-radius:10px;padding:30px;text-align:center;margin-top:18px;}
+.score.show{display:block;animation:pop .4s ease;}
+@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.score-n{font-size:64px;font-weight:700;color:var(--bl);line-height:1;}
+.score-msg{font-size:20px;font-weight:700;color:#fff;margin:6px 0;}
+.score-sub{color:var(--muted);font-size:14px;}
+.retry-btn{margin-top:16px;background:var(--bl);color:#fff;border:none;font-family:var(--sans);font-weight:700;font-size:14px;padding:10px 26px;border-radius:6px;cursor:pointer;}
+.retry-btn:hover{background:var(--bl2);}
+
+footer{text-align:center;padding:30px;border-top:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:11px;}
+footer span{color:var(--bl);}
+
+/* ── BARRA SUPERIOR ──────────────────────────────────── */
+.top-bar{
+  display:flex;justify-content:flex-end;gap:8px;
+  padding:8px 16px;background:var(--bg2);border-bottom:1px solid var(--border);
+}
+.top-btn{
+  display:flex;align-items:center;gap:6px;
+  background:var(--bg3);border:1px solid var(--border);color:var(--muted);
+  font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;
+  padding:5px 12px;border-radius:16px;cursor:pointer;transition:all .2s;
+}
+.top-btn:hover{border-color:var(--bl);color:var(--bl);}
+
+/* ── MODO CLARO ──────────────────────────────────────── */
+[data-theme="light"]{
+  --bg:#f3f6fc;--bg2:#e8eef8;--bg3:#dce5f5;--bg4:#d0daf0;
+  --bl:#1d4ed8;--bl2:#1e3a8a;--bl3:#1e40af;
+  --cy:#0e7490;--gr:#15803d;--am:#b45309;--re:#b91c1c;
+  --txt:#0f1f40;--muted:#3a5080;--dim:#b8ccee;--border:#b0c4e8;
+  --card:#ffffff;
+}
+[data-theme="light"] body::after{display:none;}
+[data-theme="light"] header{background:linear-gradient(135deg,rgba(29,78,216,.06) 0%,transparent 50%);}
+[data-theme="light"] .hdr-ring{border-color:rgba(29,78,216,.07);}
+[data-theme="light"] h1{color:#0f1f40;}
+[data-theme="light"] .hdr-sub{color:var(--muted);}
+[data-theme="light"] nav{background:#e8eef8;}
+[data-theme="light"] .card{background:#fff;border-color:var(--border);}
+[data-theme="light"] .card-ico{background:rgba(29,78,216,.06);}
+[data-theme="light"] .card-tit{color:#0f1f40;}
+[data-theme="light"] .code{background:#f0f4ff;color:#0f1f40;border-left-color:var(--bl3);}
+[data-theme="light"] .code .cm{color:#7090b0;}
+[data-theme="light"] .code .kw{color:var(--bl2);}
+[data-theme="light"] .code .st{color:var(--am);}
+[data-theme="light"] .code .nm{color:#15803d;}
+[data-theme="light"] .code .fn{color:#7c3aed;}
+[data-theme="light"] .code .op{color:var(--cy);}
+[data-theme="light"] .demo{background:#dce5f5;border-color:var(--border);}
+[data-theme="light"] .demo-out{background:#f0f4ff;color:var(--muted);}
+[data-theme="light"] .nota{background:rgba(14,116,144,.07);border-color:rgba(14,116,144,.25);}
+[data-theme="light"] .alerta{background:rgba(180,83,9,.07);border-color:rgba(180,83,9,.25);}
+[data-theme="light"] .struct-viz{background:#dce5f5;border-color:var(--border);}
+[data-theme="light"] .sv-input{background:#fff;color:var(--txt);}
+[data-theme="light"] .sv-item{background:rgba(29,78,216,.12);color:var(--bl);}
+[data-theme="light"] .sv-item.top{background:rgba(29,78,216,.25);}
+[data-theme="light"] .sv-log{background:rgba(0,0,0,.05);color:var(--muted);}
+[data-theme="light"] .quiz-card{background:#fff;}
+[data-theme="light"] .quiz-opt{background:#e8eef8;border-color:var(--border);color:var(--txt);}
+[data-theme="light"] .score{background:linear-gradient(135deg,rgba(29,78,216,.07),rgba(30,58,138,.07));}
+[data-theme="light"] .demo-in{background:#fff;color:var(--txt);}
+[data-theme="light"] .top-bar{background:#e8eef8;}
+[data-theme="light"] footer{background:#e8eef8;}
+
+/* ── QUIZ ENVÍO ──────────────────────────────────────── */
+.nombre-row{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;border-radius:8px;margin-bottom:14px;
+  background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.25);
+}
+.nombre-lbl{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.nombre-in{
+  flex:1;background:var(--card);border:1.5px solid var(--border);
+  color:var(--txt);font-family:var(--sans);font-size:15px;font-weight:500;
+  padding:9px 14px;border-radius:6px;outline:none;transition:border-color .2s;
+}
+.nombre-in:focus{border-color:var(--bl);}
+.send-quiz-box{margin-top:12px;padding:18px 20px;border-radius:9px;display:none;
+  background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.25);}
+.send-quiz-box.show{display:block;animation:pop .4s ease;}
+.send-quiz-txt{font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.5;}
+.send-quiz-btn{
+  border:none;font-family:var(--sans);font-size:15px;font-weight:700;
+  padding:12px 24px;border-radius:6px;cursor:pointer;width:100%;
+  background:var(--bl);color:#fff;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.send-quiz-btn:hover{background:var(--bl2);}
+.send-quiz-btn:disabled{opacity:.55;cursor:not-allowed;}
+.send-quiz-ok{
+  display:none;text-align:center;padding:12px;margin-top:10px;
+  border-radius:6px;font-size:14px;font-weight:600;
+  background:rgba(59,130,246,.1);color:var(--bl);border:1px solid rgba(59,130,246,.3);
+}
+.send-quiz-ok.show{display:block;}
+[data-theme="light"] .nombre-in{background:#fff;}
+@media print{.nombre-row,.send-quiz-box,.send-quiz-ok{display:none!important;}}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body{background:#fff!important;color:#000!important;font-size:11pt;}
+  body::after{display:none!important;}
+  .top-bar,nav,.hdr-badge,.hdr-chips,.prog-wrap,.hdr-dot,
+  .demo,.demo-btn,.sv-controls,.struct-viz,
+  .quiz-opts,.quiz-fb,.score,.retry-btn{display:none!important;}
+  header{background:#fff!important;padding:10pt 0 6pt;border-bottom:1pt solid #ccc!important;}
+  h1{font-size:20pt;color:#000!important;margin-bottom:4pt;}
+  h1 span{color:#000!important;}
+  .hdr-sub{color:#444!important;font-size:10pt;}
+  .s-h2{font-size:14pt;color:#000!important;border-bottom:1pt solid #888;padding-bottom:3pt;margin-bottom:6pt;}
+  .s-eyebrow{color:#666!important;font-size:8pt;}
+  .s-sub{color:#444!important;font-size:10pt;}
+  .divider{background:#ccc!important;height:.5pt;margin:4pt 0 8pt;}
+  section{break-inside:avoid;page-break-inside:avoid;margin-bottom:10pt;}
+  .card{border:1pt solid #ccc!important;background:#fff!important;margin-bottom:6pt;break-inside:avoid;}
+  .card-hdr{background:#f4f4f4!important;border-bottom:1pt solid #ccc!important;}
+  .card-ico{background:#fff!important;border-right:1pt solid #ccc!important;}
+  .card-tit{color:#000!important;font-size:11pt;}
+  .card-tag{color:#666!important;}
+  .card-body{display:block!important;border-top:1pt solid #eee!important;}
+  .card-body p{color:#000!important;}
+  .card-body strong{color:#000!important;font-weight:700;}
+  .code{background:#f8f8f8!important;color:#000!important;
+    border:1pt solid #ddd!important;border-left:3pt solid #555!important;
+    font-size:8pt!important;padding:6pt 8pt!important;line-height:1.6!important;}
+  .code .cm{color:#666!important;font-style:italic!important;}
+  .code .kw,.code .st,.code .nm,.code .fn,.code .op{color:#000!important;font-weight:600!important;}
+  .code .kw{font-weight:700!important;}
+  .anal{background:#f8f8f8!important;border:1pt solid #ccc!important;
+    border-left:3pt solid #555!important;color:#000!important;}
+  .tabla th{background:#eee!important;color:#000!important;border-bottom:1pt solid #aaa!important;}
+  .tabla td{border-bottom:1pt solid #eee!important;color:#000!important;}
+  .c2{background:#eee!important;color:#000!important;border:1pt solid #aaa!important;}
+  .nota{background:#f8f8f8!important;border:1pt solid #ccc!important;
+    border-left:3pt solid #555!important;color:#000!important;}
+  .nota strong{color:#000!important;font-weight:700!important;}
+  .alerta{background:#f8f8f8!important;border:1pt solid #ccc!important;
+    border-left:3pt solid #888!important;color:#000!important;}
+  .alerta strong{color:#000!important;font-weight:700!important;}
+  footer{border-top:1pt solid #ccc!important;color:#555!important;
+    font-size:8pt!important;background:#fff!important;padding:6pt 0!important;}
+  footer span{color:#000!important;font-weight:700!important;}
+  .hdr-inner{padding:0!important;}
+  .score-n,.score-msg{color:#000!important;}
+}
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="tb-brand">Esc. Industrial N&deg;9 &middot; <b>Redes IP &middot; 6&deg; ACPI &middot; 2026</b></div>
-  <div class="tb-acts">
-    <button class="tbtn" id="themeBtn" onclick="toggleTheme()">&#9790; Oscuro</button>
-    <button class="tbtn" onclick="window.print()">&#128424; Imprimir</button>
-  </div>
+<div class="top-bar">
+  <button class="top-btn" id="themeBtn" onclick="toggleTheme()">☀️ Modo claro</button>
+  <button class="top-btn" onclick="window.print()">🖨️ Imprimir / PDF</button>
 </div>
-<div class="prog-strip">
-  <div class="prog-in">
-    <div class="pbar"><div class="pbar-fill" id="pb" style="width:0%"></div></div>
-    <div class="pbar-lbl" id="pl">Quiz: 0 / 12 &middot; 0 correctas</div>
-  </div>
-</div>
-<header class="hero">
-  <div class="hero-in">
-    <div class="hero-eye"><span class="eye-dot"></span>SCADA + Embebidos &middot; 6&deg; 1&deg; ACPI &middot; Repaso Redes IP</div>
-    <h1>Redes <span class="h-gr">IP</span></h1>
-    <p class="hero-desc">Lo m&iacute;nimo que ten&eacute;s que saber para que el ESP32 llegue al broker, Node-RED reciba datos y el sistema SCADA funcione. Y c&oacute;mo diagnosticar cuando no funciona.</p>
-    <div class="hero-tags">
-      <span class="tag tag-gr">Direcci&oacute;n IP</span><span class="tag tag-gr">M&aacute;scara</span>
-      <span class="tag tag-gr">Gateway</span><span class="tag tag-gr">DNS</span><span class="tag tag-gr">DHCP</span>
-      <span class="tag tag-am">Ping</span><span class="tag tag-am">Diagn&oacute;stico</span><span class="tag tag-bl">ESP32 + MQTT</span>
+<header>
+  <div class="hdr-ring"></div>
+  <div class="hdr-ring hdr-ring2"></div>
+  <div class="hdr-inner">
+    <div class="hdr-badge"><span class="hdr-dot"></span> Algoritmos y Programación · 4° 1° · 2026</div>
+    <h1>Listas · Pilas<br><span>· Colas</span></h1>
+    <p class="hdr-sub">Todo lo que entra en la evaluación. Con el contexto de la <strong style="color:var(--bl)">Represa Patagónica</strong> para que tenga sentido real.</p>
+    <div class="hdr-chips">
+      <span class="chip">Listas Python</span>
+      <span class="chip">Índices y slicing</span>
+      <span class="chip chip-cy">Pilas LIFO</span>
+      <span class="chip chip-cy">Colas FIFO</span>
+      <span class="chip chip-am">Aplicación industrial</span>
     </div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-bar"><div class="prog-fill" id="progBar" style="width:0%"></div></div>
+    <div class="prog-meta"><span id="progTxt">Quiz: 0 / 15</span><span id="progCorr">0 correctas</span></div>
   </div>
 </header>
+
 <nav>
-  <div class="nav-in">
-    <button class="nb on" data-sec="gancho" onclick="ir('gancho')">Gancho</button>
-    <button class="nb" data-sec="conceptos" onclick="ir('conceptos')">5 conceptos</button>
-    <button class="nb" data-sec="red" onclick="ir('red')">La red del proyecto</button>
-    <button class="nb" data-sec="ping" onclick="ir('ping')">Ping</button>
-    <button class="nb" data-sec="casos" onclick="ir('casos')">Casos</button>
-    <button class="nb" data-sec="cotecal" onclick="ir('cotecal')">Cotecal</button>
-    <button class="nb" data-sec="quiz" onclick="ir('quiz')">Quiz</button>
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="ir('listas')">01 Listas</button>
+    <button class="nav-btn" onclick="ir('metodos')">02 Métodos</button>
+    <button class="nav-btn" onclick="ir('for-listas')">03 for + listas</button>
+    <button class="nav-btn" onclick="ir('pilas')">04 Pilas</button>
+    <button class="nav-btn" onclick="ir('colas')">05 Colas</button>
+    <button class="nav-btn" onclick="ir('diferencias')">06 Diferencias</button>
+    <button class="nav-btn" onclick="ir('quiz')">Quiz</button>
   </div>
 </nav>
+
 <main>
 
-<section id="gancho">
-  <div class="s-eye">// Para empezar</div>
-  <h2 class="s-h2">El ESP32 tiene WiFi y el c&oacute;digo no da error. Pero el broker no recibe nada.</h2>
-  <p class="s-sub">&iquest;Cu&aacute;les son las tres cosas que ten&eacute;s que verificar ANTES de tocar el c&oacute;digo?</p>
-  <div class="div"></div>
-  <div class="anal"><div class="an-ico">&#128161;</div><div>La respuesta no est&aacute; en el c&oacute;digo. Est&aacute; en la red.<br><b>Sin IP no hay red. Sin gateway no hay salida. Sin DNS no hay nombres.</b><br>El c&oacute;digo puede estar perfecto y el sistema no funcionar por ninguna de estas tres cosas.</div></div>
-  <div class="code"><span class="cm"># Situacion: el ESP32 imprime "Conectado" al WiFi pero...</span>
-<span class="cm"># client.connect("broker.local", 1883) falla silenciosamente</span>
-<span class="cm"># Node-RED no recibe nada. No hay mensaje de error.</span>
-<span class="cm"></span>
-<span class="cm"># Antes de revisar el codigo, verificar:</span>
-<span class="cm"># 1. El ESP32 tiene IP asignada?  -> print(sta.ifconfig())</span>
-<span class="cm"># 2. Puede llegar al gateway?     -> ping 192.168.1.1</span>
-<span class="cm"># 3. El nombre resuelve a IP?     -> probar con IP directa</span></div>
-</section>
+<!-- ═══════════════════════════
+     01 — LISTAS
+═══════════════════════════ -->
+<section id="listas">
+  <div class="s-eyebrow">// 01</div>
+  <h2 class="s-h2">Listas en Python</h2>
+  <p class="s-sub">Una lista guarda varios valores en una sola variable. Como un registro de lecturas de la represa.</p>
+  <div class="divider"></div>
 
-<section id="conceptos">
-  <div class="s-eye">// 01 &middot; Los cinco conceptos</div>
-  <h2 class="s-h2">Lo que ten&eacute;s que saber s&iacute; o s&iacute;</h2>
-  <p class="s-sub">Sin estos cinco conceptos no se puede diagnosticar ning&uacute;n problema de red.</p>
-  <div class="div"></div>
-
-  <div class="concepto">
-    <div class="concepto-hdr gr"><div class="concepto-ico">&#127968;</div><div>
-      <div class="concepto-tit">&#9312; Direcci&oacute;n IP</div>
-      <div class="concepto-sub">El n&uacute;mero que identifica a cada dispositivo en la red</div>
-    </div></div>
-    <div class="concepto-body">
-      <div class="anal"><div class="an-ico">&#128234;</div><div>Es como el n&uacute;mero de casa en una manzana. Sin n&uacute;mero, el cartero no sabe d&oacute;nde entregar. Sin IP, los paquetes de datos no saben d&oacute;nde ir.</div></div>
-      <div class="code">ESP32           192.168.1.45
-Laptop/Node-RED 192.168.1.10
-Broker Mosquito 192.168.1.100
-Gateway (router)192.168.1.1
-
-<span class="cm"># Regla: en la misma red todas las IPs empiezan igual</span>
-<span class="cm"># No puede haber dos dispositivos con la misma IP</span></div>
-    </div>
-  </div>
-
-  <div class="concepto">
-    <div class="concepto-hdr bl"><div class="concepto-ico">&#129522;</div><div>
-      <div class="concepto-tit">&#9313; M&aacute;scara de red</div>
-      <div class="concepto-sub">Define qui&eacute;n est&aacute; en la misma red y qui&eacute;n no</div>
-    </div></div>
-    <div class="concepto-body">
-      <div class="anal bl"><div class="an-ico">&#128268;</div><div>Le dice al dispositivo qui&eacute;nes son sus vecinos de manzana (misma red) y qui&eacute;nes son de otra manzana (otra red).</div></div>
-      <div class="code">Mascara: 255.255.255.0
-
-192.168.1.45  -> red: 192.168.1 -> <span class="vok">MISMA RED</span>
-192.168.1.100 -> red: 192.168.1 -> <span class="vok">MISMA RED</span>
-192.168.2.10  -> red: 192.168.2 -> <span class="ver">OTRA RED</span>
-
-<span class="cm"># El ESP32 en .1.45 llega directo al broker en .1.100</span>
-<span class="cm"># Para llegar a .2.10 necesita pasar por el gateway</span></div>
-    </div>
-  </div>
-
-  <div class="concepto">
-    <div class="concepto-hdr am"><div class="concepto-ico">&#128682;</div><div>
-      <div class="concepto-tit">&#9314; Gateway &mdash; puerta de salida</div>
-      <div class="concepto-sub">El equipo que conecta tu red local con el resto</div>
-    </div></div>
-    <div class="concepto-body">
-      <div class="anal am"><div class="an-ico">&#128683;</div><div>Si quer&eacute;s salir de tu red (llegar a internet o a otra red), todo pasa por el gateway. Sin gateway solo pod&eacute;s hablar con los de tu misma red.</div></div>
-      <div class="code">Gateway tipico: 192.168.1.1  (el router o la ONT)
-
-[ESP32] -> [Gateway 192.168.1.1] -> [Internet / broker externo]
-
-<span class="cm"># Si el broker esta en la misma red -> no necesitas gateway</span>
-<span class="cm"># Si el broker esta en internet -> gateway obligatorio</span></div>
-      <div class="tip">&#128161; <b>Caso del proyecto:</b> si el broker Mosquitto corre en la laptop y el ESP32 est&aacute; en la misma red WiFi, el gateway no importa para comunicarse entre ellos.</div>
-    </div>
-  </div>
-
-  <div class="concepto">
-    <div class="concepto-hdr cy"><div class="concepto-ico">&#128270;</div><div>
-      <div class="concepto-tit">&#9315; DNS &mdash; traductor de nombres</div>
-      <div class="concepto-sub">Convierte nombres en IPs (broker.local -> 192.168.1.100)</div>
-    </div></div>
-    <div class="concepto-body">
-      <div class="anal cy"><div class="an-ico">&#128211;</div><div>Los dispositivos hablan en n&uacute;meros (IPs). Las personas hablan en nombres. El DNS hace la traducci&oacute;n. Si falla, solo funcionan las IPs directas.</div></div>
-      <div class="code"><span class="cm"># Con nombre de host -> NECESITA DNS</span>
-client.connect(<span class="st">"broker.hivemq.com"</span>, 1883)
-<span class="cm"># el ESP32 pregunta al DNS: que IP es broker.hivemq.com?</span>
-<span class="cm"># si no hay DNS o falla -> no puede conectarse</span>
-
-<span class="cm"># Con IP directa -> NO necesita DNS</span>
-client.connect(<span class="st">"192.168.1.100"</span>, 1883)
-<span class="cm"># va directo, sin preguntar a nadie</span></div>
-      <div class="nota"><b>Clave para el jueves:</b> si el ESP32 se conecta por nombre y falla, prob&aacute; con la IP directa. Si funciona con IP pero no con nombre &rarr; es DNS, no la red.</div>
-    </div>
-  </div>
-
-  <div class="concepto">
-    <div class="concepto-hdr re"><div class="concepto-ico">&#9881;&#65039;</div><div>
-      <div class="concepto-tit">&#9316; DHCP &mdash; configuraci&oacute;n autom&aacute;tica</div>
-      <div class="concepto-sub">Asigna IP, m&aacute;scara, gateway y DNS al conectarse</div>
-    </div></div>
-    <div class="concepto-body">
-      <div class="anal"><div class="an-ico">&#129302;</div><div>Cuando el ESP32 se conecta al WiFi le pregunta al router: "&iquest;qu&eacute; IP me das?" El router responde con todo lo necesario de una sola vez.</div></div>
-      <div class="code"><span class="cm"># En MicroPython: ver la configuracion asignada</span>
-<span class="nm">print</span>(sta.ifconfig())
-<span class="cm"># -> ('192.168.1.45', '255.255.255.0', '192.168.1.1', '8.8.8.8')</span>
-<span class="cm">#       IP           Mascara            Gateway         DNS</span>
-<span class="cm"></span>
-<span class="cm"># Si muestra ('0.0.0.0', ...) -> DHCP no asigno nada</span>
-<span class="cm"># El ESP32 no esta realmente conectado a la red</span></div>
-      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Concepto</th><th>Qu&eacute; hace</th><th>Sin &eacute;l...</th></tr></thead><tbody>
-        <tr><td><span class="ch ch-gr">IP</span></td><td>Identifica el dispositivo</td><td>No existe en la red</td></tr>
-        <tr><td><span class="ch ch-bl">M&aacute;scara</span></td><td>Define qui&eacute;n est&aacute; en la misma red</td><td>No sabe con qui&eacute;n puede hablar directo</td></tr>
-        <tr><td><span class="ch ch-am">Gateway</span></td><td>Puerta de salida</td><td>No sale de la red local</td></tr>
-        <tr><td><span class="ch ch-cy">DNS</span></td><td>Traduce nombres a IPs</td><td>Solo funciona con IPs directas</td></tr>
-        <tr><td><span class="ch ch-re">DHCP</span></td><td>Asigna todo autom&aacute;ticamente</td><td>Hay que configurar a mano</td></tr>
-      </tbody></table></div>
-    </div>
-  </div>
-</section>
-
-<section id="red">
-  <div class="s-eye">// 02 &middot; C&oacute;mo aplica al proyecto</div>
-  <h2 class="s-h2">La red del sistema SCADA</h2>
-  <p class="s-sub">Los dispositivos del proyecto dentro de una red IP real.</p>
-  <div class="div"></div>
   <div class="card open">
-    <div class="card-hdr" onclick="tog(this)"><div class="card-ico ico-gr">&#127968;</div><div class="card-inf"><div class="card-tag">Arquitectura</div><div class="card-tit">Dispositivos del proyecto y sus IPs</div></div></div>
+    <div class="card-hdr" onclick="tog(this)"><div class="card-ico">📋</div><div class="card-inf"><div class="card-tag">Fundamento</div><div class="card-tit">¿Qué es una lista?</div></div></div>
     <div class="card-body">
-      <div class="code">Router/ONT       192.168.1.1    <- Gateway + DHCP
-  |
-  +-- ESP32        192.168.1.45   <- MicroPython + DHT22
-  |
-  +-- Broker MQTT  192.168.1.100  <- Mosquitto puerto 1883
-  |
-  +-- Node-RED     192.168.1.10   <- Dashboard SCADA</div>
-      <div class="code"><span class="cm"># Preguntas clave:</span>
+      <div class="anal"><div class="anal-ico">🗃️</div><div>Una lista es como una planilla de registros: tiene celdas numeradas (desde la 0), y en cada celda podés guardar un valor. Podés agregar, quitar, buscar y ordenar los valores.</div></div>
+      <div class="code"><span class="cm"># Crear una lista — los valores van entre corchetes</span>
+niveles = [<span class="nm">42.3</span>, <span class="nm">45.1</span>, <span class="nm">44.8</span>, <span class="nm">47.2</span>, <span class="nm">46.0</span>, <span class="nm">48.5</span>]
 
-<span class="cm"># El ESP32 puede llegar al broker directamente?</span>
-<span class="cm"># 192.168.1.45 y 192.168.1.100 -> misma red -> SI</span>
+<span class="cm"># Acceso por índice — el primero es índice 0</span>
+<span class="fn">print</span>(niveles[<span class="nm">0</span>])    <span class="cm"># → 42.3  (primer elemento)</span>
+<span class="fn">print</span>(niveles[<span class="nm">2</span>])    <span class="cm"># → 44.8  (tercer elemento)</span>
+<span class="fn">print</span>(niveles[<span class="op">-1</span>])   <span class="cm"># → 48.5  (último elemento)</span>
+<span class="fn">print</span>(niveles[<span class="op">-2</span>])   <span class="cm"># → 46.0  (penúltimo)</span>
 
-<span class="cm"># Necesita gateway para llegar al broker?</span>
-<span class="cm"># No, estan en la misma red local</span>
+<span class="cm"># Slicing — tomar una porción</span>
+<span class="fn">print</span>(niveles[<span class="nm">1</span>:<span class="nm">4</span>])  <span class="cm"># → [45.1, 44.8, 47.2]  (índice 1, 2, 3)</span>
+<span class="fn">print</span>(niveles[:<span class="nm">3</span>])   <span class="cm"># → [42.3, 45.1, 44.8]  (desde el inicio)</span>
+<span class="fn">print</span>(niveles[<span class="nm">3</span>:])   <span class="cm"># → [47.2, 46.0, 48.5]  (desde índice 3)</span>
 
-<span class="cm"># Que pasa si el broker esta en 192.168.2.100?</span>
-<span class="cm"># Red diferente -> necesita pasar por el gateway</span>
+<span class="cm"># Largo de la lista</span>
+<span class="fn">print</span>(<span class="fn">len</span>(niveles))   <span class="cm"># → 6</span></div>
+      <div class="alerta"><strong>Los índices empiezan en 0, no en 1.</strong> Una lista de 6 elementos tiene índices del 0 al 5. El índice 6 da error (IndexError). Con índices negativos: -1 es el último, -2 el penúltimo.</div>
 
-<span class="cm"># Como verifico la IP del ESP32?</span>
-<span class="cm"># print(sta.ifconfig()) en el Serial Monitor</span></div>
-    </div>
-  </div>
-  <div class="demo">
-    <div class="demo-lbl">&#9654; Verificador &mdash; &iquest;est&aacute;n en la misma red?</div>
-    <div class="demo-row">
-      <div class="demo-grp"><div class="demo-gl">IP del ESP32</div><input class="demo-in" id="dIP1" type="text" value="192.168.1.45"></div>
-      <div class="demo-grp"><div class="demo-gl">IP del Broker</div><input class="demo-in" id="dIP2" type="text" value="192.168.1.100"></div>
-      <div class="demo-grp"><div class="demo-gl">M&aacute;scara</div><input class="demo-in" id="dMask" type="text" value="255.255.255.0"></div>
-      <button class="demo-btn" onclick="demoRed()">&#9654; Verificar</button>
-    </div>
-    <div class="demo-out" id="dRedOut">Complet&aacute; las IPs y verific&aacute;.</div>
-  </div>
-</section>
-
-<section id="ping">
-  <div class="s-eye">// 03 &middot; La herramienta de diagn&oacute;stico</div>
-  <h2 class="s-h2">Ping &mdash; tres pasos, cualquier falla resuelta</h2>
-  <p class="s-sub">Con esta secuencia diagnostic&aacute;s casi cualquier problema de red. La misma que usa Cotecal en El Calafate.</p>
-  <div class="div"></div>
-  <div class="card open">
-    <div class="card-hdr" onclick="tog(this)"><div class="card-ico ico-gr">&#128202;</div><div class="card-inf"><div class="card-tag">Secuencia profesional</div><div class="card-tit">Siempre de lo m&aacute;s cercano a lo m&aacute;s lejano</div></div></div>
-    <div class="card-body">
-      <div class="ping-flow">
-        <div class="ping-step" id="ps1">
-          <div class="ps-hdr"><div class="ps-num">01</div><div class="ps-cmd">ping 192.168.1.1 <span style="color:var(--muted);font-size:11px;">&larr; el gateway</span></div><div class="ps-res" id="pr1">&mdash;</div></div>
-          <div class="ps-diag" id="pd1"></div>
-        </div>
-        <div class="ping-step" id="ps2">
-          <div class="ps-hdr"><div class="ps-num">02</div><div class="ps-cmd">ping 8.8.8.8 <span style="color:var(--muted);font-size:11px;">&larr; IP p&uacute;blica de Google</span></div><div class="ps-res" id="pr2">&mdash;</div></div>
-          <div class="ps-diag" id="pd2"></div>
-        </div>
-        <div class="ping-step" id="ps3">
-          <div class="ps-hdr"><div class="ps-num">03</div><div class="ps-cmd">ping google.com <span style="color:var(--muted);font-size:11px;">&larr; nombre de dominio</span></div><div class="ps-res" id="pr3">&mdash;</div></div>
-          <div class="ps-diag" id="pd3"></div>
-        </div>
-      </div>
+      <!-- Demo listas -->
       <div class="demo">
-        <div class="demo-lbl">&#9654; Simul&aacute; una situaci&oacute;n</div>
+        <div class="demo-lbl">▶ Explorá la lista de niveles de la represa</div>
         <div class="demo-row">
-          <div class="demo-grp"><div class="demo-gl">Situaci&oacute;n</div>
-            <select class="demo-sel" id="dSit">
-              <option value="ok">Todo funciona</option>
-              <option value="local">Problema local (WiFi/IP)</option>
-              <option value="salida">Problema de salida (router/ISP)</option>
-              <option value="dns">Problema de DNS</option>
-            </select>
-          </div>
-          <button class="demo-btn" onclick="demoPing()">&#9654; Trazar</button>
+          <div class="demo-grp"><div class="demo-glbl">Índice (−5 a 5)</div><input class="demo-in" id="dIdx" type="number" value="0" min="-5" max="5" step="1"></div>
+          <div class="demo-grp"><div class="demo-glbl">Inicio slice</div><input class="demo-in" id="dSli" type="number" value="1" min="0" max="5" step="1"></div>
+          <div class="demo-grp"><div class="demo-glbl">Fin slice</div><input class="demo-in" id="dSle" type="number" value="4" min="1" max="6" step="1"></div>
+          <button class="demo-btn" onclick="demoLista()">▶ Consultar</button>
         </div>
+        <div class="demo-out" id="listaOut">Consultá la lista.</div>
       </div>
     </div>
   </div>
+</section>
+
+<!-- ═══════════════════════════
+     02 — MÉTODOS
+═══════════════════════════ -->
+<section id="metodos">
+  <div class="s-eyebrow">// 02</div>
+  <h2 class="s-h2">Métodos de las listas</h2>
+  <p class="s-sub">Las herramientas para operar sobre una lista: agregar, quitar, ordenar, buscar.</p>
+  <div class="divider"></div>
+
   <div class="card open">
-    <div class="card-hdr" onclick="tog(this)"><div class="card-ico ico-am">&#128202;</div><div class="card-inf"><div class="card-tag">Interpretar</div><div class="card-tit">Latencia y p&eacute;rdida de paquetes</div></div></div>
+    <div class="card-hdr" onclick="tog(this)"><div class="card-ico">🔧</div><div class="card-inf"><div class="card-tag">Métodos esenciales</div><div class="card-tit">append, pop, insert, remove, sort, sorted</div></div></div>
     <div class="card-body">
-      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Latencia</th><th>Qu&eacute; significa</th></tr></thead><tbody>
-        <tr><td><span class="ch ch-gr">1-5 ms</span></td><td>Excelente &mdash; misma red local (LAN)</td></tr>
-        <tr><td><span class="ch ch-gr">5-50 ms</span></td><td>Normal &mdash; conexi&oacute;n a internet</td></tr>
-        <tr><td><span class="ch ch-am">100-200 ms</span></td><td>Alta &mdash; posible congesti&oacute;n</td></tr>
-        <tr><td><span class="ch ch-re">&gt;300 ms</span></td><td>Muy alta &mdash; VoIP e IPTV afectados</td></tr>
-      </tbody></table></div>
-      <div class="tbl-wrap" style="margin-top:10px;"><table class="tbl"><thead><tr><th>P&eacute;rdida de paquetes</th><th>Impacto en el proyecto</th></tr></thead><tbody>
-        <tr><td><span class="ch ch-gr">0%</span></td><td>Correcto</td></tr>
-        <tr><td><span class="ch ch-am">1-2%</span></td><td>Mensajes MQTT pueden llegar con retraso</td></tr>
-        <tr><td><span class="ch ch-re">&gt;5%</span></td><td>Dashboard desactualizado, datos perdidos</td></tr>
-      </tbody></table></div>
+      <table class="tabla">
+        <thead><tr><th>Método</th><th>Qué hace</th><th>Ejemplo represa</th></tr></thead>
+        <tbody>
+          <tr><td><span class="c2 c-bl">append(x)</span></td><td>Agrega x al final</td><td><code>niveles.append(49.1)</code></td></tr>
+          <tr><td><span class="c2 c-bl">pop()</span></td><td>Saca y devuelve el último</td><td><code>ultimo = niveles.pop()</code></td></tr>
+          <tr><td><span class="c2 c-bl">pop(i)</span></td><td>Saca y devuelve el de índice i</td><td><code>primero = niveles.pop(0)</code></td></tr>
+          <tr><td><span class="c2 c-cy">insert(i, x)</span></td><td>Inserta x en posición i</td><td><code>niveles.insert(0, 40.0)</code></td></tr>
+          <tr><td><span class="c2 c-cy">remove(x)</span></td><td>Elimina la primera ocurrencia de x</td><td><code>niveles.remove(44.8)</code></td></tr>
+          <tr><td><span class="c2 c-am">sort()</span></td><td>Ordena la lista <em>en su lugar</em> (modifica original)</td><td><code>niveles.sort()</code></td></tr>
+          <tr><td><span class="c2 c-am">sorted(lista)</span></td><td>Devuelve una nueva lista ordenada (original intacta)</td><td><code>copia = sorted(niveles)</code></td></tr>
+          <tr><td><span class="c2 c-gr">index(x)</span></td><td>Devuelve el índice de x</td><td><code>pos = niveles.index(47.2)</code></td></tr>
+          <tr><td><span class="c2 c-gr">count(x)</span></td><td>Cuenta cuántas veces aparece x</td><td><code>n = niveles.count(46.0)</code></td></tr>
+        </tbody>
+      </table>
+      <div class="nota"><strong>sort() vs sorted():</strong> <code>niveles.sort()</code> modifica la lista original — no podés volver atrás. <code>sorted(niveles)</code> devuelve una NUEVA lista ordenada y la original queda igual. Para la evaluación: si el enunciado dice "sin modificar la lista original", usá sorted().</div>
+      <div class="code"><span class="cm"># Demostración práctica</span>
+niveles = [<span class="nm">42.3</span>, <span class="nm">48.5</span>, <span class="nm">44.8</span>, <span class="nm">47.2</span>]
+
+niveles.<span class="fn">append</span>(<span class="nm">50.1</span>)       <span class="cm"># → [42.3, 48.5, 44.8, 47.2, 50.1]</span>
+ultimo = niveles.<span class="fn">pop</span>()      <span class="cm"># → saca 50.1 y lo guarda</span>
+
+ordenada = <span class="fn">sorted</span>(niveles)   <span class="cm"># → [42.3, 44.8, 47.2, 48.5] (nueva lista)</span>
+<span class="fn">print</span>(niveles)               <span class="cm"># → [42.3, 48.5, 44.8, 47.2] (sin cambios)</span></div>
     </div>
   </div>
 </section>
 
-<section id="casos">
-  <div class="s-eye">// 04 &middot; Diagn&oacute;stico aplicado</div>
-  <h2 class="s-h2">Tres casos reales &mdash; encontr&aacute; el problema</h2>
-  <p class="s-sub">Tap&aacute; cada caso, analizalo y despu&eacute;s revel&aacute; el diagn&oacute;stico.</p>
-  <div class="div"></div>
+<!-- ═══════════════════════════
+     03 — FOR + LISTAS
+═══════════════════════════ -->
+<section id="for-listas">
+  <div class="s-eyebrow">// 03</div>
+  <h2 class="s-h2">for con listas</h2>
+  <p class="s-sub">El for es la herramienta para recorrer y analizar los datos de una lista.</p>
+  <div class="divider"></div>
 
-  <div class="caso cl-a open" id="casoA">
-    <div class="caso-hdr" onclick="togCaso('casoA')"><div class="caso-letra">A</div><div class="caso-tit">Todo falla desde el primer ping</div></div>
-    <div class="caso-body">
-      <div class="caso-output">C:\> ping 192.168.1.1
-<span class="caso-fail">Request timeout for icmp_seq 0
-Request timeout for icmp_seq 1</span>
-C:\> ping 8.8.8.8
-<span class="caso-fail">Request timeout</span>
-C:\> ping google.com
-<span class="caso-fail">Request timeout</span></div>
-      <div class="caso-diag"><b>&#128269; Problema LOCAL &mdash; Capa 1 o Capa 3</b><br><br>El dispositivo no llega ni al gateway. El problema est&aacute; antes de salir de la red.<br><br><b>Verificar:</b> &iquest;Tiene IP asignada? &iquest;Est&aacute; conectado al WiFi? &iquest;DHCP activo?<br><br><b>En el proyecto:</b> <code>sta.ifconfig()</code> devuelve 0.0.0.0 &rarr; WiFi conectado pero sin IP. Verificar contrase&ntilde;a o reiniciar el router.</div>
-    </div>
-  </div>
-
-  <div class="caso cl-b" id="casoB">
-    <div class="caso-hdr" onclick="togCaso('casoB')"><div class="caso-letra">B</div><div class="caso-tit">Llego al gateway pero no a internet</div></div>
-    <div class="caso-body">
-      <div class="caso-output">C:\> ping 192.168.1.1
-<span class="caso-ok">Reply from 192.168.1.1: time=1ms  OK</span>
-C:\> ping 8.8.8.8
-<span class="caso-fail">Request timeout for icmp_seq 0</span>
-C:\> ping google.com
-<span class="caso-fail">Request timeout</span></div>
-      <div class="caso-diag"><b>&#128269; Problema de SALIDA &mdash; Capa 3 (router/ISP)</b><br><br>La red local est&aacute; perfecta. El problema est&aacute; despu&eacute;s del gateway.<br><br><b>Verificar:</b> &iquest;El router tiene conexi&oacute;n WAN? &iquest;La ONT de Cotecal tiene luz?<br><br><b>En el proyecto:</b> el ESP32 llega al broker local sin problema. Si el broker est&aacute; en la misma red, funciona igual.</div>
-    </div>
-  </div>
-
-  <div class="caso cl-c" id="casoC">
-    <div class="caso-hdr" onclick="togCaso('casoC')"><div class="caso-letra">C</div><div class="caso-tit">La red funciona pero los nombres no resuelven</div></div>
-    <div class="caso-body">
-      <div class="caso-output">C:\> ping 192.168.1.1
-<span class="caso-ok">Reply from 192.168.1.1: time=1ms  OK</span>
-C:\> ping 8.8.8.8
-<span class="caso-ok">Reply from 8.8.8.8: time=12ms  OK</span>
-C:\> ping google.com
-<span class="caso-fail">Ping request could not find host google.com</span></div>
-      <div class="caso-diag"><b>&#128269; Problema de DNS &mdash; Capa 7</b><br><br>La red funciona perfectamente. Solo falla la traducci&oacute;n de nombres.<br><br><b>Soluci&oacute;n:</b> configurar DNS manualmente: 8.8.8.8 (Google) o 1.1.1.1 (Cloudflare).<br><br><b>En el proyecto:</b> <code>client.connect("broker.hivemq.com")</code> falla pero <code>client.connect("34.200.75.22")</code> funciona &rarr; es DNS. Usar IP directa o corregir el DNS.</div>
-    </div>
-  </div>
-
-  <div class="alerta" style="margin-top:14px;"><b>El Caso C es el m&aacute;s frecuente y el m&aacute;s confuso:</b> parece que "la red no funciona" cuando en realidad funciona perfecto. La diferencia entre ping a IP y ping a nombre lo revela de inmediato.</div>
-</section>
-
-<section id="cotecal">
-  <div class="s-eye">// 05 &middot; Conexi&oacute;n con el mundo real</div>
-  <h2 class="s-h2">Cotecal y tu proyecto &mdash; la misma l&oacute;gica</h2>
-  <p class="s-sub">La cooperativa de telecomunicaciones de El Calafate usa exactamente los mismos conceptos para diagnosticar fallas en la fibra que llega a tu casa.</p>
-  <div class="div"></div>
   <div class="card open">
-    <div class="card-hdr" onclick="tog(this)"><div class="card-ico ico-cy">&#127760;</div><div class="card-inf"><div class="card-tag">Contexto local</div><div class="card-tit">Red Cotecal vs tu proyecto SCADA</div></div></div>
+    <div class="card-hdr" onclick="tog(this)"><div class="card-ico">🔁</div><div class="card-inf"><div class="card-tag">Tres formas de recorrer</div><div class="card-tit">for, for + enumerate, for + range(len())</div></div></div>
     <div class="card-body">
-      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Sistema Cotecal</th><th>Tu proyecto SCADA</th><th>Concepto com&uacute;n</th></tr></thead><tbody>
-        <tr><td>OLT &rarr; ONT &rarr; Router</td><td>ESP32 &rarr; Broker &rarr; Node-RED</td><td>Cadena de campo a supervisi&oacute;n</td></tr>
-        <tr><td>Ping al gateway (ONT)</td><td>Ping al router / broker</td><td>Verificar conectividad local</td></tr>
-        <tr><td>Potencia: -18 dBm (rango &oacute;ptimo)</td><td>Vrms: 215V (rango 209-231V)</td><td>Umbral &rarr; estado &rarr; alarma</td></tr>
-        <tr><td>VLAN separa Internet / IPTV / VoIP</td><td>Topic MQTT separa vrms / irms / thd</td><td>Segmentaci&oacute;n l&oacute;gica</td></tr>
-        <tr><td>Capa f&iacute;sica &rarr; IP &rarr; servicio</td><td>WiFi &rarr; red &rarr; MQTT &rarr; Node-RED</td><td>Modelo OSI aplicado</td></tr>
-      </tbody></table></div>
-      <div class="tip">&#128161; <b>La frase para recordar:</b> un t&eacute;cnico de Cotecal y un t&eacute;cnico ACPI diagnostican igual: primero verifican que haya se&ntilde;al, despu&eacute;s que haya IP, despu&eacute;s que haya nombre. La red es la red, cambia la capa f&iacute;sica, no la l&oacute;gica.</div>
-    </div>
-  </div>
-  <div class="card open">
-    <div class="card-hdr" onclick="tog(this)"><div class="card-ico ico-gr">&#128202;</div><div class="card-inf"><div class="card-tag">OSI aplicado</div><div class="card-tit">Cada capa, un tipo de problema diferente</div></div></div>
-    <div class="card-body">
-      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Capa</th><th>Problema en Cotecal</th><th>Problema en tu proyecto</th></tr></thead><tbody>
-        <tr><td><span class="ch ch-re">1 &mdash; F&iacute;sica</span></td><td>ONT sin luz, fibra cortada</td><td>ESP32 sin WiFi, sin alimentaci&oacute;n</td></tr>
-        <tr><td><span class="ch ch-am">2 &mdash; Enlace</span></td><td>VLAN incorrecta, IPTV no carga</td><td>SSID o contrase&ntilde;a incorrecta</td></tr>
-        <tr><td><span class="ch ch-bl">3 &mdash; Red</span></td><td>IP no asignada, gateway mal configurado</td><td>ESP32 con 0.0.0.0, no llega al broker</td></tr>
-        <tr><td><span class="ch ch-cy">7 &mdash; Aplicaci&oacute;n</span></td><td>DNS falla, p&aacute;ginas no cargan por nombre</td><td>Topic incorrecto, Node-RED no recibe</td></tr>
-      </tbody></table></div>
+      <div class="code"><span class="cm"># Forma 1: directo — cuando solo necesitás el valor</span>
+niveles = [<span class="nm">42.3</span>, <span class="nm">45.1</span>, <span class="nm">44.8</span>, <span class="nm">47.2</span>, <span class="nm">48.5</span>]
+
+<span class="kw">for</span> nivel <span class="kw">in</span> niveles:
+    <span class="fn">print</span>(<span class="st">f"Nivel: {nivel} m"</span>)
+
+<span class="cm"># Forma 2: enumerate — cuando necesitás valor Y posición</span>
+<span class="kw">for</span> i, nivel <span class="kw">in</span> <span class="fn">enumerate</span>(niveles):
+    <span class="fn">print</span>(<span class="st">f"Hora {i+1}: {nivel} m"</span>)
+<span class="cm"># → Hora 1: 42.3 m | Hora 2: 45.1 m | ...</span>
+
+<span class="cm"># Forma 3: range(len()) — para modificar elementos de la lista</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(niveles)):
+    <span class="kw">if</span> niveles[i] > <span class="nm">47.0</span>:
+        <span class="fn">print</span>(<span class="st">f"⚠ Índice {i}: nivel {niveles[i]} m supera el límite"</span>)</div>
+
+      <p><strong>Acumuladores con for — calcular máximo, mínimo y promedio:</strong></p>
+      <div class="code"><span class="cm"># Sin usar max(), min(), sum() — algoritmo manual</span>
+niveles = [<span class="nm">42.3</span>, <span class="nm">45.1</span>, <span class="nm">44.8</span>, <span class="nm">47.2</span>, <span class="nm">48.5</span>]
+
+maximo  = niveles[<span class="nm">0</span>]   <span class="cm"># arrancar con el primer valor</span>
+minimo  = niveles[<span class="nm">0</span>]
+suma    = <span class="nm">0</span>
+alarmas = <span class="nm">0</span>
+
+<span class="kw">for</span> nivel <span class="kw">in</span> niveles:
+    <span class="kw">if</span> nivel > maximo:  maximo = nivel
+    <span class="kw">if</span> nivel < minimo:  minimo = nivel
+    suma += nivel
+    <span class="kw">if</span> nivel > <span class="nm">47.0</span>:   alarmas += <span class="nm">1</span>
+
+promedio = suma / <span class="fn">len</span>(niveles)
+<span class="fn">print</span>(<span class="st">f"Max: {maximo} | Min: {minimo} | Prom: {promedio:.1f} | Alarmas: {alarmas}"</span>)</div>
+
+      <!-- Demo análisis -->
+      <div class="demo">
+        <div class="demo-lbl">▶ Analizá la lista de la represa en vivo</div>
+        <div class="demo-row">
+          <div class="demo-grp"><div class="demo-glbl">Límite de alarma (m)</div><input class="demo-in" id="dLim" type="number" value="47.0" step="0.5"></div>
+          <button class="demo-btn" onclick="demoAnalisis()">▶ Analizar</button>
+        </div>
+        <div class="demo-out" id="analisisOut">Configurá el límite y analizá.</div>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- ═══════════════════════════
+     04 — PILAS
+═══════════════════════════ -->
+<section id="pilas">
+  <div class="s-eyebrow">// 04</div>
+  <h2 class="s-h2">Pilas — Stack LIFO</h2>
+  <p class="s-sub">LIFO: Last In, First Out. El último que entra es el primero en salir.</p>
+  <div class="divider"></div>
+
+  <div class="card open">
+    <div class="card-hdr" onclick="tog(this)"><div class="card-ico">📚</div><div class="card-inf"><div class="card-tag">Concepto LIFO</div><div class="card-tit">¿Qué es una pila y para qué sirve?</div></div></div>
+    <div class="card-body">
+      <div class="anal"><div class="anal-ico">🍽️</div><div>Imaginá una pila de platos sucios. Siempre ponés el nuevo encima (push) y siempre sacás el de arriba primero (pop). El primero que pusiste es el último en salir. Eso es LIFO.</div></div>
+      <div class="code"><span class="cm"># Una Pila se implementa con una lista normal</span>
+historial = []   <span class="cm"># pila vacía</span>
+
+<span class="cm"># push → agregar al tope de la pila</span>
+historial.<span class="fn">append</span>(<span class="nm">42.3</span>)   <span class="cm"># → [42.3]</span>
+historial.<span class="fn">append</span>(<span class="nm">45.1</span>)   <span class="cm"># → [42.3, 45.1]</span>
+historial.<span class="fn">append</span>(<span class="nm">48.5</span>)   <span class="cm"># → [42.3, 45.1, 48.5]</span>
+
+<span class="cm"># peek → ver el tope sin sacarlo</span>
+tope = historial[<span class="op">-1</span>]        <span class="cm"># → 48.5 (sin modificar la pila)</span>
+
+<span class="cm"># pop → sacar el tope de la pila</span>
+ultimo = historial.<span class="fn">pop</span>()    <span class="cm"># → devuelve 48.5, pila queda [42.3, 45.1]</span>
+
+<span class="cm"># ¿Está vacía?</span>
+<span class="kw">if not</span> historial:
+    <span class="fn">print</span>(<span class="st">"Pila vacía"</span>)</div>
+
+      <div class="nota"><strong>Aplicación en la represa:</strong> el historial de estados de las compuertas es una pila. Cada vez que una compuerta cambia de estado, se apila el registro. Para deshacer el último cambio, se saca el tope de la pila (pop).</div>
+
+      <!-- Pila interactiva -->
+      <div class="struct-viz">
+        <div class="sv-lbl">▶ Pila interactiva — historial de niveles de la represa</div>
+        <div class="sv-controls">
+          <div class="demo-grp"><div class="demo-glbl">Nivel a apilar (m)</div><input class="sv-input" id="pilaVal" type="number" value="45.2" step="0.5" placeholder="nivel"></div>
+          <button class="sv-btn" onclick="pilaPush()">▲ push()</button>
+          <button class="sv-btn sv-btn-re" onclick="pilaPop()">▼ pop()</button>
+          <button class="sv-btn" onclick="pilaReset()" style="margin-left:auto">↺ Reset</button>
+        </div>
+        <div class="sv-display"><div class="sv-stack" id="pilaDisplay"></div></div>
+        <div class="sv-label">↑ tope de la pila (último en entrar, primero en salir)</div>
+        <div class="sv-log" id="pilaLog">La pila está vacía. Usá push() para agregar valores.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════
+     05 — COLAS
+═══════════════════════════ -->
+<section id="colas">
+  <div class="s-eyebrow">// 05</div>
+  <h2 class="s-h2">Colas — Queue FIFO</h2>
+  <p class="s-sub">FIFO: First In, First Out. El primero que entra es el primero en salir.</p>
+  <div class="divider"></div>
+
+  <div class="card open">
+    <div class="card-hdr" onclick="tog(this)"><div class="card-ico">🚶</div><div class="card-inf"><div class="card-tag">Concepto FIFO</div><div class="card-tit">¿Qué es una cola y para qué sirve?</div></div></div>
+    <div class="card-body">
+      <div class="anal"><div class="anal-ico">🏪</div><div>Imaginá la fila del supermercado. El primero que llega es el primero en ser atendido. Cuando llegás, te sumás al final (enqueue). El que sale es siempre el del frente (dequeue). Eso es FIFO.</div></div>
+      <div class="code"><span class="cm"># Una Cola también se implementa con una lista</span>
+alertas = []   <span class="cm"># cola vacía</span>
+
+<span class="cm"># enqueue → agregar al final de la cola</span>
+alertas.<span class="fn">append</span>(<span class="st">"Nivel alto: 48.5 m"</span>)   <span class="cm"># entra al final</span>
+alertas.<span class="fn">append</span>(<span class="st">"Caudal excesivo"</span>)
+alertas.<span class="fn">append</span>(<span class="st">"Sensor B sin respuesta"</span>)
+
+<span class="cm"># peek → ver el frente sin sacarlo</span>
+siguiente = alertas[<span class="nm">0</span>]        <span class="cm"># → "Nivel alto: 48.5 m"</span>
+
+<span class="cm"># dequeue → sacar el primero de la cola</span>
+primera = alertas.<span class="fn">pop</span>(<span class="nm">0</span>)      <span class="cm"># → "Nivel alto..." (el frente)</span>
+<span class="cm"># ahora alertas = ["Caudal excesivo", "Sensor B sin respuesta"]</span>
+
+<span class="cm"># ¿Está vacía?</span>
+<span class="kw">if not</span> alertas:
+    <span class="fn">print</span>(<span class="st">"Sin alertas pendientes"</span>)</div>
+
+      <div class="nota"><strong>Aplicación en la represa:</strong> la cola de alertas garantiza que las alertas se atienden en el orden en que llegaron. La primera alarma que entró es la primera en atenderse — ninguna se "cuela" en la fila.</div>
+
+      <!-- Cola interactiva -->
+      <div class="struct-viz">
+        <div class="sv-lbl">▶ Cola interactiva — alertas de la represa</div>
+        <div class="sv-controls">
+          <div class="demo-grp"><div class="demo-glbl">Alerta a encolar</div><input class="sv-input" id="colaVal" type="text" value="Nivel alto" placeholder="descripción" style="width:160px"></div>
+          <button class="sv-btn" onclick="colaEnqueue()">→ enqueue()</button>
+          <button class="sv-btn sv-btn-re" onclick="colaDequeue()">← dequeue()</button>
+          <button class="sv-btn" onclick="colaReset()" style="margin-left:auto">↺ Reset</button>
+        </div>
+        <div class="sv-display"><div class="sv-queue" id="colaDisplay"></div></div>
+        <div class="sv-label">← frente (primero en salir) &nbsp;&nbsp;&nbsp;&nbsp; fondo → (último en entrar)</div>
+        <div class="sv-log" id="colaLog">La cola está vacía. Usá enqueue() para agregar alertas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════
+     06 — DIFERENCIAS
+═══════════════════════════ -->
+<section id="diferencias">
+  <div class="s-eyebrow">// 06</div>
+  <h2 class="s-h2">Pila vs Cola — ¿cuándo usar cada una?</h2>
+  <p class="s-sub">La pregunta clave de la evaluación: justificar la elección de la estructura.</p>
+  <div class="divider"></div>
+
+  <div class="card open">
+    <div class="card-hdr" onclick="tog(this)"><div class="card-ico">⚖️</div><div class="card-inf"><div class="card-tag">Comparación</div><div class="card-tit">LIFO vs FIFO — la tabla definitiva</div></div></div>
+    <div class="card-body">
+      <table class="tabla">
+        <thead><tr><th></th><th>Pila (Stack)</th><th>Cola (Queue)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Principio</strong></td><td><span class="c2 c-cy">LIFO</span> — Last In, First Out</td><td><span class="c2 c-am">FIFO</span> — First In, First Out</td></tr>
+          <tr><td><strong>Entra por</strong></td><td>El tope (con append)</td><td>El fondo (con append)</td></tr>
+          <tr><td><strong>Sale por</strong></td><td>El tope (con pop())</td><td>El frente (con pop(0))</td></tr>
+          <tr><td><strong>Ver sin sacar</strong></td><td>lista[-1]</td><td>lista[0]</td></tr>
+          <tr><td><strong>Analogía</strong></td><td>Pila de platos, historial del navegador</td><td>Fila del banco, cola de impresión</td></tr>
+          <tr><td><strong>En la represa</strong></td><td>Historial de estados de compuertas</td><td>Cola de alertas a atender</td></tr>
+          <tr><td><strong>¿Por qué?</strong></td><td>Para "deshacer" el último cambio hay que sacarlo primero</td><td>Las alertas se atienden en orden de llegada, sin prioridades arbitrarias</td></tr>
+        </tbody>
+      </table>
+      <div class="anal"><div class="anal-ico">🎯</div><div><strong>Regla para la evaluación:</strong> Si el enunciado habla de "historial", "deshacer", "último estado" → pensá en Pila. Si habla de "orden de llegada", "atender primero el más antiguo", "turno" → pensá en Cola.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr" onclick="tog(this)"><div class="card-ico">🔗</div><div class="card-inf"><div class="card-tag">Integrador</div><div class="card-tit">Sistema completo con lista + pila + cola</div></div></div>
+    <div class="card-body">
+      <div class="code"><span class="cm"># Sistema de monitoreo de la Represa El Calafate</span>
+<span class="cm"># Usa las tres estructuras juntas</span>
+
+lecturas  = [<span class="nm">42.3</span>, <span class="nm">45.1</span>, <span class="nm">47.2</span>, <span class="nm">50.1</span>, <span class="nm">46.8</span>]   <span class="cm"># lista</span>
+historial = []                                        <span class="cm"># pila</span>
+alertas   = []                                        <span class="cm"># cola</span>
+LIMITE    = <span class="nm">48.0</span>
+
+<span class="kw">for</span> i, nivel <span class="kw">in</span> <span class="fn">enumerate</span>(lecturas):
+    <span class="cm"># Apilar en el historial</span>
+    historial.<span class="fn">append</span>(nivel)                    <span class="cm"># push</span>
+
+    <span class="cm"># Si supera el límite, encolar como alerta</span>
+    <span class="kw">if</span> nivel > LIMITE:
+        alertas.<span class="fn">append</span>(<span class="st">f"Hora {i+1}: {nivel} m"</span>)   <span class="cm"># enqueue</span>
+        <span class="fn">print</span>(<span class="st">f"⚠ Alerta encolada: hora {i+1}"</span>)
+
+<span class="fn">print</span>(<span class="st">f"\nÚltima lectura apilada: {historial[-1]}"</span>)  <span class="cm"># peek pila</span>
+<span class="fn">print</span>(<span class="st">f"Alertas pendientes: {len(alertas)}"</span>)
+
+<span class="cm"># Atender la primera alerta</span>
+<span class="kw">if</span> alertas:
+    primera = alertas.<span class="fn">pop</span>(<span class="nm">0</span>)                       <span class="cm"># dequeue</span>
+    <span class="fn">print</span>(<span class="st">f"Atendiendo: {primera}"</span>)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════
+     QUIZ
+═══════════════════════════ -->
 <section id="quiz">
-  <div class="s-eye">// Autoevaluaci&oacute;n</div>
-  <h2 class="s-h2">Quiz &mdash; preparaci&oacute;n para el jueves</h2>
-  <p class="s-sub">12 preguntas sobre redes IP aplicadas al proyecto. Feedback inmediato en cada una.</p>
-  <div class="div"></div>
-  <div class="nom-row"><span class="nom-lbl">Tu nombre:</span><input class="nom-in" id="nomQuiz" type="text" placeholder="Apellido, Nombre" autocomplete="name"></div>
-  <div id="qContainer"></div>
+  <div class="s-eyebrow">// Autoevaluación</div>
+  <h2 class="s-h2">Quiz de preparación</h2>
+  <p class="s-sub">15 preguntas. Listas, pilas, colas y aplicación a la represa. Feedback inmediato.</p>
+  <div class="divider"></div>
+  <div class="nombre-row">
+    <span class="nombre-lbl">Tu nombre:</span>
+    <input class="nombre-in" id="nombreQuiz" type="text" placeholder="Apellido, Nombre" autocomplete="name">
+  </div>
+  <div id="quizContainer"></div>
   <div class="score" id="scoreBox">
-    <div class="sc-n" id="scN">0/12</div>
-    <div class="sc-msg" id="scMsg">&mdash;</div>
-    <div class="sc-sub" id="scSub">&mdash;</div>
-    <div class="send-box" id="sendBox">
-      <div class="send-txt">Hac&eacute; clic para enviarle el resumen al profe con tu nombre y puntaje.</div>
-      <button class="send-btn" id="sendBtn" onclick="enviarQuiz()">&#128231; Enviar al Profesor</button>
-      <div class="send-ok" id="sendOk"></div>
+    <div class="score-n" id="scoreNum">0/15</div>
+    <div class="score-msg" id="scoreMsg">—</div>
+    <div class="score-sub" id="scoreSub">—</div>
+    <div class="send-quiz-box" id="sqBox">
+      <div class="send-quiz-txt">Hacé clic para enviarle tus resultados al profe. Incluye tu nombre, el puntaje y el detalle de cada pregunta.</div>
+      <button class="send-quiz-btn" id="sqBtn" onclick="sendQuizAyP()">📧 Enviar al Profesor</button>
+      <div class="send-quiz-ok" id="sqOk"></div>
     </div>
-    <button class="retry-btn" onclick="resetQuiz()">&#8634; Intentar de nuevo</button>
+    <button class="retry-btn" onclick="resetQuiz()">↺ Intentar de nuevo</button>
   </div>
 </section>
+
 </main>
-<footer>
-  Redes IP &middot; 6&deg; 1&deg; ACPI &middot; <b>Escuela Industrial N&deg;9 "15 de Noviembre" &middot; El Calafate</b><br>
-  <b>Prof. Pablo Limardo &middot; Departamento ACPI &middot; Ciclo 2026</b>
-</footer>
+<footer>Algoritmos y Programación · 4° 1° · <span>Escuela Industrial N°9 · El Calafate</span> · Prof. Pablo Limardo · 2026</footer>
 
 <script>
-
-var SECS=['gancho','conceptos','red','ping','casos','cotecal','quiz'];
-function ir(id){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+// ── NAV ───────────────────────────────────────
+function ir(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});}
 function tog(hdr){hdr.closest('.card').classList.toggle('open');}
-function togCaso(id){document.getElementById(id).classList.toggle('open');}
-window.addEventListener('scroll',function(){
-  for(var j=SECS.length-1;j>=0;j--){
-    var el=document.getElementById(SECS[j]);
-    if(el&&el.getBoundingClientRect().top<=110){
-      document.querySelectorAll('.nb').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-sec')===SECS[j]);});
-      break;
-    }
-  }
-});
 
-function ipToNum(ip){
-  var p=ip.trim().split('.');
-  if(p.length!==4)return null;
-  var n=0;
-  for(var i=0;i<4;i++){var v=parseInt(p[i]);if(isNaN(v)||v<0||v>255)return null;n=(n<<8)+v;}
-  return n>>>0;
-}
-function demoRed(){
-  var ip1=document.getElementById('dIP1').value;
-  var ip2=document.getElementById('dIP2').value;
-  var mask=document.getElementById('dMask').value;
-  var n1=ipToNum(ip1),n2=ipToNum(ip2),nm=ipToNum(mask);
-  var out=document.getElementById('dRedOut');
-  if(n1===null||n2===null||nm===null){out.textContent='IP o mascara invalida. Usa formato 192.168.X.X';return;}
-  var red1=n1&nm,red2=n2&nm,same=red1===red2;
-  var lines=[];
-  lines.push('ESP32:   '+ip1);
-  lines.push('Broker:  '+ip2);
-  lines.push('Mascara: '+mask);
-  lines.push('');
-  if(same){
-    lines.push('[OK] MISMA RED');
-    lines.push('El ESP32 puede llegar al broker directamente.');
-    lines.push('No necesita pasar por el gateway.');
-    lines.push('client.connect("'+ip2+'", 1883) deberia funcionar.');
-  }else{
-    lines.push('[!] REDES DIFERENTES');
-    lines.push('El ESP32 NO puede llegar al broker directamente.');
-    lines.push('Necesita pasar por el gateway.');
-    lines.push('Verificar gateway y routing entre las dos redes.');
-  }
-  out.textContent=lines.join('\n');
+// ── DEMO LISTA ────────────────────────────────
+const niveles=[42.3,45.1,44.8,47.2,46.0,48.5];
+function demoLista(){
+  const idx=parseInt(document.getElementById('dIdx').value);
+  const si=parseInt(document.getElementById('dSli').value);
+  const se=parseInt(document.getElementById('dSle').value);
+  const n=niveles.length;
+  let lines=[];
+  lines.push(`Lista: [${niveles.join(', ')}]  (largo: ${n})`);
+  try{
+    const v=idx<0?niveles[n+idx]:niveles[idx];
+    lines.push(`niveles[${idx}] = ${v!==undefined?v:'IndexError: índice fuera de rango'}`);
+  }catch(e){lines.push('Error: índice fuera de rango');}
+  const sl=niveles.slice(si,se);
+  lines.push(`niveles[${si}:${se}] = [${sl.join(', ')}]`);
+  lines.push(`niveles[-1] = ${niveles[n-1]}  ← último`);
+  document.getElementById('listaOut').textContent=lines.join('\n');
 }
 
-var PING_CFG={
-  ok:{r:['pok','pok','pok'],t:['1ms','12ms','14ms'],
-    d:['Red local OK. El gateway responde correctamente.',
-       'Salida a internet OK. Sin problemas de routing.',
-       'DNS OK. Todo funciona correctamente.']},
-  local:{r:['pfail','pfail','pfail'],t:['timeout','timeout','timeout'],
-    d:['PROBLEMA LOCAL. No llega al gateway. Verificar IP, WiFi o cable.',
-       'No se ejecuta (ya fallo el paso 1).',
-       'No se ejecuta (ya fallo el paso 1).']},
-  salida:{r:['pok','pfail','pfail'],t:['1ms','timeout','timeout'],
-    d:['Red local OK.',
-       'PROBLEMA DE SALIDA. Hay conectividad local pero no sale a internet. Verificar router u ONT.',
-       'No se ejecuta (ya fallo el paso 2).']},
-  dns:{r:['pok','pok','pfail'],t:['1ms','12ms','sin resolver'],
-    d:['Red local OK.',
-       'Internet OK. Los paquetes llegan a IPs externas.',
-       'PROBLEMA DE DNS. Configurar DNS: 8.8.8.8 o usar IPs directas.']}
-};
-function demoPing(){
-  var sit=document.getElementById('dSit').value;
-  var c=PING_CFG[sit];
-  for(var n=0;n<3;n++){
-    var step=document.getElementById('ps'+(n+1));
-    var res=document.getElementById('pr'+(n+1));
-    var diag=document.getElementById('pd'+(n+1));
-    step.className='ping-step '+c.r[n];
-    res.textContent=c.t[n];
-    diag.textContent=c.d[n];
-    diag.className='ps-diag '+c.r[n];
+// ── DEMO ANÁLISIS ─────────────────────────────
+function demoAnalisis(){
+  const lim=parseFloat(document.getElementById('dLim').value)||47;
+  let max=niveles[0],min=niveles[0],suma=0,alarmas=0,detalle=[];
+  for(const n of niveles){
+    if(n>max)max=n;if(n<min)min=n;suma+=n;
+    if(n>lim)alarmas++;
+    detalle.push(`  ${n} m → ${n>lim?'⚠ ALARMA':'✓ OK'}`);
   }
+  const avg=(suma/niveles.length).toFixed(2);
+  const lines=[
+    `Lista: [${niveles.join(', ')}]  |  Límite: ${lim} m`,
+    '',
+    ...detalle,
+    '',
+    `Máximo:   ${max} m`,
+    `Mínimo:   ${min} m`,
+    `Promedio: ${avg} m`,
+    `Alarmas:  ${alarmas}`,
+  ];
+  document.getElementById('analisisOut').textContent=lines.join('\n');
 }
 
-var Qs=[
-  {t:'IP',q:'El ESP32 tiene IP 192.168.1.45 y el broker tiene IP 192.168.1.100. Mascara 255.255.255.0. Pueden comunicarse directamente?',
-   o:['No, siempre necesitan el gateway','Si, estan en la misma red (192.168.1.X)','Solo si el DNS esta configurado','No, las IPs son diferentes'],
-   r:1,fb:'Con mascara 255.255.255.0, los que comparten los primeros tres bloques (192.168.1) estan en la misma red. El ESP32 llega al broker directamente sin pasar por el gateway.'},
-  {t:'Gateway',q:'El ESP32 necesita conectarse a un broker en internet (54.210.100.5). Que necesita configurado?',
-   o:['Solo el DNS','Solo la IP y la mascara','IP, mascara y gateway correctos','No necesita nada especial'],
-   r:2,fb:'Para salir de la red local hacia internet, el ESP32 necesita el gateway configurado. Sin gateway, los paquetes no saben por donde salir y la conexion falla silenciosamente.'},
-  {t:'DNS',q:'client.connect("broker.hivemq.com", 1883) falla. Pero client.connect("34.200.75.22", 1883) funciona. Cual es el problema?',
-   o:['El broker esta caido','El puerto 1883 esta bloqueado','El DNS no resuelve el nombre del broker','La IP del ESP32 es incorrecta'],
-   r:2,fb:'Si funciona con IP directa pero no con nombre, el problema es el DNS. La red esta bien. Solo falla la traduccion del nombre a IP. Solucion: configurar DNS en 8.8.8.8 o usar siempre IP directa.'},
-  {t:'DHCP',q:'sta.ifconfig() devuelve ("0.0.0.0", "0.0.0.0", "0.0.0.0", "0.0.0.0"). Que significa?',
-   o:['El ESP32 esta en modo AP','El DHCP no asigno IP: el ESP32 no esta en la red','La IP es valida pero el DNS fallo','El broker rechazo la conexion'],
-   r:1,fb:'0.0.0.0 significa que el DHCP no asigno ninguna configuracion. El ESP32 puede haber fallado al conectarse al WiFi (contrasena incorrecta, senal debil) o el DHCP del router esta caido.'},
-  {t:'Ping',q:'ping 192.168.1.1 responde en 1ms. ping 8.8.8.8 da timeout. Donde esta el problema?',
-   o:['En el DNS','En la red local (cable/WiFi)','En la salida a internet (router o ISP)','En el dispositivo que hace el ping'],
-   r:2,fb:'El gateway responde (red local OK). El problema esta despues del gateway: el router no tiene conexion WAN o el ISP tiene falla. La red local funciona perfectamente.'},
-  {t:'Ping',q:'ping google.com falla pero ping 8.8.8.8 funciona. En que capa del modelo OSI esta el problema?',
-   o:['Capa 1 - Fisica','Capa 2 - Enlace','Capa 3 - Red','Capa 7 - Aplicacion (DNS)'],
-   r:3,fb:'La red funciona (ping a IP publica OK). Solo falla la resolucion de nombres, que es un servicio de la capa de aplicacion (DNS). Solucion: cambiar DNS a 8.8.8.8 o 1.1.1.1.'},
-  {t:'Proyecto',q:'Node-RED no recibe mensajes del ESP32. El ESP32 imprime "Publicando..." sin error. Cual es el primer paso?',
-   o:['Revisar el codigo del ESP32','Verificar que el ESP32 tiene IP y puede llegar al broker (ping)','Reinstalar Node-RED','Cambiar el topic MQTT'],
-   r:1,fb:'Antes de revisar el codigo, verificar la red. Si el ESP32 tiene IP correcta y llega al broker por ping, el problema es de aplicacion (topic, configuracion MQTT). Si no tiene IP o no llega al broker, es de red.'},
-  {t:'Proyecto',q:'ESP32 en 192.168.1.45, broker en 192.168.2.100, mascara 255.255.255.0. Que pasa?',
-   o:['Todo funciona igual','El ESP32 no puede llegar al broker: estan en redes distintas','Solo falla si el gateway no esta configurado','La mascara es la que causa el error'],
-   r:1,fb:'192.168.1.X y 192.168.2.X son redes diferentes con mascara 255.255.255.0. El ESP32 no puede llegar directamente al broker. Necesita pasar por el gateway, o poner ambos en la misma red.'},
-  {t:'Cotecal',q:'Un tecnico de Cotecal llega a un domicilio. La ONT tiene luz verde pero no hay internet. Cual es el primer ping?',
-   o:['ping google.com','ping 8.8.8.8','ping al gateway (IP de la ONT)','ping a la OLT de la central'],
-   r:2,fb:'Siempre se empieza por lo mas cercano: el gateway (la ONT). Si responde, la red local esta bien. Si no responde, el problema es local. De ahi se avanza hacia afuera, nunca al reves.'},
-  {t:'Cotecal',q:'Que tienen en comun el rango optimo de Cotecal (-14 a -22 dBm) y el rango de Vrms del analizador (209-231V)?',
-   o:['Nada, son magnitudes distintas','Ambos definen umbrales para clasificar el estado y activar alarmas','Ambos se miden con el mismo instrumento','Solo coinciden en los numeros'],
-   r:1,fb:'Ambos aplican la misma logica: definir un rango aceptable, clasificar el estado (optimo/aceptable/riesgo) y activar alarma cuando el valor sale del rango. Es la base de cualquier sistema de monitoreo.'},
-  {t:'OSI',q:'El ESP32 se conecta al WiFi correctamente, tiene IP, pero client.connect() falla. En que capa buscar el problema?',
-   o:['Capa 1 (WiFi/senal)','Capa 2 (SSID/contrasena)','Capa 3 (IP/routing) o Capa 7 (MQTT/topic)','No hay problema, asi funciona normalmente'],
-   r:2,fb:'Capas 1 y 2 estan OK (WiFi conectado, IP asignada). El problema esta en Capa 3 (puede llegar al broker? gateway correcto?) o Capa 7 (topic correcto? broker activo? puerto 1883 abierto?). Hacer ping al broker para separar.'},
-  {t:'General',q:'Cual es la secuencia correcta de diagnostico cuando el cliente dice "no tengo internet"?',
-   o:['Verificar DNS primero','ping gateway -> ping IP publica -> ping nombre de dominio','Reiniciar el router y ver','Verificar el navegador y limpiar cache'],
-   r:1,fb:'Siempre de lo mas cercano a lo mas lejano: 1) gateway (hay red local?) -> 2) IP publica (hay salida?) -> 3) nombre de dominio (hay DNS?). Cada paso descarta una capa. Nunca empezar desde la aplicacion.'},
+// ── PILA ──────────────────────────────────────
+let pila=[];
+function pilaPush(){
+  const v=parseFloat(document.getElementById('pilaVal').value);
+  if(isNaN(v)){document.getElementById('pilaLog').textContent='⚠ Ingresá un número válido.';return;}
+  pila.push(v);renderPila();
+  document.getElementById('pilaLog').textContent=`push(${v}) → pila: [${pila.join(', ')}]  |  tope: ${pila[pila.length-1]}`;
+}
+function pilaPop(){
+  if(!pila.length){document.getElementById('pilaLog').textContent='⚠ La pila está vacía — no se puede hacer pop().';return;}
+  const v=pila.pop();renderPila();
+  document.getElementById('pilaLog').textContent=`pop() devolvió ${v}  |  pila ahora: [${pila.join(', ')}]${pila.length?`  |  nuevo tope: ${pila[pila.length-1]}`:'  |  pila vacía'}`;
+}
+function pilaReset(){pila=[];renderPila();document.getElementById('pilaLog').textContent='Pila reiniciada.';}
+function renderPila(){
+  const c=document.getElementById('pilaDisplay');c.innerHTML='';
+  if(!pila.length){c.innerHTML='<div style="color:var(--muted);font-family:var(--mono);font-size:12px;padding:10px">[ pila vacía ]</div>';return;}
+  pila.forEach((v,i)=>{
+    const d=document.createElement('div');
+    d.className='sv-item'+(i===pila.length-1?' top':'');
+    d.textContent=`${v} m${i===pila.length-1?' ← tope':''}`;
+    c.appendChild(d);
+  });
+}
+renderPila();
+
+// ── COLA ──────────────────────────────────────
+let cola=[];
+function colaEnqueue(){
+  const v=document.getElementById('colaVal').value.trim()||'alerta';
+  cola.push(v);renderCola();
+  document.getElementById('colaLog').textContent=`enqueue("${v}") → cola tiene ${cola.length} alerta(s)  |  frente: "${cola[0]}"`;
+}
+function colaDequeue(){
+  if(!cola.length){document.getElementById('colaLog').textContent='⚠ La cola está vacía — no hay alertas pendientes.';return;}
+  const v=cola.shift();renderCola();
+  document.getElementById('colaLog').textContent=`dequeue() → atendió: "${v}"${cola.length?`  |  siguiente: "${cola[0]}"`:'  |  cola vacía'}`;
+}
+function colaReset(){cola=[];renderCola();document.getElementById('colaLog').textContent='Cola reiniciada.';}
+function renderCola(){
+  const c=document.getElementById('colaDisplay');c.innerHTML='';
+  if(!cola.length){c.innerHTML='<div style="color:var(--muted);font-family:var(--mono);font-size:12px;padding:10px">[ cola vacía ]</div>';return;}
+  cola.forEach((v,i)=>{
+    const d=document.createElement('div');
+    d.className='sv-item'+(i===0?' top':'');
+    d.textContent=i===0?`← "${v}"`:` "${v}"`;
+    c.appendChild(d);
+  });
+}
+renderCola();
+
+// ── QUIZ ──────────────────────────────────────
+const Qs=[
+  {q:'¿Cuál es el índice del primer elemento de una lista en Python?',
+   o:['1','0','-1','Depende del tamaño'],r:1,
+   fb:'Los índices en Python SIEMPRE empiezan en 0. Una lista de 5 elementos tiene índices 0, 1, 2, 3, 4. El índice 5 da IndexError.'},
+  {q:'Lista niveles = [42.3, 45.1, 44.8, 47.2]. ¿Qué devuelve niveles[-1]?',
+   c:'niveles = [42.3, 45.1, 44.8, 47.2]',
+   o:['42.3 (el primero)','44.8 (el tercero)','47.2 (el último)','Error'],r:2,
+   fb:'Los índices negativos cuentan desde el final: -1 es el último, -2 el penúltimo, etc. niveles[-1] = 47.2.'},
+  {q:'¿Qué devuelve niveles[1:3] si niveles = [42.3, 45.1, 44.8, 47.2]?',
+   c:'niveles = [42.3, 45.1, 44.8, 47.2]',
+   o:['[42.3, 45.1]','[45.1, 44.8]','[45.1, 44.8, 47.2]','[44.8, 47.2]'],r:1,
+   fb:'El slicing [1:3] toma desde el índice 1 (inclusive) hasta el 3 (exclusive). Resultado: índices 1 y 2 → [45.1, 44.8].'},
+  {q:'¿Cuál es la diferencia entre lista.sort() y sorted(lista)?',
+   o:['Son idénticos','sort() modifica la lista original; sorted() devuelve una nueva lista sin modificar la original','sort() es más rápido','sorted() solo funciona con números'],r:1,
+   fb:'sort() modifica la lista en su lugar — no podés volver atrás. sorted() devuelve una NUEVA lista ordenada y la original queda exactamente igual.'},
+  {q:'¿Qué método de lista usarías para agregar un elemento al final?',
+   o:['insert(0, x)','pop()','append(x)','remove(x)'],r:2,
+   fb:'append(x) agrega x al final de la lista. insert(0, x) lo agregaría al principio. pop() saca el último. remove() elimina una ocurrencia de un valor.'},
+  {q:'¿Qué hace lista.pop() sin argumentos?',
+   o:['Elimina el primer elemento','Elimina y devuelve el último elemento','Vacía toda la lista','Da error si la lista está vacía'],r:1,
+   fb:'pop() sin argumento saca y devuelve el ÚLTIMO elemento. pop(0) sacaría el primero. Si la lista está vacía, pop() sí da IndexError.'},
+  {q:'Recorrer una lista con enumerate() sirve para:',
+   c:'for i, nivel in enumerate(niveles):\n    print(i, nivel)',
+   o:['Ordenar la lista','Recorrer obteniendo el índice Y el valor en cada iteración','Recorrer al revés','Crear una copia de la lista'],r:1,
+   fb:'enumerate() devuelve tuplas (índice, valor) en cada iteración. Es perfecto cuando necesitás la posición (número de hora, de sensor, etc.) además del valor.'},
+  {q:'¿Qué significa LIFO?',
+   o:['List In, For Out','Last In, First Out','List Index From Origin','Lógica de Ingreso y Flujo de Operaciones'],r:1,
+   fb:'LIFO = Last In, First Out. El último elemento que entró es el primero en salir. Es el principio de las Pilas (Stack).'},
+  {q:'En una Pila implementada con lista, ¿cómo se llaman las operaciones de agregar y sacar?',
+   o:['enqueue y dequeue','add y remove','push (append) y pop','insert y delete'],r:2,
+   fb:'En una Pila: push = append() (agregar al tope). pop = pop() (sacar del tope). Es LIFO: el último en entrar es el primero en salir.'},
+  {q:'¿Cuál es la operación correcta para hacer dequeue en una Cola implementada con lista?',
+   c:'alertas = ["alerta1", "alerta2", "alerta3"]',
+   o:['alertas.pop()','alertas.pop(0)','alertas.remove(alertas[0])','alertas.pop(-1)'],r:1,
+   fb:'pop(0) saca el elemento en la posición 0 (el frente de la cola). pop() sin argumento sacaría el último — eso sería LIFO (pila), no FIFO (cola).'},
+  {q:'¿Qué significa FIFO?',
+   o:['Final Item, First Out','First In, First Out','Function Index, For Output','Flujo de Ingreso y Función de Operación'],r:1,
+   fb:'FIFO = First In, First Out. El primer elemento que entró es el primero en salir. Es el principio de las Colas (Queue).'},
+  {q:'¿Cuál estructura elegirías para guardar el historial de estados de las compuertas de la represa?',
+   o:['Una cola FIFO','Una pila LIFO','Una lista sin estructura particular','Da igual, las dos funcionan igual'],r:1,
+   fb:'Pila LIFO. El historial necesita "deshacer" el último estado registrado — y en una pila el último en entrar es el primero en salir, lo que permite recuperar el estado anterior fácilmente.'},
+  {q:'¿Cuál estructura elegirías para la cola de alertas de la represa?',
+   o:['Una pila LIFO','Una cola FIFO','Una lista con .sort() constante','Un diccionario'],r:1,
+   fb:'Cola FIFO. Las alertas deben atenderse en el orden en que llegaron — la primera alarma que se generó debe ser la primera en atenderse. Ninguna se "cuela".'},
+  {q:'pila = [10, 20, 30]. ¿Qué queda en pila después de pila.pop()?',
+   c:'pila = [10, 20, 30]\npila.pop()',
+   o:['[20, 30]','[10, 20]','[10, 30]','[10, 20, 30] (no cambia)'],r:1,
+   fb:'pop() saca el ÚLTIMO elemento (el 30, el tope de la pila). pila queda [10, 20]. En una pila LIFO, el tope siempre es el último elemento de la lista.'},
+  {q:'¿Cuántos elementos tiene [42.3, 45.1, 44.8, 47.2] después de hacer append(50.1) y luego pop(0)?',
+   c:'lista = [42.3, 45.1, 44.8, 47.2]\nlista.append(50.1)\nlista.pop(0)',
+   o:['3','4','5','6'],r:1,
+   fb:'Empieza con 4 elementos. append agrega 1 → 5. pop(0) saca 1 → queda en 4. Lista final: [45.1, 44.8, 47.2, 50.1].'},
 ];
 
-var resp=0,corr=0,sels=[];
+let resp=0,corr=0,seleccionadas=[];
 function buildQuiz(){
-  var c=document.getElementById('qContainer');
-  c.innerHTML='';resp=0;corr=0;sels=[];updProg();
-  document.getElementById('sendBox').classList.remove('show');
-  document.getElementById('sendOk').classList.remove('show');
-  var sb=document.getElementById('sendBtn');sb.disabled=false;sb.textContent='Enviar al Profesor';
-  Qs.forEach(function(q,i){
-    var d=document.createElement('div');d.className='qcard';d.id='qc'+i;
-    d.innerHTML='<div class="qnum">// Q'+String(i+1).padStart(2,'0')+' \u00b7 '+q.t+'</div>'
-      +'<div class="qq">'+q.q+'</div>'
-      +'<div class="qopts" id="qopts'+i+'"></div>'
-      +'<div class="qfb" id="qf'+i+'"></div>';
+  const c=document.getElementById('quizContainer');
+  c.innerHTML='';resp=0;corr=0;seleccionadas=[];updProg();
+  document.getElementById('sqBox').classList.remove('show');
+  document.getElementById('sqOk').classList.remove('show');
+  const sb=document.getElementById('sqBtn');sb.disabled=false;sb.textContent='📧 Enviar al Profesor';
+  Qs.forEach((q,i)=>{
+    const codeHtml=q.c?`<div class="quiz-code">${q.c}</div>`:'';
+    const d=document.createElement('div');d.className='quiz-card';d.id=`qc${i}`;
+    d.innerHTML=`<div class="quiz-n">// Q${String(i+1).padStart(2,'0')}</div>
+<div class="quiz-q">${q.q}</div>${codeHtml}
+<div class="quiz-opts">${q.o.map((op,j)=>`<button class="quiz-opt" onclick="ans(${i},${j})" id="qo${i}_${j}">${String.fromCharCode(65+j)}) ${op}</button>`).join('')}</div>
+<div class="quiz-fb" id="qf${i}"></div>`;
     c.appendChild(d);
-    var od=document.getElementById('qopts'+i);
-    q.o.forEach(function(op,j){
-      var btn=document.createElement('button');
-      btn.className='qopt';
-      btn.textContent=String.fromCharCode(65+j)+') '+op;
-      btn.addEventListener('click',function(){ans(i,j);});
-      od.appendChild(btn);
-    });
   });
 }
 function ans(qi,oi){
-  var q=Qs[qi];var ok=oi===q.r;
-  q.o.forEach(function(_,j){
-    var b=document.getElementById('qo'+qi+'_'+j);
-    if(b)b.disabled=true;
-    if(j===q.r&&b)b.classList.add('ca');
-    if(j===oi&&!ok&&b)b.classList.add('in');
-  });
-  document.getElementById('qc'+qi).classList.add(ok?'ok':'mal');
-  var fb=document.getElementById('qf'+qi);
-  fb.className='qfb show '+(ok?'qfb-ok':'qfb-mal');
-  fb.textContent=(ok?'Correcto: ':'Incorrecto: ')+q.fb;
-  resp++;if(ok)corr++;sels[qi]=oi;updProg();
+  const q=Qs[qi];const ok=oi===q.r;
+  q.o.forEach((_,j)=>{const b=document.getElementById(`qo${qi}_${j}`);b.disabled=true;if(j===q.r)b.classList.add('correcta');if(j===oi&&!ok)b.classList.add('incorrecta');});
+  document.getElementById(`qc${qi}`).classList.add(ok?'ok':'mal');
+  const fb=document.getElementById(`qf${qi}`);
+  fb.className=`quiz-fb show ${ok?'fb-ok':'fb-mal'}`;
+  fb.innerHTML=`${ok?'✓ Correcto —':'✗'} ${q.fb}`;
+  resp++;if(ok)corr++;seleccionadas[qi]=oi;updProg();
   if(resp===Qs.length)setTimeout(showScore,600);
 }
 function updProg(){
-  var pct=Math.round((resp/Qs.length)*100);
-  document.getElementById('pb').style.width=pct+'%';
-  document.getElementById('pl').textContent='Quiz: '+resp+' / '+Qs.length+' \u00b7 '+corr+' correctas';
+  const pct=Math.round((resp/Qs.length)*100);
+  document.getElementById('progBar').style.width=pct+'%';
+  document.getElementById('progTxt').textContent=`Quiz: ${resp} / ${Qs.length}`;
+  document.getElementById('progCorr').textContent=`${corr} correctas`;
 }
 function showScore(){
-  var p=corr/Qs.length;
-  var msg,sub;
-  if(p>=0.91){msg='Red dominada \u2014 listo para el jueves';sub='Pod\u00e9s diagnosticar cualquier problema de red del proyecto.';}
-  else if(p>=0.75){msg='Muy bien \u2014 buen nivel';sub='Revis\u00e1 los conceptos donde erraste y volv\u00e9.';}
-  else if(p>=0.5){msg='Vas bien \u2014 segu\u00ed';sub='Repas\u00e1 gateway, DNS y la secuencia de ping.';}
-  else{msg='Repas\u00e1 desde el principio';sub='Emp\u00e9z\u00e1 por los 5 conceptos y los casos de diagn\u00f3stico.';}
-  document.getElementById('scN').textContent=corr+'/'+Qs.length;
-  document.getElementById('scMsg').textContent=msg;
-  document.getElementById('scSub').textContent=sub;
+  const p=corr/Qs.length;
+  const [msg,sub]=p>=.93?['Algoritmos dominados ✓','Llegás perfecto al miércoles.']:
+    p>=.73?['Muy bien ⚡','Revisá las que fallaste y volvé.']:
+    p>=.5?['Va bien — seguí 🔧','Repasá los módulos donde erraste.']:
+    ['Repasá desde las Listas 📚','Empezá por el módulo 01 y avanzá de a uno.'];
+  document.getElementById('scoreNum').textContent=`${corr}/${Qs.length}`;
+  document.getElementById('scoreMsg').textContent=msg;
+  document.getElementById('scoreSub').textContent=sub;
   document.getElementById('scoreBox').classList.add('show');
-  document.getElementById('sendBox').classList.add('show');
+  document.getElementById('sqBox').classList.add('show');
   document.getElementById('scoreBox').scrollIntoView({behavior:'smooth',block:'center'});
+}
+const ENDPOINT_AYP='TU_ENDPOINT_FORMSPREE';
+const PROFE_MAIL_AYP='plimardo@gmail.com';
+function sendQuizAyP(){
+  const nombre=document.getElementById('nombreQuiz').value.trim();
+  if(!nombre){alert('⚠ Ingresá tu nombre antes de enviar.');document.getElementById('nombreQuiz').focus();return;}
+  const resultado=`${corr}/${Qs.length}`;
+  const fecha=new Date().toLocaleString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  let detalle='';
+  Qs.forEach((q,i)=>{
+    const sel=seleccionadas[i];const ok=sel===q.r;
+    const selL=sel!==undefined?String.fromCharCode(65+sel):'?';
+    const okL=String.fromCharCode(65+q.r);
+    const qc=q.q.length>65?q.q.substring(0,65)+'...':q.q;
+    detalle+=`Q${String(i+1).padStart(2,'0')} ${ok?'OK':'XX'} ${qc}\n`;
+    if(!ok)detalle+=`     Eligio: ${selL})  Correcta: ${okL})\n`;
+  });
+  const btn=document.getElementById('sqBtn');
+  btn.disabled=true;btn.textContent='Enviando...';
+  if(ENDPOINT_AYP==='TU_ENDPOINT_FORMSPREE'){_mailtoAyP(nombre,resultado,fecha,detalle,btn);return;}
+  fetch(ENDPOINT_AYP,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({_subject:`[Quiz AyP 4_1] ${nombre} - ${resultado}`,nombre,resultado,fecha,detalle})})
+  .then(r=>{ if(r.ok)_okAyP(nombre,btn); else _mailtoAyP(nombre,resultado,fecha,detalle,btn); })
+  .catch(()=>_mailtoAyP(nombre,resultado,fecha,detalle,btn));
+}
+function _okAyP(nombre,btn){
+  btn.textContent='Enviado';
+  const el=document.getElementById('sqOk');
+  el.textContent='Enviado. El prof. Limardo recibio el resumen de '+nombre+'.';
+  el.classList.add('show');
+}
+function _mailtoAyP(nombre,resultado,fecha,detalle,btn){
+  const asunto=encodeURIComponent('[Quiz AyP 4-1] '+nombre+' - '+resultado);
+  const cuerpo=encodeURIComponent('Materia: Algoritmos y Programacion 4 1\nAlumno: '+nombre+'\nFecha: '+fecha+'\nResultado: '+resultado+'\n\nDETALLE:\n'+detalle);
+  window.open('mailto:'+PROFE_MAIL_AYP+'?subject='+asunto+'&body='+cuerpo,'_blank');
+  btn.textContent='Mail abierto';
+  const el=document.getElementById('sqOk');
+  el.textContent='Se abrio el cliente de correo. Envia el mail a '+PROFE_MAIL_AYP;
+  el.classList.add('show');
 }
 function resetQuiz(){
   document.getElementById('scoreBox').classList.remove('show');
-  buildQuiz();
-  window.scrollTo({top:document.getElementById('quiz').offsetTop-80,behavior:'smooth'});
+  buildQuiz();window.scrollTo({top:0,behavior:'smooth'});
 }
-
-var ENDPOINT='https://formspree.io/f/xeevlewq';
-var MAIL='plimardo@gmail.com';
-function enviarQuiz(){
-  var nombre=document.getElementById('nomQuiz').value.trim();
-  if(!nombre){alert('Ingres\u00e1 tu nombre antes de enviar.');document.getElementById('nomQuiz').focus();return;}
-  var resultado=corr+'/'+Qs.length;
-  var fecha=new Date().toLocaleString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
-  var det='';
-  Qs.forEach(function(q,i){
-    var s=sels[i];var ok=s===q.r;
-    var sL=s!==undefined?String.fromCharCode(65+s):'?';
-    var oL=String.fromCharCode(65+q.r);
-    var qc=q.q.length>55?q.q.substring(0,55)+'...':q.q;
-    det+='Q'+String(i+1).padStart(2,'0')+' '+(ok?'OK':'XX')+' '+qc+'\n';
-    if(!ok)det+='     Eligio: '+sL+')  Correcta: '+oL+')\n';
-  });
-  var btn=document.getElementById('sendBtn');
-  var okEl=document.getElementById('sendOk');
-  btn.disabled=true;btn.textContent='Enviando...';
-  var asunto=encodeURIComponent('[Quiz Redes IP] '+nombre+' - '+resultado);
-  var cuerpo=encodeURIComponent('Redes IP - 6 ACPI\nAlumno: '+nombre+'\nFecha: '+fecha+'\nResultado: '+resultado+'\n\nDETALLE:\n'+det);
-  if(ENDPOINT==='TU_ENDPOINT_FORMSPREE'){
-    window.open('mailto:'+MAIL+'?subject='+asunto+'&body='+cuerpo,'_blank');
-    btn.textContent='Mail abierto';
-    okEl.textContent='Se abri\u00f3 el correo. Envi\u00e1 a '+MAIL+'.';
-    okEl.classList.add('show');
-    return;
-  }
-  fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
-    body:JSON.stringify({_subject:'[Quiz Redes IP] '+nombre+' - '+resultado,nombre:nombre,resultado:resultado,fecha:fecha,det:det})})
-  .then(function(r){
-    if(r.ok){btn.textContent='Enviado \u2713';okEl.textContent='El prof. Limardo recibi\u00f3 el resumen de '+nombre+'.';}
-    else{window.open('mailto:'+MAIL+'?subject='+asunto+'&body='+cuerpo,'_blank');btn.textContent='Mail abierto';okEl.textContent='Abr\u00ed el correo y envi\u00e1 a '+MAIL+'.';}
-    okEl.classList.add('show');
-  }).catch(function(){
-    window.open('mailto:'+MAIL+'?subject='+asunto+'&body='+cuerpo,'_blank');
-    btn.textContent='Mail abierto';okEl.textContent='Abr\u00ed el correo y envi\u00e1 a '+MAIL+'.';
-    okEl.classList.add('show');
-  });
-}
+// ── TEMA ──────────────────────────────────────────
 function toggleTheme(){
-  var dark=document.documentElement.getAttribute('data-theme')==='dark';
-  if(dark){document.documentElement.removeAttribute('data-theme');document.getElementById('themeBtn').textContent='\u263a Oscuro';localStorage.setItem('tRed','light');}
-  else{document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeBtn').textContent='\u2600\ufe0f Claro';localStorage.setItem('tRed','dark');}
+  const light=document.documentElement.getAttribute('data-theme')==='light';
+  if(light){
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('themeBtn').textContent='☀️ Modo claro';
+    localStorage.setItem('themeAyP','dark');
+  }else{
+    document.documentElement.setAttribute('data-theme','light');
+    document.getElementById('themeBtn').textContent='🌙 Modo oscuro';
+    localStorage.setItem('themeAyP','light');
+  }
 }
-if(localStorage.getItem('tRed')==='dark'){
-  document.documentElement.setAttribute('data-theme','dark');
-  document.getElementById('themeBtn').textContent='\u2600\ufe0f Claro';
+if(localStorage.getItem('themeAyP')==='light'){
+  document.documentElement.setAttribute('data-theme','light');
+  document.getElementById('themeBtn').textContent='🌙 Modo oscuro';
 }
-buildQuiz();
-
 </script>
 </body>
 </html>
